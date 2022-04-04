@@ -1,0 +1,43 @@
+# starts keycloak and postgres in docker containers
+# exposures to the host machine:
+# - postgres port 5433
+# - keycloak port 3001
+
+version: "3.9"
+
+networks:
+  textventure:
+
+volumes:
+  textventure-postgres:
+
+services:
+  postgres:
+    container_name: textventure-postgres
+    image: postgres:14.1
+    networks:
+      - textventure
+    ports:
+      - 5432:5432
+    volumes:
+      - textventure-postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=keycloak
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  keycloak:
+    container_name: textventure-keycloak
+    image: jboss/keycloak:16.1.1
+    networks:
+      - textventure
+    ports:
+      - 3001:8080
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=adminSecPw1234
+      - DB_VENDOR=postgres
+      - DB_ADDR=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres

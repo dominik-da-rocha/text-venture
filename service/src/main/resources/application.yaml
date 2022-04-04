@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: com.rochatronic.textventure
+
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:3001/auth/realms/textventure
+
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: textventure
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+            scope:
+              - roles
+              - microprofile-jwt
+      
+logging:
+  level:
+    '[com.rochatronic.textventure]': DEBUG  
+    '[org.springframework.security]': -DEBUG
