@@ -1,0 +1,12 @@
+version: 1
+name: Scene 2
+id: scene-2
+description:
+  - This is Scene 2
+  - it has a multi line string
+  - line 3
+  - and more lines...
+  - ...
+options:
+  - name: Goto Scene 1
+    href: scene-1

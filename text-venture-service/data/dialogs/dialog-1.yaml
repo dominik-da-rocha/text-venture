@@ -1,0 +1,65 @@
+id: "dialog-1"
+messages:
+  0:
+    speaker-id: captain-hunter
+    messages:
+      - This is the first paragraph of my dialog
+      - Hello, adventurer! How can I assist you today?
+    responses:
+      - next-dialog: 100
+      - next-dialog: 200
+
+  100:
+    speaker-id: player
+    messages:
+      - I need information about the quest.
+    responses:
+      - next-dialog: 101
+  101:
+    speaker: captain-hunter
+    messages:
+      - The objective of the quest is to retrieve the ancient artifact from the lost temple.
+      - What else can i do for you
+    responses:
+      - next-dialog: 200
+
+  200:
+    speaker: player
+    message:
+      - Do you have any items for sale?
+    responses:
+      - next_dialog: 201
+      - next_dialog: 7
+
+  201:
+    speaker: captain-hunter
+    messages:
+      - Certainly, I have got
+      - Blaster
+      - Healing Potions
+      - and Ropes
+    responses:
+      - next_dialog: 202
+      - next_dialog: 203
+      - next_dialog: 204
+
+  202:
+    speaker: player
+    messages:
+      - I take the blaster
+    responses:
+      - next_dialog: 201
+
+  203:
+    speaker: player
+    messages:
+      - I take a healing potion
+    responses:
+      - next_dialog: 201
+
+  204:
+    speaker: player
+    messages:
+      - I take the rope
+    responses:
+      - next_dialog: 201
