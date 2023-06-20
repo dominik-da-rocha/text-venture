@@ -37,6 +37,10 @@ export interface TextVentureJson extends TextObjectAbstract {
   currentPlayerId: string;
   commandLog: TextLog[];
   commandLogMaxLength: number;
+  commandLogTitle: string;
+  style: string;
+  lightMode: TextLightMode;
+  deviceMode: TextDeviceMode;
 }
 
 // this is the same as the TextVentureJson
@@ -50,6 +54,10 @@ export interface TextVenture extends TextObjectAbstract {
   currentPlayerId: string;
   commandLog: TextLog[];
   commandLogMaxLength: number;
+  commandLogTitle: string;
+  style: string;
+  lightMode: TextLightMode;
+  deviceMode: TextDeviceMode;
 }
 
 export function toTextVenture(json: TextVentureJson): TextVenture {
@@ -66,6 +74,10 @@ export function toTextVenture(json: TextVentureJson): TextVenture {
     currentPlayerId: json.currentPlayerId,
     commandLog: [...json.commandLog],
     commandLogMaxLength: json.commandLogMaxLength,
+    commandLogTitle: json.commandLogTitle,
+    style: json.style,
+    lightMode: json.lightMode,
+    deviceMode: json.deviceMode,
   };
 }
 
@@ -114,3 +126,7 @@ export interface TextCommand {
 export type TextLog = TextCommand | TextDialog;
 
 export type TextDescription = string | string[];
+
+export type TextLightMode = "light" | "dark";
+
+export type TextDeviceMode = "mobile" | "desktop";

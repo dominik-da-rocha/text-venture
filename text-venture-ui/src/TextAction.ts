@@ -16,12 +16,15 @@ export type TextActionId =
   | "turnOff"
   | "save"
   | "load"
-  | "reset";
+  | "reset"
+  | "light"
+  | "about"
+  | "device";
 
 export interface TextAction {
   id: TextActionId;
   name: string;
-  disabled?: boolean;
+  hidden?: boolean;
   minCount: number;
   maxCount: number;
   preposition?: string;
@@ -44,6 +47,8 @@ export interface TextActionsInterface {
   save?: TextAction | undefined;
   load?: TextAction | undefined;
   reset?: TextAction | undefined;
+  light?: TextAction | undefined;
+  about?: TextAction | undefined;
 }
 
 export type TextActionMap = IMap<TextAction>;
@@ -51,28 +56,49 @@ export type TextActionMap = IMap<TextAction>;
 export const TextActionNone: TextAction = {
   id: "none",
   name: "",
-  disabled: true,
+  hidden: true,
   minCount: 999,
   maxCount: 999,
 };
 
-export const TextActionGameControl: TextAction[] = [
-  {
-    id: "save",
-    name: "Save",
-    minCount: 0,
-    maxCount: 0,
-  },
-  {
-    id: "load",
-    name: "Load",
-    minCount: 0,
-    maxCount: 0,
-  },
-  {
-    id: "reset",
-    name: "Reset",
-    minCount: 0,
-    maxCount: 0,
-  },
-];
+export const TextActionSave: TextAction = {
+  id: "save",
+  name: "Save Game",
+  minCount: 0,
+  maxCount: 0,
+};
+
+export const TextActionLoad: TextAction = {
+  id: "load",
+  name: "Load Game",
+  minCount: 0,
+  maxCount: 0,
+};
+
+export const TextActionReset: TextAction = {
+  id: "reset",
+  name: "Reset Game",
+  minCount: 0,
+  maxCount: 0,
+};
+
+export const TextActionLight: TextAction = {
+  id: "light",
+  name: "Toggle Light",
+  minCount: 0,
+  maxCount: 0,
+};
+
+export const TextActionAbout: TextAction = {
+  id: "about",
+  name: "About the Game",
+  minCount: 0,
+  maxCount: 0,
+};
+
+export const TextActionDevice: TextAction = {
+  id: "device",
+  name: "Toggle Device",
+  minCount: 0,
+  maxCount: 0,
+};

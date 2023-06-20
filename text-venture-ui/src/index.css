@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 code {
@@ -19,7 +21,7 @@ code {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f173;
+  background: #f1f1f112;
 }
 
 /* Handle */

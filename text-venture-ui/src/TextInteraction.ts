@@ -1,6 +1,6 @@
 import { TextActionId } from "./TextAction";
 import { TextObjectType } from "./TextVenture";
-import { OneOf } from "./Util";
+import { IMap, OneOf } from "./Util";
 
 export type TextInteraction =
   | TextInteractionSimple
@@ -12,7 +12,10 @@ export type TextInteraction =
   | TextInteractionGiveItemTo
   | TextInteractionWalkTo
   | TextInteractionPickUp
-  | TextInteractionRandomTalkTo;
+  | TextInteractionRandomTalkTo
+  | TextInteractionTalkTo
+  | TextInteractionLight
+  | TextInteractionDevice;
 
 interface TextInteractionAbstract {
   id: string;
@@ -64,6 +67,16 @@ export interface TextInteractionReset extends TextInteractionAbstract {
   type: "reset";
 }
 
+export interface TextInteractionLight extends TextInteractionAbstract {
+  type: "light";
+  responses: string[];
+}
+
+export interface TextInteractionDevice extends TextInteractionAbstract {
+  type: "device";
+  responses: string[];
+}
+
 export interface TextInteractionGiveItemTo extends TextInteractionAbstract {
   type: "give-item-to";
   responses: string[];
@@ -83,4 +96,17 @@ export interface TextInteractionRandomTalkTo extends TextInteractionAbstract {
   type: "random-talk-to";
   questions: string[];
   responses: string[];
+}
+
+export interface TextInteractionTalkTo extends TextInteractionAbstract {
+  type: "talk-to";
+  first: string;
+  questions: IMap<TextInteractionTalkToQuestion>;
+}
+
+export interface TextInteractionTalkToQuestion {
+  question: string;
+  response: string;
+  next: string;
+  dropIfAsked?: boolean;
 }

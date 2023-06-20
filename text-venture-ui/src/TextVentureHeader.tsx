@@ -7,9 +7,9 @@ export interface TextVentureHeaderProps {
 
 export function TextVentureHeader(props: TextVentureHeaderProps) {
   return (
-    <header>
+    <div className="TextVentureHeader">
       <h1>{props.text.name}</h1>
       <h2>{props.text.description}</h2>
-    </header>
+    </div>
   );
 }

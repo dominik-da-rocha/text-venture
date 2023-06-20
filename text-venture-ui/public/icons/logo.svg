@@ -1,0 +1,26 @@
+<svg width="64" height="64" version="1.1" viewBox="0 0 16.933 16.933" xmlns="http://www.w3.org/2000/svg">
+ <style>
+    @media (prefers-color-scheme: dark) {
+      g {
+         fill: #fff;
+         stroke: 1px solid #0ff;
+      }
+    }
+    @media (prefers-color-scheme: light) {
+      g {
+         fill: #000;
+         stroke: 1px solid #f00;
+      }
+    }
+
+    g {
+         font-weight: 1000;
+         font-style: italic;
+    }
+  </style>
+  <g transform="matrix(.60663 0 0 .79084 3.2886 1.7766)" >
+    <text x="-5" y="9" ><tspan >T</tspan></text>
+    <text transform="scale(-1)" x="-22" y="-7" ><tspan>T</tspan></text>
+    <text x="2.5" y="14" ><tspan>X</tspan></text>
+  </g>
+</svg>

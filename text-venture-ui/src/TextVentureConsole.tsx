@@ -1,10 +1,14 @@
-import React from "react";
-import { TextCommand, TextLog, TextObject, TextPlayer } from "./TextVenture";
+import React, { useState } from "react";
+import { TextCommand, TextLog, TextObject } from "./TextVenture";
 import { TextAction } from "./TextAction";
+import { Button } from "./Button";
+import { Icon } from "./Icon";
 
 interface TextVentureConsoleProps {
   commandLog: TextLog[];
   command: TextCommand;
+  title: string;
+  menuButton?: boolean;
 }
 
 function commandToString(command: TextCommand) {
@@ -13,62 +17,110 @@ function commandToString(command: TextCommand) {
   );
 }
 
-export function TextVentureConsole(props: TextVentureConsoleProps) {
+export function TextVentureConsoleCurrentCommand(props: {
+  command: TextCommand;
+}) {
   return (
-    <footer>
-      <h3>Console</h3>
-      <div>{commandToString(props.command)}</div>
-      {props.commandLog.map((log, idx) => {
-        if (log.type === "command") {
-          let responseStyle = "Response " + (log.style ?? "");
-          if (
-            log.action.id === "talkTo" &&
-            log.objects.length > 0 &&
-            (log.objects[0].type === "person" ||
-              log.objects[0].type === "player")
-          ) {
-            const questionStyle = [
-              "Question",
+    <div className="TextVentureConsoleCurrentCommand">
+      {commandToString(props.command)}
+    </div>
+  );
+}
+
+export function TextVentureConsole(props: TextVentureConsoleProps) {
+  const [menu, setMenu] = useState(false);
+  const showMenu = !props.menuButton || menu;
+
+  function toggleMenu() {
+    setMenu(!menu);
+  }
+
+  return (
+    <>
+      <div
+        className={["TextVentureConsole", showMenu ? "show" : "hidden"].join(
+          " "
+        )}
+      >
+        <h2>{props.title}</h2>
+        <div>{commandToString(props.command)}</div>
+        {props.commandLog.map((log, idx) => {
+          if (log.type === "command") {
+            if (
+              log.action.id === "talkTo" &&
+              log.objects.length > 0 &&
+              (log.objects[0].type === "person" ||
+                log.objects[0].type === "player")
+            ) {
+              const person = log.objects[0];
+              let responseStyle = [
+                "Response",
+                log.style ?? "",
+                person.type,
+                person.id,
+              ].join(" ");
+              const questionStyle = [
+                "Question",
+                "player",
+                log.talkerId ?? "",
+              ].join(" ");
+              return (
+                <div key={idx} className="Logbook">
+                  <div className="Command">{commandToString(log)}:</div>
+                  {log.question ? (
+                    <div className={questionStyle}>
+                      <span className="Talker">{log.talker}:</span>
+                      <span className="Talk">{log.question}</span>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                  <div className={responseStyle}>
+                    <span className="Talker">{log.objects[0].name}:</span>{" "}
+                    <span className="Talk">{log.response}</span>
+                  </div>
+                </div>
+              );
+            }
+            const responseStyle = [
+              "Response",
               "player",
               log.talkerId ?? "",
             ].join(" ");
-            const person = log.objects[0];
-            responseStyle = [responseStyle, person.type, person.id].join(" ");
             return (
               <div key={idx} className="Logbook">
                 <div className="Command">{commandToString(log)}</div>
-                {log.question ? (
-                  <div className={questionStyle}>
-                    {log.talker}: '{log.question}'
-                  </div>
-                ) : (
-                  <></>
-                )}
                 <div className={responseStyle}>
-                  {log.objects[0].name}: '{log.response}'
+                  {log.talker ? (
+                    <span className="Talker">{log.talker}:</span>
+                  ) : (
+                    <></>
+                  )}
+                  <span className="Talk">{log.response}</span>
                 </div>
               </div>
             );
-          }
-          return (
-            <div key={idx} className="Logbook">
-              <div className="Command">{commandToString(log)}</div>
-              <div className={responseStyle}>{log.response}</div>
-            </div>
-          );
-        } else if (log.type === "dialog") {
-          return (
-            <div key={idx} className="Logbook">
-              <div className={log.isPlayer ? "Command" : "Response"}>
-                {log.speaker}: '{log.text}'
+          } else if (log.type === "dialog") {
+            return (
+              <div key={idx} className="Logbook">
+                <div className={log.isPlayer ? "Command" : "Response"}>
+                  {log.speaker}: '{log.text}'
+                </div>
               </div>
-            </div>
-          );
-        } else {
-          return undefined;
-        }
-      })}
-    </footer>
+            );
+          } else {
+            return undefined;
+          }
+        })}
+      </div>
+      {props.menuButton ? (
+        <Button className="TextVentureConsoleButton" onClick={toggleMenu}>
+          <Icon>{menu ? "menu_book" : "chat"}</Icon>
+        </Button>
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
 

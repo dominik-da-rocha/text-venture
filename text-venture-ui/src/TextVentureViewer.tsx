@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
-import "./TextVentureViewer.css";
+import "./TextVentureViewerDesktop.css";
+import "./TextVentureViewerMobile.css";
 import {
   TextCommand,
   TextDescription,
@@ -10,8 +11,11 @@ import {
 } from "./TextVenture";
 import { TextVentureScene } from "./TextVentureScene";
 import { TextVentureHeader } from "./TextVentureHeader";
-import { TextVentureActionBar } from "./TextVentureActionBar";
-import { TextVentureConsole } from "./TextVentureConsole";
+import { TextVentureActions } from "./TextVentureActions";
+import {
+  TextVentureConsole,
+  TextVentureConsoleCurrentCommand,
+} from "./TextVentureConsole";
 import { TextVentureCharacterSheet } from "./TextVentureCharacterSheet";
 import { TextActionNone, TextAction } from "./TextAction";
 import { getByIdOrFirst, matchesAny, matchesOneOf, randomItem } from "./Util";
@@ -21,6 +25,9 @@ import {
   TextObjectPattern,
 } from "./TextInteraction";
 import { TextScene } from "./TextScene";
+import { TextVentureGameControl } from "./TextVentureGameControl";
+import { Button } from "./Button";
+import { Icon } from "./Icon";
 
 interface TextVentureViewerProps {
   text: TextVenture;
@@ -142,14 +149,20 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
     command.style = interaction.style;
     switch (interaction.type) {
       case "random":
+        command.talker = player?.name;
+        command.talkerId = player?.id;
         command.response = randomItem(interaction.responses);
         appendLog(command);
         return true;
       case "simple":
+        command.talker = player?.name;
+        command.talkerId = player?.id;
         command.response = interaction.response;
         appendLog(command);
         return true;
       case "lookAt":
+        command.talker = player?.name;
+        command.talkerId = player?.id;
         command.response =
           getDescription(command.objects[0].description) ??
           randomItem(interaction.responses);
@@ -166,6 +179,8 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
         evalCommandReset();
         return true;
       case "give-item-to":
+        command.talker = player?.name;
+        command.talkerId = player?.id;
         command.response = randomItem(interaction.responses);
         appendLog(command);
         giveFromItemTo(player, command.objects[0], command.objects[1]);
@@ -176,6 +191,8 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
         selectScene(command.objects[0]);
         return true;
       case "pick-up":
+        command.talker = player?.name;
+        command.talkerId = player?.id;
         command.response = randomItem(interaction.responses);
         appendLog(command);
         removeObjectFromScenesDescription(command.objects[0]);
@@ -188,12 +205,36 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
         command.response = randomItem(interaction.responses);
         appendLog(command);
         return true;
+      case "light":
+        command.talker = player?.name;
+        command.talkerId = player?.id;
+        command.response = randomItem(interaction.responses);
+        appendLog(command);
+        toggleLight();
+        return true;
+      case "device":
+        command.talker = player?.name;
+        command.talkerId = player?.id;
+        command.response = randomItem(interaction.responses);
+        appendLog(command);
+        toggleDevice();
+        return true;
     }
 
     command.response = "Note from the programmer: That should not happen!";
     appendLog(command);
 
     return true;
+  }
+
+  function toggleLight() {
+    text.lightMode = text.lightMode === "light" ? "dark" : "light";
+    props.onTextChanged(text);
+  }
+
+  function toggleDevice() {
+    text.deviceMode = text.deviceMode === "mobile" ? "desktop" : "mobile";
+    props.onTextChanged(text);
   }
 
   function evalCommandLoad() {
@@ -373,6 +414,7 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
     if (scene.type === "scene" && scene.id !== text.currentSceneId) {
       text.currentSceneId = scene.id;
       props.onTextChanged(text);
+      window.scrollTo({ top: 0 });
     }
   }
 
@@ -418,35 +460,121 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
     }
   }
 
-  return (
-    <div className="TextVenture">
-      <TextVentureHeader text={text} />
-      <TextVentureScene
-        scene={scene}
-        onObjectClick={handleObjectClick}
-        onRenderToken={handleRenderToken}
-        onNextDialog={handleNextDialog}
-      />
-      <TextVentureActionBar actions={text.actions} onAction={handleAction} />
-      <TextVentureConsole
-        commandLog={text.commandLog}
-        command={currentCommand}
-      />
-      <TextVentureCharacterSheet
-        player={player}
-        onObjectClick={handleObjectClick}
-      />
-      <a style={{ display: "none" }} href="?" ref={saveRef}>
-        save-text
-      </a>
-      <input
-        style={{ display: "none" }}
-        type="file"
-        ref={loadRef}
-        onChange={handleLoadChange}
-      />
-    </div>
-  );
+  if (text.deviceMode === "desktop")
+    return (
+      <div
+        className={["TextVenture", "Desktop", text.lightMode, text.style].join(
+          " "
+        )}
+      >
+        <TextVentureGameControl
+          lightMode={text.lightMode}
+          deviceMode={text.deviceMode}
+          onAction={handleAction}
+        />
+        <div className="Center">
+          <TextVentureHeader text={text} />
+          <div className="TextVentureMain">
+            <div className="TextVentureControl">
+              <TextVentureCharacterSheet
+                player={player}
+                onObjectClick={handleObjectClick}
+              />
+            </div>
+
+            <div className="TextVentureContent">
+              <TextVentureScene
+                scene={scene}
+                onObjectClick={handleObjectClick}
+                onRenderToken={handleRenderToken}
+                onNextDialog={handleNextDialog}
+              />
+
+              <TextVentureConsole
+                title={text.commandLogTitle}
+                commandLog={text.commandLog}
+                command={currentCommand}
+              />
+            </div>
+          </div>
+          <TextVentureActions
+            actions={text.actions}
+            onAction={handleAction}
+            currentAction={currentCommand.action}
+          />
+        </div>
+
+        <a style={{ display: "none" }} href="?" ref={saveRef}>
+          save-text
+        </a>
+        <input
+          style={{ display: "none" }}
+          type="file"
+          ref={loadRef}
+          onChange={handleLoadChange}
+        />
+      </div>
+    );
+  else {
+    return (
+      <div
+        key={scene.id}
+        className={["TextVenture", "Mobile", text.lightMode, text.style].join(
+          " "
+        )}
+      >
+        <TextVentureConsole
+          title={text.commandLogTitle}
+          commandLog={text.commandLog}
+          command={currentCommand}
+          menuButton
+        />
+
+        <TextVentureCharacterSheet
+          onObjectClick={handleObjectClick}
+          player={player}
+          menuButton
+        />
+
+        <TextVentureGameControl
+          lightMode={text.lightMode}
+          deviceMode={text.deviceMode}
+          onAction={handleAction}
+          menuButton
+        />
+
+        <TextVentureActions
+          currentAction={currentCommand.action}
+          actions={text.actions}
+          onAction={handleAction}
+          menuButton
+        />
+
+        <TextVentureConsoleCurrentCommand command={currentCommand} />
+
+        {scene.id === Object.keys(text.scenes)[0] && (
+          <TextVentureHeader text={text} />
+        )}
+
+        <TextVentureScene
+          scene={scene}
+          onNextDialog={handleNextDialog}
+          onObjectClick={handleObjectClick}
+          onRenderToken={handleRenderToken}
+        ></TextVentureScene>
+
+        <a style={{ display: "none" }} href="?" ref={saveRef}>
+          save-text
+        </a>
+        <input
+          style={{ display: "none" }}
+          type="file"
+          ref={loadRef}
+          onChange={handleLoadChange}
+        />
+      </div>
+    );
+  }
 }
 
 function logInteraction(text: string, obj?: any) {

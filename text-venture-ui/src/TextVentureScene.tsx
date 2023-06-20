@@ -29,7 +29,7 @@ function SceneViewer(props: SceneViewerProps) {
     return <></>;
   }
   return (
-    <article key={props.scene?.id}>
+    <div key={props.scene?.id} className="TextVentureScene">
       <div className="Description">
         <h2>{props.scene.name}</h2>
         <SceneTextViewer
@@ -38,7 +38,7 @@ function SceneViewer(props: SceneViewerProps) {
           onObjectClick={props.onObjectClick}
         />
       </div>
-    </article>
+    </div>
   );
 }
 

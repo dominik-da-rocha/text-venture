@@ -1,0 +1,202 @@
+.TextVenture.Mobile.light {
+  --color: #616161;
+  --background: #ffffff;
+
+  --color-console: var(--background);
+  --background-console: var(--color);
+}
+
+.TextVenture.Mobile.dark {
+  --color: #f8f8f2;
+  --background: #292a36;
+  --color-console: var(--background);
+  --background-console: var(--color);
+}
+
+.TextVenture.Mobile {
+  font-family: serif;
+  font-size: 1.1em;
+  text-align: justify;
+  background: var(--background);
+  color: var(--color);
+  font-size: 1.5rem;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.TextVenture.Mobile .TextVentureGameControl {
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  filter: invert();
+  background: var(--background);
+}
+
+.TextVenture.Mobile .TextVentureGameControl img {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.TextVenture.Mobile.light .TextVentureGameControl img {
+  filter: invert();
+}
+
+.TextVenture.Mobile button {
+  border: none;
+  color: var(--color);
+  background: var(--background);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  width: 3rem;
+}
+
+.TextVenture.Mobile button.checked {
+  background: var(--color);
+  color: var(--background);
+}
+
+.TextVenture.Mobile .TextVentureHeader {
+  padding-top: 5rem;
+  padding: 5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  text-align: center;
+}
+
+.TextVenture.Mobile .TextVentureScene {
+  padding-left: 1rem;
+  padding-right: 3.5rem;
+  padding-bottom: 3rem;
+}
+
+.TextVenture.Mobile li,
+.TextVenture.Mobile ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.TextVenture.Mobile .TextVentureActions {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  filter: invert();
+  background: var(--background);
+}
+
+.TextVenture.Mobile .TextVentureGameControl .show,
+.TextVenture.Mobile .TextVentureActions .show {
+  height: 0;
+  font-size: 0;
+  overflow: hidden;
+  transition: height 0.25s linear;
+}
+
+.TextVenture.Mobile .TextVentureGameControl .hide,
+.TextVenture.Mobile .TextVentureActions .hide {
+  height: 3rem;
+  transition: height 0.25s linear;
+}
+
+.TextVenture.Mobile .TextVentureGameControl .icon-show,
+.TextVenture.Mobile .TextVentureActions .icon-show {
+  animation: rotation-back 0.25s linear;
+}
+
+.TextVenture.Mobile .TextVentureGameControl .icon-hide,
+.TextVenture.Mobile .TextVentureActions .icon-hide {
+  animation: rotation 0.25s linear;
+}
+
+@keyframes rotation {
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes rotation-back {
+  100% {
+    transform: rotate(-180deg);
+  }
+}
+
+.TextVenture.Mobile .TextVentureConsoleButton {
+  position: fixed;
+  right: 3rem;
+  bottom: 0;
+  filter: invert();
+  background: var(--background);
+}
+
+.TextVenture.Mobile .TextVentureConsole {
+  font-family: sans-serif;
+  position: fixed;
+  bottom: 3rem;
+  width: calc(100% - 5rem);
+  background: var(--background);
+  color: var(--color);
+  filter: invert();
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border: 1px solid var(--color-console);
+  font-size: 1rem;
+}
+
+.TextVenture.Mobile .TextVentureConsole h2 {
+  display: none;
+}
+
+.TextVenture.Mobile .TextVentureConsoleCurrentCommand {
+  font-family: sans-serif;
+  position: fixed;
+  bottom: 0;
+  left: 0rem;
+  height: 3rem;
+  right: 9rem;
+  background: var(--background);
+  color: var(--color);
+  filter: invert();
+  font-size: 0.75em;
+}
+
+.TextVenture.Mobile .TextVentureCharacterSheetButton {
+  position: fixed;
+  right: 6rem;
+  bottom: 0;
+  filter: invert();
+  background: var(--background);
+}
+
+.TextVenture.Mobile a {
+  color: var(--color);
+}
+
+.TextVenture.Mobile h1,
+.TextVenture.Mobile h2,
+.TextVenture.Mobile h3,
+.TextVenture.Mobile h4,
+.TextVenture.Mobile h5,
+.TextVenture.Mobile h6 {
+  margin: 0;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  text-align: center;
+  padding-right: 3.5rem;
+}
+
+.TextVentureConsole.hidden {
+  height: 0;
+  transition: height 0.25s linear;
+}
+
+.TextVentureConsole.show {
+  height: 15rem;
+  transition: height 0.25s linear;
+}
