@@ -1,5 +1,5 @@
 import React from "react";
-import { TextOnOffMode, TextObject, TextPlayer } from "./TextVenture";
+import { TextPlayer, TextObject, TextOnOffMode } from "./../model/TextVenture";
 
 export interface TextVentureInventoryProps {
   player: TextPlayer | undefined;

@@ -7,6 +7,7 @@
   --glow: #c6e6eab0;
   --select: #ffffff35;
   --background-accent: #21222c;
+  --shadow: #c6e6ea30;
 
   --scene: #f3fa91;
   --player: #b294f7;
@@ -23,6 +24,7 @@
   --glow: #4d59ff8f;
   --select: #bcd6fe;
   --background-accent: #f3f3f3;
+  --shadow: #272626c3;
 
   --scene: #950ed8;
   --player: #6b0100;
@@ -30,50 +32,55 @@
   --thing: #426528;
 }
 
-.TextVenture .TextVentureConsole .Question {
+.TextVentureConsoleLog .Question {
   color: var(--player);
   margin-left: 2em;
   text-indent: -1em;
+  text-align: left;
 }
 
-.TextVenture .TextVentureConsole .Command {
+.TextVentureConsoleLog .Command {
   color: var(--highlight);
   margin-left: 1em;
   text-indent: -1em;
+  text-align: left;
+  font-size: 1.1em;
+  font-weight: bold;
 }
 
-.TextVenture .TextVentureConsole .Response {
+.TextVentureConsoleLog .Response {
   margin-top: 0.25em;
   color: var(--person);
   margin-bottom: 1em;
   margin-left: 2em;
   text-indent: -1em;
+  text-align: left;
 }
 
-.TextVenture .TextVentureConsole .Question .Talk,
-.TextVenture .TextVentureConsole .Response .Talk {
+.TextVentureConsoleLog .Question .Talk,
+.TextVentureConsoleLog .Response .Talk {
   font-style: italic;
 }
 
-.TextVenture .TextVentureConsole .Question .Talker,
-.TextVenture .TextVentureConsole .Response .Talker {
+.TextVentureConsoleLog .Question .Talker,
+.TextVentureConsoleLog .Response .Talker {
   font-weight: bold;
   margin-right: 0.5em;
 }
 
-.TextVenture.comic {
+.comic {
   font-family: cursive;
 }
 
-.TextVenture.book {
+.book {
   font-family: serif;
 }
 
-.TextVenture.c64 {
+.c64 {
   font-family: monospace;
 }
 
-.TextVenture .warn {
+.warn {
   color: #f42b2b;
   animation: red-alert 1s ease-in-out infinite;
 }
@@ -93,27 +100,47 @@
   }
 }
 
-.TextVenture a {
+a {
   color: var(--highlight);
   text-decoration: none;
 }
 
-.TextVenture a.scene {
+a.scene {
   color: var(--scene);
   font-weight: bold;
 }
 
-.TextVenture a.player {
+a.player {
   color: var(--player);
   font-weight: bold;
 }
 
-.TextVenture a.person {
+a.person {
   color: var(--person);
   font-weight: bold;
 }
 
-.TextVenture a.thing {
+a.thing {
   color: var(--thing);
   font-weight: bold;
+}
+
+.TextVentureInventory a {
+  color: var(--thing);
+}
+
+.PopupAlert {
+  background: var(--background);
+  border: 2px solid var(--border);
+  color: var(--border);
+}
+
+.blur {
+  filter: blur(100px);
+  transition: filter 2s ease-in;
+}
+
+.no-blur {
+  filter: opacity(0px);
+  transition: filter 2s ease-out;
 }

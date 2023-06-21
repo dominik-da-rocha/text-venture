@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { TextVenture, toTextVenture } from "./TextVenture";
-import { TextVentureViewer } from "./TextVentureViewer";
-import { CaptainHuntersSpaceQuest } from "./CapitianHuntersSpaceQuest";
+import { TextVentureViewer } from "./text-venture/TextVentureViewer";
+import { CaptainHuntersSpaceQuest } from "./data/CapitanHuntersSpaceQuest";
+import { TextVenture, toTextVenture } from "./model/TextVenture";
+import {} from "./utils/PopupAlert";
 
 function useLocalState<T>(id: string, defaultValue: T): [T, React.Dispatch<T>] {
   const [state, setState] = useState<T>(() => {
@@ -23,11 +24,11 @@ function useLocalState<T>(id: string, defaultValue: T): [T, React.Dispatch<T>] {
     state,
     (value: T) => {
       if (value === undefined) {
-        setState(defaultValue);
+        setState({ ...defaultValue });
         localStorage.setItem(id, JSON.stringify(defaultValue));
         return;
       }
-      setState(value);
+      setState({ ...value });
       localStorage.setItem(id, JSON.stringify(value));
     },
   ];

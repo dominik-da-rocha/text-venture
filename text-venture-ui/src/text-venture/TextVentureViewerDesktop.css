@@ -2,14 +2,14 @@
   background: var(--select);
 }
 
-.TextVenture.Desktop {
+.desktop {
   --console-height: 33%;
   --article-height: 66%;
   --control-width: 33%;
   --content-width: 100%;
 }
 
-.TextVenture.Desktop {
+.desktop {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -21,7 +21,7 @@
   background: var(--background);
 }
 
-.TextVenture.Desktop .Center {
+.desktop .Center {
   max-width: 50rem;
   min-width: 10rem;
   height: calc(100% - 2rem);
@@ -31,7 +31,7 @@
   margin: 1rem;
 }
 
-.TextVenture.Desktop .TextVentureHeader {
+.desktop .TextVentureHeader {
   background: var(--background-accent);
   box-sizing: border-box;
   width: 100%;
@@ -43,20 +43,20 @@
   padding-right: 1em;
 }
 
-.TextVenture.Desktop .TextVentureMain {
+.desktop .TextVentureMain {
   display: flex;
   flex-direction: row;
   overflow: auto;
   width: 100%;
 }
 
-.TextVenture.Desktop .TextVentureContent {
+.desktop .TextVentureContent {
   display: flex;
   flex-direction: column;
   width: var(--content-width);
 }
 
-.TextVenture.Desktop .TextVentureScene {
+.desktop .TextVentureScene {
   background: var(--background);
   border-top: 1px solid var(--border);
   border-left: 1px solid var(--border);
@@ -71,7 +71,7 @@
   text-align: justify;
 }
 
-.TextVenture.Desktop .TextVentureInventory {
+.desktop .TextVentureInventory {
   flex-grow: 1;
   border-right: 1px solid var(--border);
   box-sizing: border-box;
@@ -81,38 +81,34 @@
   height: 100%;
 }
 
-.TextVenture.Desktop .TextVentureInventory > * {
+.desktop .TextVentureInventory > * {
   margin-left: 1rem;
   margin-right: 1rem;
 }
 
-.TextVenture.Desktop .TextVentureInventory a {
-  color: var(--thing);
-}
-
-.TextVenture.Desktop .TextVentureInventory.on {
+.desktop .TextVentureInventory.on {
   width: var(--control-width);
   transition: 0.25s linear width;
 }
 
-.TextVenture.Desktop .TextVentureInventory.off {
+.desktop .TextVentureInventory.off {
   width: 0;
   transition: 0.25s linear width;
 }
 
-.TextVenture.Desktop button:hover,
-.TextVenture.Desktop a:hover {
+.desktop button:hover,
+.desktop a:hover {
   color: var(--hover);
   text-shadow: 0px 0px 3px var(--glow);
 }
 
-.TextVenture.Desktop button:active,
-.TextVenture.Desktop a:active {
+.desktop button:active,
+.desktop a:active {
   color: var(--hover);
   text-shadow: 1px 1px 5px var(--glow);
 }
 
-.TextVenture.Desktop button {
+.desktop button {
   background: var(--background);
   border-radius: 0.333rem;
   border: none;
@@ -126,49 +122,49 @@
   box-sizing: border-box;
 }
 
-.TextVenture.Desktop button:active {
+.desktop button:active {
   background: var(--background-accent);
 }
 
-.TextVenture.Desktop button.accent {
+.desktop button.accent {
   background: var(--background-accent);
 }
 
-.TextVenture.Desktop button.accent:active {
+.desktop button.accent:active {
   background: var(--background);
 }
 
-.TextVenture.Desktop button.checked {
+.desktop button.checked {
   background: var(--color);
   color: var(--background);
 }
 
-.TextVenture.Desktop h1 {
+.desktop h1 {
   margin: 0;
   padding: 0;
 }
 
-.TextVenture.Desktop h2,
-.TextVenture.Desktop h3,
-.TextVenture.Desktop h4,
-.TextVenture.Desktop h5,
-.TextVenture.Desktop h6 {
+.desktop h2,
+.desktop h3,
+.desktop h4,
+.desktop h5,
+.desktop h6 {
   padding: 0;
   margin-top: 0.25em;
   margin-bottom: 0.25em;
 }
 
-.TextVenture.Desktop hr {
+.desktop hr {
   opacity: 0.2;
 }
 
-.TextVenture.Desktop li {
+.desktop li {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.TextVenture.Desktop ul {
+.desktop ul {
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -176,35 +172,35 @@
   gap: 0.25rem;
 }
 
-.TextVenture.Desktop .TextVentureActions {
+.desktop .TextVentureActions {
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
 }
 
-.TextVenture.Desktop .TextVentureActions button.TextVentureAction {
+.desktop .TextVentureActions button.TextVentureAction {
   border: 1px solid var(--color);
 }
 
-.TextVenture.Desktop .TextVentureActions button {
+.desktop .TextVentureActions button {
   height: 3rem;
   width: 3rem;
 }
 
-.TextVenture.Desktop span.material-icons {
+.desktop span.material-icons {
   font-size: 1.75em;
 }
 
-.TextVenture.Desktop img.aboutButton {
+.desktop img.aboutButton {
   opacity: 0.9;
   height: 1.75em;
 }
 
-.TextVenture.Desktop.light img.aboutButton {
+.desktop.light img.aboutButton {
   filter: invert();
 }
 
-.TextVenture .TextVentureConsole {
+.desktop .TextVentureConsole {
   box-sizing: border-box;
   border-top: 2px solid var(--player);
   border-bottom: 1px solid var(--border);
@@ -214,15 +210,14 @@
   flex-shrink: 1;
   padding-left: 1em;
   padding-right: 1em;
-  text-align: justify;
 }
 
-.TextVenture .TextVentureConsole.on {
+.TextVentureConsole.on {
   height: var(--console-height);
   transition: 0.25s height linear;
 }
 
-.TextVenture .TextVentureConsole.off {
+.TextVentureConsole.off {
   height: 0;
   border: 1px solid transparent;
   transition: 0.25s height linear;

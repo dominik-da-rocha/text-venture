@@ -1,28 +1,37 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./TextVentureViewerDesktop.css";
 import "./TextVentureViewerMobile.css";
 import "./TextVentureViewer.css";
-import {
-  TextCommand,
-  TextDescription,
-  TextDialog,
-  TextObject,
-  TextPlayer,
-  TextVenture,
-} from "./TextVenture";
+
 import { TextVentureScene } from "./TextVentureScene";
 import { TextVentureHeader } from "./TextVentureHeader";
 import { TextVentureActions } from "./TextVentureActions";
-import { TextVentureConsole } from "./TextVentureConsole";
-import { TextVentureInventory } from "./TextVentureInventory";
-import { TextActionNone, TextAction } from "./TextAction";
-import { getByIdOrFirst, matchesAny, matchesOneOf, randomItem } from "./Util";
 import {
-  TextActionPattern,
+  TextVentureConsole,
+  TextVentureConsoleLog,
+} from "./TextVentureConsole";
+import { TextVentureInventory } from "./TextVentureInventory";
+import { TextActionNone, TextAction } from "./../model/TextAction";
+import {
+  getByIdOrFirst,
+  matchesAny,
+  matchesOneOf,
+  randomItem,
+} from "./../utils/Utils";
+import {
+  TextCommand,
+  TextDescription,
+  TextObject,
+  TextPlayer,
+  TextVenture,
+} from "./../model/TextVenture";
+import {
   TextInteraction,
   TextObjectPattern,
-} from "./TextInteraction";
-import { TextScene } from "./TextScene";
+  TextActionPattern,
+} from "./../model/TextInteraction";
+import { TextScene } from "./../model/TextScene";
+import { PopupAlertProvider, useShowPopup } from "../utils/PopupAlert";
 
 interface TextVentureViewerProps {
   text: TextVenture;
@@ -30,6 +39,22 @@ interface TextVentureViewerProps {
 }
 
 export function TextVentureViewer(props: TextVentureViewerProps) {
+  const className = [
+    "TextVenture",
+    props.text.deviceMode,
+    props.text.lightMode,
+    props.text.textMode,
+  ].join(" ");
+  return (
+    <div className={className}>
+      <PopupAlertProvider>
+        <TextVentureViewerWrapper {...props}></TextVentureViewerWrapper>
+      </PopupAlertProvider>
+    </div>
+  );
+}
+
+export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
   const text = props.text;
   const [currentCommand, setCurrentCommand] = useState<TextCommand>({
     type: "command",
@@ -37,9 +62,22 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
     objects: [],
     response: "",
   });
+  const [blur, setBlur] = useState<"no-blur" | "blur">(() => "blur");
+  const showPopup = useShowPopup();
 
   const saveRef = useRef<HTMLAnchorElement>(null);
   const loadRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (blur === "blur") {
+      var tout = setTimeout(() => {
+        setBlur("no-blur");
+      }, 2000);
+    }
+    return () => {
+      clearTimeout(tout);
+    };
+  }, [blur]);
 
   const scene = getByIdOrFirst(text.scenes, text.currentSceneId);
   if (scene === undefined) {
@@ -50,13 +88,14 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
     return <div>No player selected</div>;
   }
 
-  function appendLog(command: TextCommand | TextDialog) {
+  function appendLog(command: TextCommand) {
     const newLog = [command, ...text.commandLog];
     while (newLog.length > text.commandLogMaxLength) {
       newLog.splice(newLog.length - 1, 1);
     }
     text.commandLog = newLog;
-    props.onTextChanged({ ...text });
+    props.onTextChanged(text);
+    showPopup(() => <TextVentureConsoleLog {...command} />);
   }
 
   function updateCurrentCommand(
@@ -299,7 +338,7 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
     }
   }
 
-  function handleNextDialog(dialog: TextDialog | undefined) {}
+  function handleNextDialog(dialog: undefined) {}
 
   function ifMatches(
     command: TextCommand,
@@ -414,9 +453,12 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
 
   function selectScene(scene: TextObject) {
     if (scene.type === "scene" && scene.id !== text.currentSceneId) {
-      text.currentSceneId = scene.id;
-      props.onTextChanged(text);
-      window.scrollTo({ top: 0 });
+      setBlur("blur");
+      setTimeout(() => {
+        text.currentSceneId = scene.id;
+        props.onTextChanged(text);
+        window.scrollTo({ top: 0 });
+      }, 1000);
     }
   }
 
@@ -464,14 +506,7 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
 
   if (text.deviceMode === "desktop")
     return (
-      <div
-        className={[
-          "TextVenture",
-          "Desktop",
-          text.lightMode,
-          text.textMode,
-        ].join(" ")}
-      >
+      <>
         <div className="Center">
           <TextVentureHeader text={text} />
           <div className="TextVentureMain">
@@ -484,6 +519,7 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
             <div className="TextVentureContent">
               <TextVentureScene
                 scene={scene}
+                blur={blur}
                 onObjectClick={handleObjectClick}
                 onRenderToken={handleRenderToken}
                 onNextDialog={handleNextDialog}
@@ -507,7 +543,6 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
           consoleMode={text.consoleMode}
           inventoryMode={text.inventoryMode}
         />
-
         <a style={{ display: "none" }} href="?" ref={saveRef}>
           save-text
         </a>
@@ -517,19 +552,11 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
           ref={loadRef}
           onChange={handleLoadChange}
         />
-      </div>
+      </>
     );
   else {
     return (
-      <div
-        key={scene.id}
-        className={[
-          "TextVenture",
-          "Mobile",
-          text.lightMode,
-          text.textMode,
-        ].join(" ")}
-      >
+      <>
         <TextVentureConsole
           title={text.commandLogTitle}
           commandLog={text.commandLog}
@@ -560,6 +587,7 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
 
         <TextVentureScene
           scene={scene}
+          blur={blur}
           onNextDialog={handleNextDialog}
           onObjectClick={handleObjectClick}
           onRenderToken={handleRenderToken}
@@ -574,7 +602,7 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
           ref={loadRef}
           onChange={handleLoadChange}
         />
-      </div>
+      </>
     );
   }
 }

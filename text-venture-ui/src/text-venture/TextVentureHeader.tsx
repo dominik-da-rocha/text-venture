@@ -1,5 +1,5 @@
 import React from "react";
-import { TextVenture } from "./TextVenture";
+import { TextVenture } from "./../model/TextVenture";
 
 export interface TextVentureHeaderProps {
   text: TextVenture;

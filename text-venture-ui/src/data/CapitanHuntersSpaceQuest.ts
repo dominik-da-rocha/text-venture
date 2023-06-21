@@ -1,5 +1,5 @@
-import { TextActionNone } from "./TextAction";
-import { TextVentureJson } from "./TextVenture";
+import { TextActionNone } from "../model/TextAction";
+import { TextVentureJson } from "../model/TextVenture";
 
 export const CaptainHuntersSpaceQuest: TextVentureJson = {
   id: "captain-hunters-space-quest",
@@ -609,7 +609,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
         "Houston, we have a problem. That command's light-years away from working.",
         "Error: Warp drive malfunction. Please try a different command.",
         "That action's about as helpful as a telescope with no lenses.",
-        "Sorry, space cowboy. Your command's as useful as a horseshoe on a rocket.",
+        "Sorry, space pilot. Your command's as useful as a horseshoe on a rocket.",
         "No can do, partner. Your command's stuck in orbit around the wrong planet.",
         "That request's like trying to squeeze a supernova into a thimble.",
         "Red alert! That command's as disastrous as a meteor storm on collision course.",
@@ -740,7 +740,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
         "`Step right up, my friends! Feast your eyes on these fine gemstones, unearthed from the depths of an alien moon!' called out a {person:gemstone-merchant:Flamboyant Merchant}, his hands adorned with shimmering rings.",
         "{player:ames:Ames}, ever the practical one, inspected a stall selling mechanical parts and tools. The grumpy yet skillful mechanic couldn't resist the temptation to examine the intricate craftsmanship of the devices on display. A weathered {person:junk-yard-merchant:Junk Yard Merchant}, draped in tattered robes, trades in a chaotic assortment of salvaged space ship replacement parts, each with its own story to tell.",
         "The street was alive with activity. Locals and travelers alike weaved through the crowd, exchanging stories and haggling over prices. Laughter mingled with the clinking of coins, creating a vibrant tapestry of sounds.",
-        "{player:captain-hunter:Captain Hunter}, drawn by the melody of an {person:old-street-performer:Old Street Performer}'s accordion, paused to listen. The haunting tunes evoked a sense of nostalgia and longing, transporting him momentarily to distant memories and forgotten adventures.",
+        "{player:captain-hunter:Captain Hunter}, drawn by the melody of an {person:old-street-performer:Old Street Performer}'s flute, paused to listen. The haunting tunes evoked a sense of nostalgia and longing, transporting him momentarily to distant memories and forgotten adventures.",
         "Dry Water, a place where dreams and desires converged, embodied the spirit of the desert town. Its dusty main street was a testament to the resilience of its inhabitants, a microcosm of hope and opportunity amidst the vast expanse. And there, on the very street that witnessed the ebb and flow of lives, lay a {thing:coin-of-fortune:coin—a fortuitous token}, a symbol of the town itself. It represented the convergence of luck and fate, a tangible reminder of the stories whispered through the winds of time. Dry Water was not just a place; it was a sanctuary for those seeking solace in the face of uncertainty, a meeting point for diverse cultures, and a vibrant center of commerce in the wilderness.",
         "On the left the {scene:sandstorm-saloon:Sandstorm Saloon} emitted a captivating blend of otherworldly music and lively chatter, enticing passersby with its mysterious melodies.",
         "At the far end of the main street, the {scene:bustling-port:Bustling Port} loomed with its towering structures and hive humming activity, serving as a gateway to the vast expanse of the cosmos and a hub of trade and interstellar journeys.",
@@ -761,7 +761,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
           id: "old-street-performer",
           name: "Sand Pieper",
           description:
-            "The sand piper, an old and weathered street performer, breathes life into haunting tunes with his ancient accordion, transporting listeners to distant lands through the power of his music.",
+            "The sand piper, an old and weathered street performer, breathes life into haunting tunes with his ancient flute, transporting listeners to distant lands through the power of his music.",
           interactions: [],
           things: [],
         },
@@ -888,12 +888,12 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
       description: [
         "Above the entrance of the Sandstorm Saloon, a weathered wooden sign swings in the desert breeze, adorned with intricate golden filigree and vibrant neon letters, casting a flickering glow upon the rugged frontier of Dry Water.",
         "The dusty frontier town buzzed with life as {player:captain-hunter:Captain Hunter} and {player:ames:Ames} stepped into the rowdy saloon. The swinging doors creaked as they entered, revealing a scene straight out of a wild west tale. The air was thick with the scent of whiskey and the sound of rowdy laughter.",
-        "{player:captain-hunter:Captain Hunter}'s eyes scanned the room, taking in the motley crew of cowboys, outlaws, and prospectors huddled around tables and propped up against the bar. But what truly caught his attention were the band of aliens on a small stage in the corner. Their strange, otherworldly instruments emitted hypnotic melodies that seemed to arouse both curiosity and excitement.",
+        "{player:captain-hunter:Captain Hunter}'s eyes scanned the room, taking in the motley crew of pilots, outlaws, and prospectors huddled around tables and propped up against the bar. But what truly caught his attention were the band of aliens on a small stage in the corner. Their strange, otherworldly instruments emitted hypnotic melodies that seemed to arouse both curiosity and excitement.",
         "The saloon was adorned with weathered wooden furniture, its surfaces etched with years of wear and tear. Piles of sawdust covered the floor, evidence of countless scuffles and cowboy boot-clad dances. A row of liquor bottles lined the bar, their labels faded and smeared.",
         "{player:ames:Ames}, visibly intrigued by the alien musicians, approached the bar to order drinks. The bartender, a grizzled old-timer with a handlebar mustache, greeted him with a nod of recognition. 'What'll it be, stranger?' he grumbled in a gravelly voice.",
         "`Whiskey for me, and a pint of the house brew for my friend,' {player:ames:Ames} replied, his eyes still fixed on the mesmerizing performance unfolding on the stage.",
         "{player:captain-hunter:Captain Hunter}, leaning against a nearby post, observed the scene with a mix of amusement and anticipation. The alien band, with their vibrant and exotic appearances, seemed to draw people in like moths to a flame. As the music swelled, the patrons tapped their boots to the rhythm, surrendering to the allure of the unknown.",
-        "A group of boisterous cowboys, their hats tipped low, raised their glasses in a toast to the band. The aliens responded with a series of melodic chirps and trills, their harmonies interwoven with a touch of cosmic magic.",
+        "A group of boisterous pilots, their hats tipped low, raised their glasses in a toast to the band. The aliens responded with a series of melodic chirps and trills, their harmonies interwoven with a touch of cosmic magic.",
         "`This is quite a place,' {player:captain-hunter:Captain Hunter} remarked, a grin spreading across his face. `Who would've thought we'd find a wild west saloon on the edge of the universe, filled with aliens playing music that stirs the soul?'",
         "{player:ames:Ames} returned with their drinks, sliding a glass of whiskey across the bar to {player:captain-hunter:Captain Hunter}. `Cheers to the unexpected, Captain,' he said, raising his pint. `Here's to a night of strange encounters and the thrill of the unknown.'",
         "As the night wore on, {player:captain-hunter:Captain Hunter} and {player:ames:Ames} found themselves immersed in the enchanting atmosphere of the Sandstorm Saloon. They danced with outlaws, shared stories with extraterrestrial beings, and reveled in the harmonies that transcended language and culture.",

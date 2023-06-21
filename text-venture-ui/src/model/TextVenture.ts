@@ -1,6 +1,6 @@
 // Data structure for complete text adventure
 
-import { arrayToIMap } from "./Util";
+import { arrayToIMap } from "../utils/Utils";
 import { TextAction, TextActionMap } from "./TextAction";
 import { TextInteraction } from "./TextInteraction";
 import { TextScene, TextSceneMap } from "./TextScene";
@@ -109,15 +109,6 @@ export interface TextPlayerMap {
   [index: string]: TextPlayer | undefined;
 }
 
-export interface TextDialog {
-  type: "dialog";
-  id: string;
-  speaker: string;
-  text: string;
-  nextDialogs: string[];
-  isPlayer: boolean;
-}
-
 export interface TextCommand {
   type: "command";
   action: TextAction;
@@ -129,7 +120,7 @@ export interface TextCommand {
   style?: string;
 }
 
-export type TextLog = TextCommand | TextDialog;
+export type TextLog = TextCommand;
 
 export type TextDescription = string | string[];
 

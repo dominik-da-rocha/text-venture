@@ -1,19 +1,4 @@
-.TextVenture.Mobile.light {
-  --color: #616161;
-  --background: #ffffff;
-
-  --color-console: var(--background);
-  --background-console: var(--color);
-}
-
-.TextVenture.Mobile.dark {
-  --color: #f8f8f2;
-  --background: #292a36;
-  --color-console: var(--background);
-  --background-console: var(--color);
-}
-
-.TextVenture.Mobile {
+.mobile {
   text-align: justify;
   background: var(--background);
   color: var(--color);
@@ -26,16 +11,16 @@
   align-items: center;
 }
 
-.TextVenture.Mobile img.aboutButton {
+.mobile img.aboutButton {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.TextVenture.Mobile.light img.aboutButton {
+.mobile.light img.aboutButton {
   filter: invert();
 }
 
-.TextVenture.Mobile button {
+.mobile button {
   border: none;
   color: var(--color);
   background: var(--background);
@@ -46,12 +31,12 @@
   width: 2.5rem;
 }
 
-.TextVenture.Mobile button.checked {
+.mobile button.checked {
   background: var(--color);
   color: var(--background);
 }
 
-.TextVenture.Mobile .TextVentureHeader {
+.mobile .TextVentureHeader {
   padding-top: 5rem;
   padding: 5rem;
   padding-left: 2rem;
@@ -60,7 +45,7 @@
   max-width: 30em;
 }
 
-.TextVenture.Mobile .TextVentureScene {
+.mobile .TextVentureScene {
   padding-left: 1rem;
   padding-right: 3.5rem;
   padding-bottom: 3rem;
@@ -68,41 +53,41 @@
   max-width: 30em;
 }
 
-.TextVenture.Mobile li,
-.TextVenture.Mobile ul {
+.mobile li,
+.mobile ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.TextVenture.Mobile .TextVentureActions {
+.mobile .TextVentureActions {
   position: fixed;
   right: 0;
   bottom: 0;
-  filter: invert();
   background: var(--background);
   display: flex;
   flex-direction: column-reverse;
   max-height: 100%;
+  box-shadow: -0.5rem -0.5rem 1rem var(--shadow);
 }
 
-.TextVenture.Mobile .TextVentureActions .show {
+.mobile .TextVentureActions .show {
   height: 0;
   font-size: 0;
   overflow: hidden;
   transition: height 0.25s linear;
 }
 
-.TextVenture.Mobile .TextVentureActions .hide {
+.mobile .TextVentureActions .hide {
   height: 3rem;
   transition: height 0.25s linear;
 }
 
-.TextVenture.Mobile .TextVentureActions .icon-show {
+.mobile .TextVentureActions .icon-show {
   animation: rotation-back 0.25s linear;
 }
 
-.TextVenture.Mobile .TextVentureActions .icon-hide {
+.mobile .TextVentureActions .icon-hide {
   animation: rotation 0.25s linear;
 }
 
@@ -118,50 +103,42 @@
   }
 }
 
-.TextVenture.Mobile .TextVentureConsoleButton {
-  position: fixed;
-  right: 3rem;
-  bottom: 0;
-  filter: invert();
-  background: var(--background);
-}
-
-.TextVenture.Mobile .TextVentureConsole {
+.mobile .TextVentureConsole {
   position: fixed;
   bottom: 0rem;
   left: 0rem;
   width: calc(100% - 2.5rem);
   background: var(--background);
   color: var(--color);
-  filter: invert();
   overflow-y: scroll;
   overflow-x: hidden;
   border: 1px solid var(--color-console);
   font-size: 0.75rem;
+  box-shadow: -0.5rem -0.5rem 1rem var(--shadow);
 }
 
-.TextVenture.Mobile .TextVentureConsole h2 {
+.mobile .TextVentureConsole h2 {
   margin: 0;
   padding-top: 0.25rem;
   padding-bottom: 0rem;
   text-align: left;
 }
 
-.TextVenture.Mobile .TextVentureConsole .Logbook {
+.mobile .TextVentureConsole .Logbook {
   max-width: 30rem;
   margin: auto;
 }
 
-.TextVenture.Mobile a {
+.mobile a {
   color: var(--color);
 }
 
-.TextVenture.Mobile h1,
-.TextVenture.Mobile h2,
-.TextVenture.Mobile h3,
-.TextVenture.Mobile h4,
-.TextVenture.Mobile h5,
-.TextVenture.Mobile h6 {
+.mobile h1,
+.mobile h2,
+.mobile h3,
+.mobile h4,
+.mobile h5,
+.mobile h6 {
   margin: 0;
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -169,43 +146,43 @@
   padding-right: 3.5rem;
 }
 
-.TextVenture.Mobile .TextVentureConsole.off {
+.mobile .TextVentureConsole.off {
   height: 0;
   transition: height 0.25s linear;
   border: 1px solid transparent;
 }
 
-.TextVenture.Mobile .TextVentureConsole.on {
+.mobile .TextVentureConsole.on {
   height: 15rem;
   transition: height 0.25s linear;
 }
 
-.TextVenture.Mobile .TextVentureInventory {
+.mobile .TextVentureInventory {
   position: fixed;
   top: 0rem;
   left: 0rem;
   width: 15rem;
   background: var(--background);
   color: var(--color);
-  filter: invert();
   overflow-y: scroll;
   overflow-x: hidden;
   border: 1px solid var(--color-console);
   font-size: 1rem;
+  box-shadow: 0.5rem 0.5rem 1rem var(--shadow);
 }
 
-.TextVenture.Mobile .TextVentureInventory > * {
+.mobile .TextVentureInventory > * {
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
-.TextVenture.Mobile .TextVentureInventory.off {
+.mobile .TextVentureInventory.off {
   height: 0;
   transition: height 0.25s linear;
-  border: 1px solid transparent;
+  border: 0px solid transparent;
 }
 
-.TextVenture.Mobile .TextVentureInventory.on {
+.mobile .TextVentureInventory.on {
   height: calc(100% - 15rem);
   transition: height 0.25s linear;
 }

@@ -1,6 +1,6 @@
 import { TextActionId } from "./TextAction";
 import { TextObjectType } from "./TextVenture";
-import { IMap, OneOf } from "./Util";
+import { IMap, OneOf } from "../utils/Utils";
 
 export type TextInteraction =
   | TextInteractionSimple

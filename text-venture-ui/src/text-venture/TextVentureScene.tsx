@@ -1,15 +1,24 @@
 import React from "react";
-import { TextObject, TextConversation, TextDialog } from "./TextVenture";
-import { TextScene } from "./TextScene";
+import { TextConversation, TextObject } from "./../model/TextVenture";
+import { TextScene } from "./../model/TextScene";
 
 export interface TextVentureSceneProps {
   scene: TextScene | TextConversation | undefined;
   onRenderToken(type: string, id: string): TextObject | undefined;
   onObjectClick(object: TextObject): void;
-  onNextDialog(dialog: TextDialog | undefined): void;
+  onNextDialog(dialog: undefined): void;
+  blur: "blur" | "no-blur";
 }
 
 export function TextVentureScene(props: TextVentureSceneProps) {
+  return (
+    <div className={props.blur}>
+      <TextVentureSceneSelect {...props} />
+    </div>
+  );
+}
+
+function TextVentureSceneSelect(props: TextVentureSceneProps) {
   if (props.scene !== undefined) {
     switch (props.scene.type) {
       case "scene":

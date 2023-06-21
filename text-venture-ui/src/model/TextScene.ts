@@ -1,4 +1,4 @@
-import { IMap } from "./Util";
+import { IMap } from "../utils/Utils";
 import { TextInteraction } from "./TextInteraction";
 import {
   TextDescription,

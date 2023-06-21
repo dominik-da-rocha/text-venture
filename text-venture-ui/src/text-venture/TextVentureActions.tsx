@@ -10,11 +10,15 @@ import {
   TextActionMap,
   TextActionReset,
   TextActionSave,
-} from "./TextAction";
-import { iMap } from "./Util";
-import { Button } from "./Button";
-import { Icon } from "./Icon";
-import { TextDeviceMode, TextLightMode, TextOnOffMode } from "./TextVenture";
+} from "../model/TextAction";
+import { iMap } from "../utils/Utils";
+import { Button } from "../utils/Button";
+import { Icon } from "../utils/Icon";
+import {
+  TextDeviceMode,
+  TextLightMode,
+  TextOnOffMode,
+} from "../model/TextVenture";
 
 interface TextVentureActionsProps {
   actions: TextActionMap;
@@ -28,7 +32,7 @@ interface TextVentureActionsProps {
 }
 
 export function TextVentureActions(props: TextVentureActionsProps) {
-  const [menu, setMenu] = useState(false);
+  const [menu, setMenu] = useState(true);
   const actions = props.actions;
   const showMenu = !props.menuButton || menu;
   function toggleMenu() {
@@ -93,7 +97,7 @@ export function TextVentureActions(props: TextVentureActionsProps) {
           }
 
           return (
-            <li key={action.id} className={showMenu ? "show" : "hide"}>
+            <li key={action.id}>
               <TextVentureAction
                 action={action}
                 onAction={props.onAction}
