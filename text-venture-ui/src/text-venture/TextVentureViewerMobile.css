@@ -117,11 +117,12 @@
   box-shadow: -0.5rem -0.5rem 1rem var(--shadow);
 }
 
-.mobile .TextVentureConsole h2 {
+.mobile .TextVentureConsole .CurrentCommand {
   margin: 0;
   padding-top: 0.25rem;
   padding-bottom: 0rem;
   text-align: left;
+  height: 2.5rem;
 }
 
 .mobile .TextVentureConsole .Logbook {
@@ -147,7 +148,7 @@
 }
 
 .mobile .TextVentureConsole.off {
-  height: 0;
+  height: 2.5rem;
   transition: height 0.25s linear;
   border: 1px solid transparent;
 }

@@ -123,12 +123,16 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
 
     if (update) {
       if (runCommand(newCommand)) {
-        setCurrentCommand({
-          type: "command",
-          action: TextActionNone,
-          objects: [],
-          response: "",
-        });
+        setTimeout(
+          () =>
+            setCurrentCommand({
+              type: "command",
+              action: TextActionNone,
+              objects: [],
+              response: "",
+            }),
+          1000
+        );
       } else {
         setCurrentCommand(newCommand);
       }
@@ -530,6 +534,7 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
                 commandLog={text.commandLog}
                 command={currentCommand}
                 mode={text.consoleMode}
+                player={player}
               />
             </div>
           </div>
@@ -562,6 +567,7 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
           commandLog={text.commandLog}
           command={currentCommand}
           mode={text.consoleMode}
+          player={player}
         />
 
         <TextVentureInventory

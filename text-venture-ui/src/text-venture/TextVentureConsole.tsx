@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TextAction } from "./../model/TextAction";
 import {
   TextLog,
   TextCommand,
   TextOnOffMode,
   TextObject,
+  TextPlayer,
 } from "./../model/TextVenture";
 
 interface TextVentureConsoleProps {
@@ -12,6 +13,7 @@ interface TextVentureConsoleProps {
   command: TextCommand;
   title: string;
   mode: TextOnOffMode;
+  player: TextPlayer;
 }
 
 export function commandToString(command: TextCommand) {
@@ -24,9 +26,8 @@ export function TextVentureConsole(props: TextVentureConsoleProps) {
   return (
     <div className={["TextVentureConsole", props.mode].join(" ")}>
       <div className="Logbook">
-        <h2>{props.title}</h2>
-        <div className="TextVentureConsoleLogTitle">
-          {commandToString(props.command)}
+        <div className="CurrentCommand">
+          {props.player.name} {commandToString(props.command)}
         </div>
         {props.commandLog.map((log, idx) => {
           return <TextVentureConsoleLog key={idx} {...log} />;

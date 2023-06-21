@@ -44,3 +44,11 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+## Todo
+
+- the do not store objects in commands only id, so that they are not copy to the log
+- remove game actions  console, inventory and store them as settings and not in the text venture object
+- add dialogs by adding copy them into the scene description.
+- add select for dialogs
