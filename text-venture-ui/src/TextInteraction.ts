@@ -15,7 +15,9 @@ export type TextInteraction =
   | TextInteractionRandomTalkTo
   | TextInteractionTalkTo
   | TextInteractionLight
-  | TextInteractionDevice;
+  | TextInteractionDevice
+  | TextInteractionConsole
+  | TextInteractionInventory;
 
 interface TextInteractionAbstract {
   id: string;
@@ -69,12 +71,10 @@ export interface TextInteractionReset extends TextInteractionAbstract {
 
 export interface TextInteractionLight extends TextInteractionAbstract {
   type: "light";
-  responses: string[];
 }
 
 export interface TextInteractionDevice extends TextInteractionAbstract {
   type: "device";
-  responses: string[];
 }
 
 export interface TextInteractionGiveItemTo extends TextInteractionAbstract {
@@ -109,4 +109,11 @@ export interface TextInteractionTalkToQuestion {
   response: string;
   next: string;
   dropIfAsked?: boolean;
+}
+
+export interface TextInteractionConsole extends TextInteractionAbstract {
+  type: "console";
+}
+export interface TextInteractionInventory extends TextInteractionAbstract {
+  type: "inventory";
 }

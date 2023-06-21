@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import { TextCommand, TextLog, TextObject } from "./TextVenture";
+import { TextCommand, TextLog, TextOnOffMode, TextObject } from "./TextVenture";
 import { TextAction } from "./TextAction";
-import { Button } from "./Button";
-import { Icon } from "./Icon";
 
 interface TextVentureConsoleProps {
   commandLog: TextLog[];
   command: TextCommand;
   title: string;
-  menuButton?: boolean;
+  mode: TextOnOffMode;
 }
 
 function commandToString(command: TextCommand) {
@@ -17,31 +15,10 @@ function commandToString(command: TextCommand) {
   );
 }
 
-export function TextVentureConsoleCurrentCommand(props: {
-  command: TextCommand;
-}) {
-  return (
-    <div className="TextVentureConsoleCurrentCommand">
-      {commandToString(props.command)}
-    </div>
-  );
-}
-
 export function TextVentureConsole(props: TextVentureConsoleProps) {
-  const [menu, setMenu] = useState(false);
-  const showMenu = !props.menuButton || menu;
-
-  function toggleMenu() {
-    setMenu(!menu);
-  }
-
   return (
-    <>
-      <div
-        className={["TextVentureConsole", showMenu ? "show" : "hidden"].join(
-          " "
-        )}
-      >
+    <div className={["TextVentureConsole", props.mode].join(" ")}>
+      <div className="Logbook">
         <h2>{props.title}</h2>
         <div>{commandToString(props.command)}</div>
         {props.commandLog.map((log, idx) => {
@@ -65,7 +42,7 @@ export function TextVentureConsole(props: TextVentureConsoleProps) {
                 log.talkerId ?? "",
               ].join(" ");
               return (
-                <div key={idx} className="Logbook">
+                <div key={idx}>
                   <div className="Command">{commandToString(log)}:</div>
                   {log.question ? (
                     <div className={questionStyle}>
@@ -88,7 +65,7 @@ export function TextVentureConsole(props: TextVentureConsoleProps) {
               log.talkerId ?? "",
             ].join(" ");
             return (
-              <div key={idx} className="Logbook">
+              <div key={idx}>
                 <div className="Command">{commandToString(log)}</div>
                 <div className={responseStyle}>
                   {log.talker ? (
@@ -102,7 +79,7 @@ export function TextVentureConsole(props: TextVentureConsoleProps) {
             );
           } else if (log.type === "dialog") {
             return (
-              <div key={idx} className="Logbook">
+              <div key={idx}>
                 <div className={log.isPlayer ? "Command" : "Response"}>
                   {log.speaker}: '{log.text}'
                 </div>
@@ -113,14 +90,7 @@ export function TextVentureConsole(props: TextVentureConsoleProps) {
           }
         })}
       </div>
-      {props.menuButton ? (
-        <Button className="TextVentureConsoleButton" onClick={toggleMenu}>
-          <Icon>{menu ? "menu_book" : "chat"}</Icon>
-        </Button>
-      ) : (
-        <></>
-      )}
-    </>
+    </div>
   );
 }
 

@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./TextVentureViewerDesktop.css";
 import "./TextVentureViewerMobile.css";
+import "./TextVentureViewer.css";
 import {
   TextCommand,
   TextDescription,
@@ -12,11 +13,8 @@ import {
 import { TextVentureScene } from "./TextVentureScene";
 import { TextVentureHeader } from "./TextVentureHeader";
 import { TextVentureActions } from "./TextVentureActions";
-import {
-  TextVentureConsole,
-  TextVentureConsoleCurrentCommand,
-} from "./TextVentureConsole";
-import { TextVentureCharacterSheet } from "./TextVentureCharacterSheet";
+import { TextVentureConsole } from "./TextVentureConsole";
+import { TextVentureInventory } from "./TextVentureInventory";
 import { TextActionNone, TextAction } from "./TextAction";
 import { getByIdOrFirst, matchesAny, matchesOneOf, randomItem } from "./Util";
 import {
@@ -25,9 +23,6 @@ import {
   TextObjectPattern,
 } from "./TextInteraction";
 import { TextScene } from "./TextScene";
-import { TextVentureGameControl } from "./TextVentureGameControl";
-import { Button } from "./Button";
-import { Icon } from "./Icon";
 
 interface TextVentureViewerProps {
   text: TextVenture;
@@ -206,18 +201,16 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
         appendLog(command);
         return true;
       case "light":
-        command.talker = player?.name;
-        command.talkerId = player?.id;
-        command.response = randomItem(interaction.responses);
-        appendLog(command);
         toggleLight();
         return true;
       case "device":
-        command.talker = player?.name;
-        command.talkerId = player?.id;
-        command.response = randomItem(interaction.responses);
-        appendLog(command);
         toggleDevice();
+        return true;
+      case "console":
+        toggleConsole();
+        return true;
+      case "inventory":
+        toggleInventory();
         return true;
     }
 
@@ -225,6 +218,15 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
     appendLog(command);
 
     return true;
+  }
+
+  function toggleConsole() {
+    text.consoleMode = text.consoleMode === "on" ? "off" : "on";
+    props.onTextChanged(text);
+  }
+  function toggleInventory() {
+    text.inventoryMode = text.inventoryMode === "on" ? "off" : "on";
+    props.onTextChanged(text);
   }
 
   function toggleLight() {
@@ -463,24 +465,21 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
   if (text.deviceMode === "desktop")
     return (
       <div
-        className={["TextVenture", "Desktop", text.lightMode, text.style].join(
-          " "
-        )}
+        className={[
+          "TextVenture",
+          "Desktop",
+          text.lightMode,
+          text.textMode,
+        ].join(" ")}
       >
-        <TextVentureGameControl
-          lightMode={text.lightMode}
-          deviceMode={text.deviceMode}
-          onAction={handleAction}
-        />
         <div className="Center">
           <TextVentureHeader text={text} />
           <div className="TextVentureMain">
-            <div className="TextVentureControl">
-              <TextVentureCharacterSheet
-                player={player}
-                onObjectClick={handleObjectClick}
-              />
-            </div>
+            <TextVentureInventory
+              player={player}
+              onObjectClick={handleObjectClick}
+              mode={text.inventoryMode}
+            />
 
             <div className="TextVentureContent">
               <TextVentureScene
@@ -494,15 +493,20 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
                 title={text.commandLogTitle}
                 commandLog={text.commandLog}
                 command={currentCommand}
+                mode={text.consoleMode}
               />
             </div>
           </div>
-          <TextVentureActions
-            actions={text.actions}
-            onAction={handleAction}
-            currentAction={currentCommand.action}
-          />
         </div>
+        <TextVentureActions
+          actions={text.actions}
+          onAction={handleAction}
+          currentAction={currentCommand.action}
+          lightMode={text.lightMode}
+          deviceMode={text.deviceMode}
+          consoleMode={text.consoleMode}
+          inventoryMode={text.inventoryMode}
+        />
 
         <a style={{ display: "none" }} href="?" ref={saveRef}>
           save-text
@@ -519,38 +523,36 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
     return (
       <div
         key={scene.id}
-        className={["TextVenture", "Mobile", text.lightMode, text.style].join(
-          " "
-        )}
+        className={[
+          "TextVenture",
+          "Mobile",
+          text.lightMode,
+          text.textMode,
+        ].join(" ")}
       >
         <TextVentureConsole
           title={text.commandLogTitle}
           commandLog={text.commandLog}
           command={currentCommand}
-          menuButton
+          mode={text.consoleMode}
         />
 
-        <TextVentureCharacterSheet
+        <TextVentureInventory
           onObjectClick={handleObjectClick}
           player={player}
-          menuButton
-        />
-
-        <TextVentureGameControl
-          lightMode={text.lightMode}
-          deviceMode={text.deviceMode}
-          onAction={handleAction}
-          menuButton
+          mode={text.inventoryMode}
         />
 
         <TextVentureActions
           currentAction={currentCommand.action}
           actions={text.actions}
           onAction={handleAction}
+          lightMode={text.lightMode}
+          deviceMode={text.deviceMode}
+          consoleMode={text.consoleMode}
+          inventoryMode={text.inventoryMode}
           menuButton
         />
-
-        <TextVentureConsoleCurrentCommand command={currentCommand} />
 
         {scene.id === Object.keys(text.scenes)[0] && (
           <TextVentureHeader text={text} />

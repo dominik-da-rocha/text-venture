@@ -9,58 +9,6 @@
   --content-width: 100%;
 }
 
-.TextVenture.Desktop.Comic {
-  font-family: cursive;
-  font-size: 1em;
-  --header-height: 4em;
-  --header-height: 6em;
-}
-
-.TextVenture.Desktop.Book {
-  font-family: serif;
-  font-size: 1em;
-  --header-height: 4em;
-  --header-height: 6em;
-}
-
-.TextVenture.Desktop.C64 {
-  font-family: monospace;
-  font-size: 1.1em;
-  --header-height: 6em;
-}
-
-.TextVenture.Desktop.dark {
-  --color: #f8f8f2;
-  --background: #292a36;
-  --border: #ffffff25;
-  --highlight: #a0f981;
-  --hover: #b1e9f0;
-  --glow: #c6e6eab0;
-  --select: #ffffff35;
-  --background-accent: #21222c;
-
-  --scene: #e07ac4;
-  --player: #b294f7;
-  --person: #f3fa91;
-  --thing: #ebb86f;
-}
-
-.TextVenture.Desktop.light {
-  --color: #616161;
-  --background: #ffffff;
-  --border: #0000002c;
-  --highlight: #2735f7;
-  --hover: #4d59ff;
-  --glow: #4d59ff8f;
-  --select: #bcd6fe;
-  --background-accent: #f3f3f3;
-
-  --scene: #950ed8;
-  --player: #6b0100;
-  --person: #c10501;
-  --thing: #5e9337;
-}
-
 .TextVenture.Desktop {
   position: fixed;
   width: 100%;
@@ -75,33 +23,24 @@
 
 .TextVenture.Desktop .Center {
   max-width: 50rem;
-  min-width: 20rem;
+  min-width: 10rem;
   height: calc(100% - 2rem);
+  width: calc(100% - 2rem);
   display: flex;
   flex-direction: column;
-}
-
-.TextVenture.Desktop .Center,
-.TextVenture.Desktop .TextVentureGameControl {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-.TextVenture.Desktop .TextVentureGameControl img {
-  height: 2rem;
-  opacity: 0.9;
-}
-
-.TextVenture.Desktop.light .TextVentureGameControl img {
-  filter: invert();
+  margin: 1rem;
 }
 
 .TextVenture.Desktop .TextVentureHeader {
   background: var(--background-accent);
   box-sizing: border-box;
-  padding: 1em;
   width: 100%;
   text-overflow: ellipsis;
+  font-size: 0.5em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
 }
 
 .TextVenture.Desktop .TextVentureMain {
@@ -117,121 +56,48 @@
   width: var(--content-width);
 }
 
-.TextVenture.Desktop .TextVentureConsole {
-  height: var(--console-height);
-  box-sizing: border-box;
-  border-top: 2px solid var(--player);
-  border-bottom: 1px solid var(--border);
-  border-left: 1px solid var(--border);
-  background: var(--background-accent);
-  overflow-y: scroll;
-  flex-shrink: 1;
-}
-
-.TextVenture.Desktop .TextVentureConsole,
 .TextVenture.Desktop .TextVentureScene {
+  background: var(--background);
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: var(--article-height);
+  flex-grow: 1;
   padding-left: 1em;
   padding-right: 1em;
   text-align: justify;
 }
 
-.TextVenture.Desktop .TextVentureConsole .Question {
-  color: var(--player);
-  margin-left: 2em;
-  text-indent: -1em;
-}
-
-.TextVenture.Desktop .TextVentureConsole .Command {
-  color: var(--highlight);
-  margin-left: 1em;
-  text-indent: -1em;
-}
-
-.TextVenture.Desktop.TextVentureConsole .Response {
-  margin-top: 0.25em;
-  color: var(--person);
-  margin-bottom: 1em;
-  margin-left: 2em;
-  text-indent: -1em;
-}
-
-.TextVenture.Desktop .TextVentureConsole .Question .Talk,
-.TextVenture.Desktop .TextVentureConsole .Response .Talk {
-  font-style: italic;
-}
-
-.TextVenture.Desktop .TextVentureConsole .Question .Talker,
-.TextVenture.Desktop .TextVentureConsole .Response .Talker {
-  font-weight: bold;
-  margin-right: 0.5em;
-}
-
-.TextVenture.Desktop .TextVentureScene {
-  background: var(--background);
-  border-top: 1px solid var(--border);
-  border-left: 1px solid var(--border);
-  overflow-x: hidden;
-  overflow-y: scroll;
-  height: var(--article-height);
+.TextVenture.Desktop .TextVentureInventory {
   flex-grow: 1;
-}
-
-.TextVenture.Desktop .TextVentureControl {
-  flex-grow: 1;
-  min-width: 10rem;
-  max-width: 20rem;
-  width: var(--control-width);
-
   border-right: 1px solid var(--border);
   box-sizing: border-box;
   background: var(--background-accent);
   overflow-x: hidden;
   overflow-y: scroll;
-  padding-left: 1em;
-  padding-right: 1em;
   height: 100%;
 }
 
-.TextVenture.Desktop .warn {
-  color: #f42b2b;
-  animation: red-alert 1s ease-in-out infinite;
+.TextVenture.Desktop .TextVentureInventory > * {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
-@keyframes red-alert {
-  0% {
-    color: #f42b2b;
-    text-shadow: 1px 0px 5px #e7c0c0;
-  }
-  50% {
-    color: var(--color);
-    text-shadow: 1px 0px 5px #ffffff;
-  }
-  100% {
-    color: #f42b2b;
-    text-shadow: 1px 0px 5px #e7c0c0;
-  }
-}
-
-.TextVenture.Desktop a {
-  color: var(--highlight);
-}
-
-.TextVenture.Desktop a.scene {
-  color: var(--scene);
-}
-
-.TextVenture.Desktop a.player {
-  color: var(--player);
-  font-weight: bold;
-}
-
-.TextVenture.Desktop a.person {
-  color: var(--person);
-  font-style: italic;
-}
-
-.TextVenture.Desktop a.thing {
+.TextVenture.Desktop .TextVentureInventory a {
   color: var(--thing);
+}
+
+.TextVenture.Desktop .TextVentureInventory.on {
+  width: var(--control-width);
+  transition: 0.25s linear width;
+}
+
+.TextVenture.Desktop .TextVentureInventory.off {
+  width: 0;
+  transition: 0.25s linear width;
 }
 
 .TextVenture.Desktop button:hover,
@@ -247,6 +113,7 @@
 }
 
 .TextVenture.Desktop button {
+  background: var(--background);
   border-radius: 0.333rem;
   border: none;
   color: var(--color);
@@ -255,14 +122,8 @@
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
-}
-
-.TextVenture.Desktop button .Content {
-  padding: 0.124rem;
-}
-
-.TextVenture.Desktop button {
-  background: var(--background);
+  font-size: smaller;
+  box-sizing: border-box;
 }
 
 .TextVenture.Desktop button:active {
@@ -305,7 +166,6 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  font-size: 1.1em;
 }
 
 .TextVenture.Desktop ul {
@@ -318,19 +178,52 @@
 
 .TextVenture.Desktop .TextVentureActions {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 0.25rem;
-  padding: 0.5rem;
-  flex-grow: 1;
-  justify-content: space-around;
+  flex-direction: column;
+  margin-top: 1rem;
 }
 
-.TextVenture.Desktop button.TextVentureAction {
+.TextVenture.Desktop .TextVentureActions button.TextVentureAction {
   border: 1px solid var(--color);
-  width: 7rem;
+}
+
+.TextVenture.Desktop .TextVentureActions button {
+  height: 3rem;
+  width: 3rem;
 }
 
 .TextVenture.Desktop span.material-icons {
   font-size: 1.75em;
+}
+
+.TextVenture.Desktop img.aboutButton {
+  opacity: 0.9;
+  height: 1.75em;
+}
+
+.TextVenture.Desktop.light img.aboutButton {
+  filter: invert();
+}
+
+.TextVenture .TextVentureConsole {
+  box-sizing: border-box;
+  border-top: 2px solid var(--player);
+  border-bottom: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  background: var(--background-accent);
+  overflow-y: scroll;
+  flex-shrink: 1;
+  padding-left: 1em;
+  padding-right: 1em;
+  text-align: justify;
+}
+
+.TextVenture .TextVentureConsole.on {
+  height: var(--console-height);
+  transition: 0.25s height linear;
+}
+
+.TextVenture .TextVentureConsole.off {
+  height: 0;
+  border: 1px solid transparent;
+  transition: 0.25s height linear;
 }

@@ -19,7 +19,9 @@ export type TextActionId =
   | "reset"
   | "light"
   | "about"
-  | "device";
+  | "device"
+  | "console"
+  | "inventory";
 
 export interface TextAction {
   id: TextActionId;
@@ -99,6 +101,20 @@ export const TextActionAbout: TextAction = {
 export const TextActionDevice: TextAction = {
   id: "device",
   name: "Toggle Device",
+  minCount: 0,
+  maxCount: 0,
+};
+
+export const TextActionConsole: TextAction = {
+  id: "console",
+  name: "Toggle Console",
+  minCount: 0,
+  maxCount: 0,
+};
+
+export const TextActionInventory: TextAction = {
+  id: "inventory",
+  name: "Toggle Inventory",
   minCount: 0,
   maxCount: 0,
 };
