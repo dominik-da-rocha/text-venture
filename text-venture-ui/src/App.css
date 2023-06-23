@@ -24,7 +24,7 @@
   --highlight: #2735f7;
   --hover: #4d59ff;
   --glow: #4d59ff8f;
-  --select: #bcd6fe;
+  --select: #febcbc;
   --background-accent: #f3f3f3;
   --shadow: #272626c3;
 
@@ -34,6 +34,10 @@
   --thing: #426528;
   --red-alert: #ff0095;
   --red-alert-shadow: #ff009528;
+}
+
+.App::selection {
+  background: var(--select);
 }
 
 .serif {
@@ -88,10 +92,6 @@
   padding-left: 1rem;
   padding-right: calc(1rem + var(--button-size));
   padding-bottom: 5rem;
-}
-
-::selection {
-  background: var(--select);
 }
 
 h1,
@@ -190,7 +190,7 @@ select > option:checked {
   }
 }
 
-.alert-box h4 {
+.alert-box h3 {
   padding: 0;
   margin: 0;
   margin-bottom: 1rem;

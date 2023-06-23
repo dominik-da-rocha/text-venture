@@ -48,7 +48,11 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## Todo
 
-- the do not store objects in commands only id, so that they are not copy to the log
-- remove game actions  console, inventory and store them as settings and not in the text venture object
-- add dialogs by adding copy them into the scene description.
-- add select for dialogs
+- [x] the do not store objects in commands only id, so that they are not copy to the log
+- [x] remove game actions  console, inventory and store them as settings and not in the text venture object
+- [x] save and restore from local storage to file
+- [ ] add dialogs and complex conversations
+- [ ] create Help Adventure and explain how it works
+- [ ] upload project to github and a reference to about page
+- [ ] publish is on server
+- [ ] find testers

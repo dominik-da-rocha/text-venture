@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextVentureScene } from "./TextVentureScene";
 import { TextVentureHeader } from "./TextVentureHeader";
 import { TextVentureActions } from "./TextVentureActions";
@@ -29,7 +29,7 @@ import {
   TextActionPattern,
 } from "./../model/TextInteraction";
 import { TextScene } from "./../model/TextScene";
-import { PopupAlertProvider, useShowPopup } from "../utils/PopupAlert";
+import { useShowPopup } from "../utils/PopupAlert";
 import { TextSettings } from "../model/TextSettings";
 
 interface TextVentureViewerProps {
@@ -55,9 +55,7 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
   ].join(" ");
   return (
     <div className={className}>
-      <PopupAlertProvider>
-        <TextVentureViewerWrapper {...props}></TextVentureViewerWrapper>
-      </PopupAlertProvider>
+      <TextVentureViewerWrapper {...props}></TextVentureViewerWrapper>
     </div>
   );
 }
@@ -73,9 +71,6 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
   });
   const [blur, setBlur] = useState<"no-blur" | "blur">(() => "blur");
   const showPopup = useShowPopup();
-
-  const saveRef = useRef<HTMLAnchorElement>(null);
-  const loadRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (blur === "blur") {
@@ -270,21 +265,6 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
     appendLog(command);
 
     return true;
-  }
-
-  function handleLoadChange(event: any) {
-    const file = event?.target?.files?.item(0) as File | null | undefined;
-    if (file) {
-      var reader = new FileReader();
-      reader.onloadend = function (event: ProgressEvent<FileReader>) {
-        const data = event.target?.result;
-        if (typeof data === "string") {
-          const json = JSON.parse(data) as TextVenture;
-          props.onTextChanged(json);
-        }
-      };
-      reader.readAsText(file);
-    }
   }
 
   function handleAction(action: TextAction) {
@@ -529,16 +509,6 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
         onObjectClick={handleObjectClick}
         onRenderToken={handleRenderToken}
       ></TextVentureScene>
-
-      <a style={{ display: "none" }} href="?" ref={saveRef}>
-        save-text
-      </a>
-      <input
-        style={{ display: "none" }}
-        type="file"
-        ref={loadRef}
-        onChange={handleLoadChange}
-      />
     </>
   );
 }

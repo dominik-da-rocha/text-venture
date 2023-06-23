@@ -64,3 +64,13 @@
   opacity: 0.75;
   transition: opacity 0.25 linear;
 }
+
+.PopupAlert h1,
+.PopupAlert h2,
+.PopupAlert h3,
+.PopupAlert h4,
+.PopupAlert h5,
+.PopupAlert h6 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}

@@ -7,11 +7,12 @@
   flex-direction: column;
   gap: 1rem;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .Settings li {
   display: flex;
-  flex-direction: rew;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
@@ -24,4 +25,11 @@
 .Settings label {
   text-overflow: ellipsis;
   max-width: 50%;
+}
+
+.Settings li.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }

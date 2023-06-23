@@ -6,10 +6,11 @@ import { CaptainHuntersSpaceQuest } from "./data/CapitanHuntersSpaceQuest";
 import { TextVenture, toTextVenture } from "./model/TextVenture";
 import { TextSettings } from "./model/TextSettings";
 import { DefaultSettings } from "./data/DefaultSettings";
-import { useLocalState } from "./utils/useLocalState";
+import { useLocalState } from "./utils/LocalState";
 import { Navbar } from "./utils/Navbar";
 import { About, Home } from "./utils/Home";
 import { Settings } from "./utils/Settings";
+import { PopupAlertProvider } from "./utils/PopupAlert";
 
 function App() {
   const [captainHuntersSpaceQuest, setCaptainHuntersSpaceQuest] = useLocalState<
@@ -34,29 +35,44 @@ function App() {
           settings.textSize,
         ].join(" ")}
       >
-        <div className="Content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route
-              path="/settings"
-              element={<Settings settings={settings} onChange={setSettings} />}
-            />
-            <Route path="/help" element={<Lorem title="Help" />} />
-            <Route
-              path="/captain-hunters-space-quest"
-              element={
-                <TextVentureViewer
-                  text={captainHuntersSpaceQuest}
-                  onTextChanged={setCaptainHuntersSpaceQuest}
-                  settings={settings}
-                  onSettingsChanged={setSettings}
-                />
-              }
-            />
-          </Routes>
-        </div>
-        <Navbar />
+        <PopupAlertProvider>
+          <div className="Content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route
+                path="/settings"
+                element={
+                  <Settings
+                    settings={settings}
+                    onChange={setSettings}
+                    dataItems={[
+                      {
+                        id: captainHuntersSpaceQuest.id,
+                        name: captainHuntersSpaceQuest.name,
+                        data: captainHuntersSpaceQuest,
+                        onChange: setCaptainHuntersSpaceQuest,
+                      },
+                    ]}
+                  />
+                }
+              />
+              <Route path="/preface" element={<Lorem title="Preface" />} />
+              <Route
+                path="/captain-hunters-space-quest"
+                element={
+                  <TextVentureViewer
+                    text={captainHuntersSpaceQuest}
+                    onTextChanged={setCaptainHuntersSpaceQuest}
+                    settings={settings}
+                    onSettingsChanged={setSettings}
+                  />
+                }
+              />
+            </Routes>
+          </div>
+          <Navbar />
+        </PopupAlertProvider>
       </div>
     </BrowserRouter>
   );

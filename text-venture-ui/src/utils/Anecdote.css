@@ -1,0 +1,30 @@
+.Anecdote {
+  margin: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.Anecdote .Quote {
+  font-style: italic;
+}
+
+.Anecdote .Quotation {
+  align-items: center;
+  justify-content: flex-end;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.Anecdote .Chronicler {
+  text-align: right;
+  font-weight: bold;
+}
+
+.Anecdote .Chronicler::before {
+  content: "– ";
+}
+
+.Anecdote .Source {
+  font-style: italic;
+}

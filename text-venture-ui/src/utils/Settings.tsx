@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef } from "react";
 import "./Settings.css";
 import {
   TextLightMode,
@@ -8,31 +8,22 @@ import {
 } from "../model/TextSettings";
 import { Button } from "./Button";
 import { Icon } from "./Icon";
+import { useShowPopup } from "./PopupAlert";
+
+export interface SettingsDataItem {
+  id: string;
+  name: string;
+  data: any;
+  onChange(data: any): void;
+}
 
 export interface SettingsProps {
   settings: TextSettings;
   onChange(settings: TextSettings): void;
+  dataItems: SettingsDataItem[];
 }
 
 export function Settings(props: SettingsProps) {
-  const [counter, setCounter] = useState(0);
-  const [localStorageKeys, setLocalStorageKeys] = useState<string[]>([]);
-
-  function update() {
-    setCounter(counter + 1);
-  }
-
-  useEffect(() => {
-    const localStorageKeys: string[] = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      let key = localStorage.key(i);
-      if (key) {
-        localStorageKeys.push(key);
-      }
-    }
-    setLocalStorageKeys(localStorageKeys);
-  }, [counter]);
-
   return (
     <div className="Settings">
       <h1>Settings</h1>
@@ -88,15 +79,16 @@ export function Settings(props: SettingsProps) {
             <option value={"large"}>Large</option>
           </select>
         </li>
-        {localStorageKeys.length > 0 ? (
+        {props.dataItems.length > 0 ? (
           <>
             <li>
               <h3>Memory</h3>
             </li>
-            <li>
+            <li className="center">
               <div className="warn alert-box">
-                <h3>Alert</h3>
-                <p>Deleting the local storage will terminate all your data!</p>
+                <h3>Attention!</h3>
+                <p>Resetting the local storage will terminate all your data!</p>
+                <p>Also uploading a file may corrupt your game state!</p>
                 <p>Please make a backup before you proceed!</p>
               </div>
             </li>
@@ -104,31 +96,103 @@ export function Settings(props: SettingsProps) {
         ) : (
           <></>
         )}
-        {localStorageKeys.map((key) => {
+        {props.dataItems.map((dataItem) => {
           return (
-            <li key={key}>
-              <label>{key}</label>
+            <li key={dataItem.id}>
+              <label>{dataItem.name}</label>
               <div>
-                <Button onClick={() => {}}>
-                  <Icon>upload</Icon>
-                </Button>
-                <Button onClick={() => {}}>
-                  <Icon>download</Icon>
-                </Button>
-                <Button
-                  className="warn"
-                  onClick={() => {
-                    localStorage.removeItem(key);
-                    update();
-                  }}
-                >
-                  <Icon>delete</Icon>
-                </Button>
+                <ButtonStorageDownload {...dataItem} />
+                <ButtonStorageUpload {...dataItem} />
+                <ButtonStorageClear {...dataItem} />
               </div>
             </li>
           );
         })}
       </ul>
     </div>
+  );
+}
+
+function ButtonStorageUpload(props: SettingsDataItem) {
+  const loadRef = useRef<HTMLInputElement>(null);
+  const showPopup = useShowPopup();
+
+  function handleLoadChange(event: any) {
+    const file = event?.target?.files?.item(0) as File | null | undefined;
+    if (file) {
+      var reader = new FileReader();
+      reader.onloadend = function (event: ProgressEvent<FileReader>) {
+        const data = event.target?.result;
+        if (typeof data === "string") {
+          try {
+            props.onChange(JSON.parse(data));
+          } catch (err) {
+            let a = err as any;
+            showPopup(() => (
+              <div>
+                <h3>Error</h3>
+                <div>{a.message}</div>
+              </div>
+            ));
+          }
+        }
+      };
+      reader.readAsText(file);
+    }
+  }
+  return (
+    <Button className="warn" onClick={() => loadRef.current?.click()}>
+      <Icon>upload</Icon>
+      <input
+        style={{ display: "none" }}
+        type="file"
+        ref={loadRef}
+        onChange={handleLoadChange}
+      />
+    </Button>
+  );
+}
+
+function ButtonStorageDownload(props: SettingsDataItem) {
+  const saveRef = useRef<HTMLAnchorElement>(null);
+  function handleDownload() {
+    if (saveRef.current) {
+      if (props.data) {
+        saveRef.current.href =
+          "data:text/json;charset=utf-8," +
+          encodeURIComponent(JSON.stringify(props.data, null, 2));
+        saveRef.current.download = props.id + ".json";
+        saveRef.current.click();
+      }
+    }
+  }
+
+  return (
+    <Button onClick={() => handleDownload()}>
+      <Icon>download</Icon>
+      <a style={{ display: "none" }} href={"?"} ref={saveRef}>
+        save-text
+      </a>
+    </Button>
+  );
+}
+
+function ButtonStorageClear(props: SettingsDataItem) {
+  const showPopup = useShowPopup();
+  return (
+    <Button
+      className="warn"
+      onClick={() => {
+        props.onChange(undefined);
+        showPopup(() => (
+          <div>
+            <h4>Info</h4>
+            <div>Rested {props.name}</div>
+          </div>
+        ));
+      }}
+    >
+      <Icon>delete</Icon>
+    </Button>
   );
 }
