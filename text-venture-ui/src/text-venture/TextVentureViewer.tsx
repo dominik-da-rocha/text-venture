@@ -4,7 +4,8 @@ import { TextVentureHeader } from "./TextVentureHeader";
 import { TextVentureActions } from "./TextVentureActions";
 import {
   TextVentureConsole,
-  TextVentureConsoleLog,
+  TextVentureLogbook,
+  commandToString,
 } from "./TextVentureConsole";
 import { TextVentureInventory } from "./TextVentureInventory";
 import { TextActionNone, TextAction } from "./../model/TextAction";
@@ -17,6 +18,7 @@ import {
 import {
   TextCommand,
   TextDescription,
+  TextLogbook,
   TextObject,
   TextPlayer,
   TextVenture,
@@ -95,14 +97,35 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
     return <div>No player selected</div>;
   }
 
+  function toLogbook(command: TextCommand): TextLogbook {
+    const log: TextLogbook = {
+      actionId: command.action.id,
+      objects: command.objects.map((o) => {
+        return {
+          type: o.type,
+          id: o.id,
+          name: o.name,
+        };
+      }),
+      command: commandToString(command),
+      response: command.response,
+      question: command.question,
+      style: command.style,
+      playerName: command.playerName,
+      playerId: command.playerId,
+    };
+    return log;
+  }
+
   function appendLog(command: TextCommand) {
-    const newLog = [command, ...text.commandLog];
-    while (newLog.length > text.commandLogMaxLength) {
-      newLog.splice(newLog.length - 1, 1);
+    const logbookEntry = toLogbook(command);
+    const newLogbook = [logbookEntry, ...text.logbook];
+    while (newLogbook.length > text.commandLogMaxLength) {
+      newLogbook.splice(newLogbook.length - 1, 1);
     }
-    text.commandLog = newLog;
+    text.logbook = newLogbook;
     props.onTextChanged(text);
-    showPopup(() => <TextVentureConsoleLog {...command} />);
+    showPopup(() => <TextVentureLogbook {...logbookEntry} />);
   }
 
   function updateCurrentCommand(
@@ -194,20 +217,20 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
     command.style = interaction.style;
     switch (interaction.type) {
       case "random":
-        command.talker = player?.name;
-        command.talkerId = player?.id;
+        command.playerName = player?.name;
+        command.playerId = player?.id;
         command.response = randomItem(interaction.responses);
         appendLog(command);
         return true;
       case "simple":
-        command.talker = player?.name;
-        command.talkerId = player?.id;
+        command.playerName = player?.name;
+        command.playerId = player?.id;
         command.response = interaction.response;
         appendLog(command);
         return true;
       case "lookAt":
-        command.talker = player?.name;
-        command.talkerId = player?.id;
+        command.playerName = player?.name;
+        command.playerId = player?.id;
         command.response =
           getDescription(command.objects[0].description) ??
           randomItem(interaction.responses);
@@ -215,8 +238,8 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
         selectPlayer(command.objects[0]);
         return true;
       case "give-item-to":
-        command.talker = player?.name;
-        command.talkerId = player?.id;
+        command.playerName = player?.name;
+        command.playerId = player?.id;
         command.response = randomItem(interaction.responses);
         appendLog(command);
         giveFromItemTo(player, command.objects[0], command.objects[1]);
@@ -227,16 +250,16 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
         selectScene(command.objects[0]);
         return true;
       case "pick-up":
-        command.talker = player?.name;
-        command.talkerId = player?.id;
+        command.playerName = player?.name;
+        command.playerId = player?.id;
         command.response = randomItem(interaction.responses);
         appendLog(command);
         removeObjectFromScenesDescription(command.objects[0]);
         giveFromItemTo(scene, command.objects[0], player);
         return true;
       case "random-talk-to":
-        command.talker = player?.name;
-        command.talkerId = player?.id;
+        command.playerName = player?.name;
+        command.playerId = player?.id;
         command.question = randomItem(interaction.questions);
         command.response = randomItem(interaction.responses);
         appendLog(command);
@@ -461,7 +484,7 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
     <>
       <TextVentureConsole
         title={text.commandLogTitle}
-        commandLog={text.commandLog}
+        commandLog={text.logbook}
         command={currentCommand}
         player={player}
         mode={settings.consoleMode}

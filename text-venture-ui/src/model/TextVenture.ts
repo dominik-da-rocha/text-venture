@@ -34,7 +34,7 @@ export interface TextVentureJson extends TextObjectAbstract {
   players: TextPlayer[];
   currentSceneId: string;
   currentPlayerId: string;
-  commandLog: TextLog[];
+  commandLog: TextLogbook[];
   commandLogMaxLength: number;
   commandLogTitle: string;
 }
@@ -48,7 +48,7 @@ export interface TextVenture extends TextObjectAbstract {
   players: TextPlayerMap;
   currentSceneId: string;
   currentPlayerId: string;
-  commandLog: TextLog[];
+  logbook: TextLogbook[];
   commandLogMaxLength: number;
   commandLogTitle: string;
 }
@@ -65,7 +65,7 @@ export function toTextVenture(json: TextVentureJson): TextVenture {
     interactions: json.interactions,
     currentSceneId: json.currentSceneId,
     currentPlayerId: json.currentPlayerId,
-    commandLog: [...json.commandLog],
+    logbook: [...json.commandLog],
     commandLogMaxLength: json.commandLogMaxLength,
     commandLogTitle: json.commandLogTitle,
   };
@@ -93,13 +93,28 @@ export interface TextCommand {
   type: "command";
   action: TextAction;
   objects: TextObject[];
-  response: string;
-  talkerId?: string;
-  talker?: string;
+  playerName?: string;
+  playerId?: string;
   question?: string;
+  response: string;
   style?: string;
 }
 
-export type TextLog = TextCommand;
+export interface TextLogbookObject {
+  type: TextObjectType;
+  name: string;
+  id: string;
+}
+
+export interface TextLogbook {
+  actionId: string;
+  command: string;
+  objects: TextLogbookObject[];
+  playerName?: string;
+  playerId?: string;
+  question?: string;
+  response: string;
+  style?: string;
+}
 
 export type TextDescription = string | string[];
