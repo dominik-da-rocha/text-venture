@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import "./TextVentureConsole.css";
 import { TextAction } from "./../model/TextAction";
 import {
   TextLog,
   TextCommand,
-  TextOnOffMode,
   TextObject,
   TextPlayer,
 } from "./../model/TextVenture";
+import { TextOnOffMode } from "../model/TextSettings";
+import { Button } from "../utils/Button";
+import { Icon } from "../utils/Icon";
 
 interface TextVentureConsoleProps {
   commandLog: TextLog[];
   command: TextCommand;
   title: string;
-  mode: TextOnOffMode;
   player: TextPlayer;
+  mode: TextOnOffMode;
+  onModeChanged(mode: TextOnOffMode): void;
 }
 
 export function commandToString(command: TextCommand) {
@@ -23,15 +27,21 @@ export function commandToString(command: TextCommand) {
 }
 
 export function TextVentureConsole(props: TextVentureConsoleProps) {
+  function toggleMode() {
+    props.onModeChanged(props.mode === "on" ? "off" : "on");
+  }
   return (
     <div className={["TextVentureConsole", props.mode].join(" ")}>
       <div className="Logbook">
-        <div className="CurrentCommand">
-          {props.player.name} {commandToString(props.command)}
-        </div>
         {props.commandLog.map((log, idx) => {
           return <TextVentureConsoleLog key={idx} {...log} />;
         })}
+      </div>
+      <div className="CurrentCommand">
+        <Button onClick={toggleMode}>
+          <Icon>chat</Icon>
+        </Button>
+        {commandToString(props.command)}
       </div>
     </div>
   );

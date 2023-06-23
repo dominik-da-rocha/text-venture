@@ -1,0 +1,75 @@
+.TextVentureConsole {
+  position: fixed;
+  background: var(--background-accent);
+  left: 0;
+  bottom: 0;
+  right: var(--button-size);
+  overflow-y: hidden;
+  overflow-x: hidden;
+  border: 1px solid var(--border);
+  border-top-right-radius: calc(var(--button-size) / 5);
+  padding-bottom: var(--button-size);
+  max-width: 10rem;
+  max-width: 30rem;
+  width: calc(100% - var(--button-size));
+}
+
+.TextVentureConsole.on {
+  height: 50vh;
+  transition: height 0.25s linear;
+}
+.TextVentureConsole.off {
+  height: 0;
+  transition: height 0.25s linear;
+}
+
+.TextVentureConsole .CurrentCommand {
+  height: var(--button-size);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--background-accent);
+  position: absolute;
+}
+
+.TextVentureConsole .Logbook {
+  overflow-y: scroll;
+  height: 100%;
+  bottom: var(--button-size);
+}
+
+.TextVentureConsoleLog .Question {
+  color: var(--player);
+  margin-left: 2em;
+  text-indent: -1em;
+  text-align: left;
+}
+
+.TextVentureConsoleLog .Command {
+  color: var(--highlight);
+  margin-left: 1em;
+  text-indent: -1em;
+  text-align: left;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.TextVentureConsoleLog .Response {
+  margin-top: 0.25em;
+  color: var(--person);
+  margin-bottom: 1em;
+  margin-left: 2em;
+  text-indent: -1em;
+  text-align: left;
+}
+
+.TextVentureConsoleLog .Question .Talk,
+.TextVentureConsoleLog .Response .Talk {
+  font-style: italic;
+}
+
+.TextVentureConsoleLog .Question .Talker,
+.TextVentureConsoleLog .Response .Talker {
+  font-weight: bold;
+  margin-right: 0.5em;
+}

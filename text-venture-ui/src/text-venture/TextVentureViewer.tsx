@@ -1,8 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./TextVentureViewerDesktop.css";
-import "./TextVentureViewerMobile.css";
-import "./TextVentureViewer.css";
-
 import { TextVentureScene } from "./TextVentureScene";
 import { TextVentureHeader } from "./TextVentureHeader";
 import { TextVentureActions } from "./TextVentureActions";
@@ -32,8 +28,18 @@ import {
 } from "./../model/TextInteraction";
 import { TextScene } from "./../model/TextScene";
 import { PopupAlertProvider, useShowPopup } from "../utils/PopupAlert";
+import { TextSettings } from "../model/TextSettings";
 
 interface TextVentureViewerProps {
+  onSettingsChanged(copy: {
+    textMode: import("../model/TextSettings").TextMode;
+    textSize: import("../model/TextSettings").TextSize;
+    lightMode: import("../model/TextSettings").TextLightMode;
+    deviceMode: import("../model/TextSettings").TextDeviceMode;
+    consoleMode: import("../model/TextSettings").TextOnOffMode;
+    inventoryMode: import("../model/TextSettings").TextOnOffMode;
+  }): unknown;
+  settings: TextSettings;
   text: TextVenture;
   onTextChanged(text: TextVenture | undefined): void;
 }
@@ -41,9 +47,9 @@ interface TextVentureViewerProps {
 export function TextVentureViewer(props: TextVentureViewerProps) {
   const className = [
     "TextVenture",
-    props.text.deviceMode,
-    props.text.lightMode,
-    props.text.textMode,
+    props.settings.deviceMode,
+    props.settings.lightMode,
+    props.settings.textMode,
   ].join(" ");
   return (
     <div className={className}>
@@ -56,6 +62,7 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
 
 export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
   const text = props.text;
+  const settings = props.settings;
   const [currentCommand, setCurrentCommand] = useState<TextCommand>({
     type: "command",
     action: TextActionNone,
@@ -207,15 +214,6 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
         appendLog(command);
         selectPlayer(command.objects[0]);
         return true;
-      case "load":
-        evalCommandLoad();
-        return true;
-      case "save":
-        evalCommandSave();
-        return true;
-      case "reset":
-        evalCommandReset();
-        return true;
       case "give-item-to":
         command.talker = player?.name;
         command.talkerId = player?.id;
@@ -243,61 +241,12 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
         command.response = randomItem(interaction.responses);
         appendLog(command);
         return true;
-      case "light":
-        toggleLight();
-        return true;
-      case "device":
-        toggleDevice();
-        return true;
-      case "console":
-        toggleConsole();
-        return true;
-      case "inventory":
-        toggleInventory();
-        return true;
     }
 
     command.response = "Note from the programmer: That should not happen!";
     appendLog(command);
 
     return true;
-  }
-
-  function toggleConsole() {
-    text.consoleMode = text.consoleMode === "on" ? "off" : "on";
-    props.onTextChanged(text);
-  }
-  function toggleInventory() {
-    text.inventoryMode = text.inventoryMode === "on" ? "off" : "on";
-    props.onTextChanged(text);
-  }
-
-  function toggleLight() {
-    text.lightMode = text.lightMode === "light" ? "dark" : "light";
-    props.onTextChanged(text);
-  }
-
-  function toggleDevice() {
-    text.deviceMode = text.deviceMode === "mobile" ? "desktop" : "mobile";
-    props.onTextChanged(text);
-  }
-
-  function evalCommandLoad() {
-    loadRef.current?.click();
-  }
-
-  function evalCommandSave() {
-    if (saveRef.current) {
-      saveRef.current.download = text.id + ".json";
-      const data = JSON.stringify(text, null, 2);
-      const blob = new Blob([data], { type: "application/json" });
-      saveRef.current.href = window.URL.createObjectURL(blob);
-      saveRef.current.click();
-    }
-  }
-
-  function evalCommandReset() {
-    props.onTextChanged(undefined);
   }
 
   function handleLoadChange(event: any) {
@@ -508,109 +457,67 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
     }
   }
 
-  if (text.deviceMode === "desktop")
-    return (
-      <>
-        <div className="Center">
-          <TextVentureHeader text={text} />
-          <div className="TextVentureMain">
-            <TextVentureInventory
-              player={player}
-              onObjectClick={handleObjectClick}
-              mode={text.inventoryMode}
-            />
+  return (
+    <>
+      <TextVentureConsole
+        title={text.commandLogTitle}
+        commandLog={text.commandLog}
+        command={currentCommand}
+        player={player}
+        mode={settings.consoleMode}
+        onModeChanged={(mode) => {
+          let copy = { ...settings };
+          copy.consoleMode = mode;
+          props.onSettingsChanged(copy);
+        }}
+      />
 
-            <div className="TextVentureContent">
-              <TextVentureScene
-                scene={scene}
-                blur={blur}
-                onObjectClick={handleObjectClick}
-                onRenderToken={handleRenderToken}
-                onNextDialog={handleNextDialog}
-              />
+      <TextVentureInventory
+        onObjectClick={handleObjectClick}
+        player={player}
+        mode={settings.inventoryMode}
+        onModeChanged={(mode) => {
+          let copy = { ...settings };
+          copy.inventoryMode = mode;
+          props.onSettingsChanged(copy);
+        }}
+      />
 
-              <TextVentureConsole
-                title={text.commandLogTitle}
-                commandLog={text.commandLog}
-                command={currentCommand}
-                mode={text.consoleMode}
-                player={player}
-              />
-            </div>
-          </div>
-        </div>
-        <TextVentureActions
-          actions={text.actions}
-          onAction={handleAction}
-          currentAction={currentCommand.action}
-          lightMode={text.lightMode}
-          deviceMode={text.deviceMode}
-          consoleMode={text.consoleMode}
-          inventoryMode={text.inventoryMode}
-        />
-        <a style={{ display: "none" }} href="?" ref={saveRef}>
-          save-text
-        </a>
-        <input
-          style={{ display: "none" }}
-          type="file"
-          ref={loadRef}
-          onChange={handleLoadChange}
-        />
-      </>
-    );
-  else {
-    return (
-      <>
-        <TextVentureConsole
-          title={text.commandLogTitle}
-          commandLog={text.commandLog}
-          command={currentCommand}
-          mode={text.consoleMode}
-          player={player}
-        />
+      <TextVentureActions
+        currentAction={currentCommand.action}
+        actions={text.actions}
+        onAction={handleAction}
+        mode={props.settings.actionMode}
+        onModeChanged={(mode) => {
+          let copy = { ...settings };
+          copy.actionMode = mode;
+          props.onSettingsChanged(copy);
+        }}
+      />
 
-        <TextVentureInventory
-          onObjectClick={handleObjectClick}
-          player={player}
-          mode={text.inventoryMode}
-        />
+      {scene.id === Object.keys(text.scenes)[0] && (
+        <TextVentureHeader text={text} />
+      )}
 
-        <TextVentureActions
-          currentAction={currentCommand.action}
-          actions={text.actions}
-          onAction={handleAction}
-          lightMode={text.lightMode}
-          deviceMode={text.deviceMode}
-          consoleMode={text.consoleMode}
-          inventoryMode={text.inventoryMode}
-          menuButton
-        />
+      <TextVentureScene
+        scene={scene}
+        blur={blur}
+        onNextDialog={handleNextDialog}
+        onObjectClick={handleObjectClick}
+        onRenderToken={handleRenderToken}
+      ></TextVentureScene>
 
-        {scene.id === Object.keys(text.scenes)[0] && (
-          <TextVentureHeader text={text} />
-        )}
-
-        <TextVentureScene
-          scene={scene}
-          blur={blur}
-          onNextDialog={handleNextDialog}
-          onObjectClick={handleObjectClick}
-          onRenderToken={handleRenderToken}
-        ></TextVentureScene>
-
-        <a style={{ display: "none" }} href="?" ref={saveRef}>
-          save-text
-        </a>
-        <input
-          style={{ display: "none" }}
-          type="file"
-          ref={loadRef}
-          onChange={handleLoadChange}
-        />
-      </>
-    );
-  }
+      <a style={{ display: "none" }} href="?" ref={saveRef}>
+        save-text
+      </a>
+      <input
+        style={{ display: "none" }}
+        type="file"
+        ref={loadRef}
+        onChange={handleLoadChange}
+      />
+    </>
+  );
 }
 
 function logInteraction(text: string, obj?: any) {

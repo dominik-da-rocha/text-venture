@@ -1,11 +1,6 @@
 import { IMap } from "../utils/Utils";
 import { TextInteraction } from "./TextInteraction";
-import {
-  TextDescription,
-  TextThing,
-  TextPerson,
-  TextConversation,
-} from "./TextVenture";
+import { TextDescription, TextThing, TextPerson } from "./TextVenture";
 
 export interface TextScene {
   type: "scene";
@@ -15,7 +10,6 @@ export interface TextScene {
   things: TextThing[];
   persons: TextPerson[];
   interactions: TextInteraction[];
-  conversations: TextConversation[];
 }
 
 export type TextSceneMap = IMap<TextScene>;

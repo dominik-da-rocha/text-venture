@@ -74,3 +74,8 @@ export function matchesAny(any: boolean | undefined) {
   }
   return false;
 }
+
+export function notImplemented() {
+  throw new Error("not implemented");
+}
+

@@ -1,0 +1,46 @@
+.TableOfContents {
+  width: 100%;
+}
+
+.TableOfContents > .Contents {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.TableOfContents .TableOfContentsItem {
+  display: flex;
+}
+
+.TableOfContents .TableOfContentsItem::after {
+  background-image: radial-gradient(
+    circle,
+    currentcolor 1px,
+    transparent 1.5px
+  );
+  background-position: bottom;
+  background-size: 1ex 4.5px;
+  background-repeat: space no-repeat;
+  content: "";
+  flex-grow: 1;
+  height: 1em;
+  order: 2;
+}
+
+.TableOfContents .TableOfContentsItem .Title {
+  order: 1;
+}
+.TableOfContents .TableOfContentsItem .Page {
+  order: 3;
+}
+
+.TableOfContents .TableOfContentsChapter > .Title {
+  text-align: left;
+  margin-bottom: 0.5rem;
+}
+
+.TableOfContents .TableOfContentsChapter > .Contents {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}

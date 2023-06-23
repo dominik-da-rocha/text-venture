@@ -1,9 +1,9 @@
 import React from "react";
-import { TextConversation, TextObject } from "./../model/TextVenture";
+import { TextObject } from "./../model/TextVenture";
 import { TextScene } from "./../model/TextScene";
 
 export interface TextVentureSceneProps {
-  scene: TextScene | TextConversation | undefined;
+  scene: TextScene | undefined;
   onRenderToken(type: string, id: string): TextObject | undefined;
   onObjectClick(object: TextObject): void;
   onNextDialog(dialog: undefined): void;
@@ -23,8 +23,6 @@ function TextVentureSceneSelect(props: TextVentureSceneProps) {
     switch (props.scene.type) {
       case "scene":
         return <SceneViewer {...props} />;
-      case "conversation":
-        return <ConversationViewer {...props} />;
     }
   }
 
@@ -124,8 +122,4 @@ function SceneTextArrayViewer(props: SceneTextArrayViewerProps) {
     );
   });
   return <div className="Paragraphs">{paragraphs}</div>;
-}
-
-function ConversationViewer(props: TextVentureSceneProps) {
-  return <pre>{JSON.stringify(props.scene, null, 2)}</pre>;
 }

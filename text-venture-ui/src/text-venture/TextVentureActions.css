@@ -1,0 +1,41 @@
+.TextVentureActions {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  border: 1px solid var(--border);
+  border-top-left-radius: calc(var(--button-size) / 5);
+  overflow: hidden;
+  background: var(--background);
+  width: var(--button-size);
+  padding-bottom: var(--button-size);
+}
+
+.TxtVentureActions .Actions {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.TextVentureActions.off .Actions {
+  height: 0;
+}
+
+.TextVentureActions.on .Actions {
+  height: calc(var(--button-size) * 6);
+}
+
+.TextVentureActions .Button {
+  position: absolute;
+}
+
+.small .TextVentureAction {
+  font-size: 0.75rem;
+}
+
+.medium .TextVentureAction {
+  font-size: 0.9rem;
+}
+
+.large .TextVentureAction {
+  font-size: 0.9em;
+}

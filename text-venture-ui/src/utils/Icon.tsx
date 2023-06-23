@@ -10,9 +10,11 @@ interface IconProps {
 export function Icon(props: IconProps) {
   return (
     <span
-      className={[props.className ?? "", props.lib ?? "material-icons"].join(
-        " "
-      )}
+      className={[
+        "Icon",
+        props.className ?? "",
+        props.lib ?? "material-icons",
+      ].join(" ")}
     >
       {props.children}
     </span>

@@ -2,26 +2,19 @@ import { IMap } from "../utils/Utils";
 
 export type TextActionId =
   | "none"
-  | "open"
-  | "close"
-  | "push"
-  | "pull"
   | "walkTo"
   | "pickUp"
   | "talkTo"
   | "give"
   | "use"
   | "lookAt"
+  //----- todo ---- may be reduced to use object
   | "turnOn"
   | "turnOff"
-  | "save"
-  | "load"
-  | "reset"
-  | "light"
-  | "about"
-  | "device"
-  | "console"
-  | "inventory";
+  | "open"
+  | "close"
+  | "push"
+  | "pull";
 
 export interface TextAction {
   id: TextActionId;
@@ -61,60 +54,4 @@ export const TextActionNone: TextAction = {
   hidden: true,
   minCount: 999,
   maxCount: 999,
-};
-
-export const TextActionSave: TextAction = {
-  id: "save",
-  name: "Save Game",
-  minCount: 0,
-  maxCount: 0,
-};
-
-export const TextActionLoad: TextAction = {
-  id: "load",
-  name: "Load Game",
-  minCount: 0,
-  maxCount: 0,
-};
-
-export const TextActionReset: TextAction = {
-  id: "reset",
-  name: "Reset Game",
-  minCount: 0,
-  maxCount: 0,
-};
-
-export const TextActionLight: TextAction = {
-  id: "light",
-  name: "Toggle Light",
-  minCount: 0,
-  maxCount: 0,
-};
-
-export const TextActionAbout: TextAction = {
-  id: "about",
-  name: "About the Game",
-  minCount: 0,
-  maxCount: 0,
-};
-
-export const TextActionDevice: TextAction = {
-  id: "device",
-  name: "Toggle Device",
-  minCount: 0,
-  maxCount: 0,
-};
-
-export const TextActionConsole: TextAction = {
-  id: "console",
-  name: "Toggle Console",
-  minCount: 0,
-  maxCount: 0,
-};
-
-export const TextActionInventory: TextAction = {
-  id: "inventory",
-  name: "Toggle Inventory",
-  minCount: 0,
-  maxCount: 0,
 };

@@ -8,11 +8,6 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
   commandLogMaxLength: 1000,
   commandLog: [],
   commandLogTitle: "Logbook",
-  textMode: "book",
-  lightMode: "dark",
-  deviceMode: "mobile",
-  consoleMode: "off",
-  inventoryMode: "off",
   actions: [
     TextActionNone,
     {
@@ -352,55 +347,6 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
         "I've found this in my travels, and it screamed your name. It's yours now.",
         "You've always had my back. This item will ensure you're well-equipped for any challenge.",
       ],
-    },
-    {
-      id: "load",
-      type: "load",
-      matchesAction: { oneOf: "load" },
-      matchesObjects: [],
-    },
-    {
-      id: "save",
-      type: "save",
-      matchesAction: { oneOf: "save" },
-      matchesObjects: [],
-    },
-    {
-      id: "reset",
-      type: "reset",
-      matchesAction: { oneOf: "reset" },
-      matchesObjects: [],
-    },
-    {
-      id: "console",
-      type: "console",
-      matchesAction: { oneOf: "console" },
-      matchesObjects: [],
-    },
-    {
-      id: "inventory",
-      type: "inventory",
-      matchesAction: { oneOf: "inventory" },
-      matchesObjects: [],
-    },
-    {
-      id: "light",
-      type: "light",
-      matchesAction: { oneOf: "light" },
-      matchesObjects: [],
-    },
-    {
-      id: "device",
-      type: "device",
-      matchesAction: { oneOf: "device" },
-      matchesObjects: [],
-    },
-    {
-      id: "about",
-      type: "simple",
-      matchesAction: { oneOf: "about" },
-      matchesObjects: [],
-      response: "Textventure by Dominik da Rocha",
     },
     {
       id: "default-look-at",
@@ -844,7 +790,6 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
           ],
         },
       ],
-      conversations: [],
     },
     {
       type: "scene",
@@ -879,7 +824,6 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
           ],
         },
       ],
-      conversations: [],
     },
     {
       type: "scene",
@@ -918,7 +862,6 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
           ],
         },
       ],
-      conversations: [],
     },
     {
       type: "scene",
@@ -958,7 +901,6 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
           ],
         },
       ],
-      conversations: [],
     },
   ],
 };

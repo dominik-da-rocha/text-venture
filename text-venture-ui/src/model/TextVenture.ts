@@ -17,8 +17,7 @@ export type TextObject =
   | TextScene
   | TextThing
   | TextPerson
-  | TextPlayer
-  | TextConversation;
+  | TextPlayer;
 
 export type TextObjectType =
   | "venture"
@@ -38,11 +37,6 @@ export interface TextVentureJson extends TextObjectAbstract {
   commandLog: TextLog[];
   commandLogMaxLength: number;
   commandLogTitle: string;
-  textMode: TextMode;
-  lightMode: TextLightMode;
-  deviceMode: TextDeviceMode;
-  consoleMode: TextOnOffMode;
-  inventoryMode: TextOnOffMode;
 }
 
 // this is the same as the TextVentureJson
@@ -57,11 +51,6 @@ export interface TextVenture extends TextObjectAbstract {
   commandLog: TextLog[];
   commandLogMaxLength: number;
   commandLogTitle: string;
-  textMode: TextMode;
-  lightMode: TextLightMode;
-  deviceMode: TextDeviceMode;
-  consoleMode: TextOnOffMode;
-  inventoryMode: TextOnOffMode;
 }
 
 export function toTextVenture(json: TextVentureJson): TextVenture {
@@ -79,16 +68,7 @@ export function toTextVenture(json: TextVentureJson): TextVenture {
     commandLog: [...json.commandLog],
     commandLogMaxLength: json.commandLogMaxLength,
     commandLogTitle: json.commandLogTitle,
-    textMode: json.textMode,
-    lightMode: json.lightMode,
-    deviceMode: json.deviceMode,
-    consoleMode: json.consoleMode,
-    inventoryMode: json.inventoryMode,
   };
-}
-
-export interface TextConversation extends TextObjectAbstract {
-  type: "conversation";
 }
 
 export interface TextThing extends TextObjectAbstract {
@@ -123,11 +103,3 @@ export interface TextCommand {
 export type TextLog = TextCommand;
 
 export type TextDescription = string | string[];
-
-export type TextLightMode = "light" | "dark";
-
-export type TextDeviceMode = "mobile" | "desktop";
-
-export type TextOnOffMode = "on" | "off";
-
-export type TextMode = "c64" | "comic" | "book";

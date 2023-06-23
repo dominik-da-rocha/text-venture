@@ -1,0 +1,37 @@
+.Navbar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  overflow: hidden;
+  display: flex;
+  border: 1px solid var(--border);
+  border-bottom-left-radius: calc(var(--button-size) / 5);
+  background: (--background);
+}
+
+.Navbar .Buttons {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.Navbar .Buttons.show {
+  width: calc(var(--button-size) * 2);
+  transition: width 0.25s linear;
+}
+
+.Navbar .Buttons.hidden {
+  width: 0;
+  transition: width 0.25s linear;
+}
+
+.Navbar .MenuButton.show .Icon {
+  transform: rotate(270deg);
+  transition: transform 0.25s linear;
+}
+
+.Navbar .MenuButton.hidden .Icon {
+  transform: rotate(0deg);
+  transition: transform 0.25s linear;
+}

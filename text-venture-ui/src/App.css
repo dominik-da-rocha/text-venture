@@ -1,0 +1,202 @@
+.dark {
+  --color: #f8f8f2;
+  --background: #292a36;
+  --border: #ffffff25;
+  --highlight: #a0f981;
+  --hover: #b1e9f0;
+  --glow: #c6e6eab0;
+  --select: #ffffff35;
+  --background-accent: #21222c;
+  --shadow: #c6e6ea30;
+
+  --scene: #f3fa91;
+  --player: #b294f7;
+  --person: #e07ac4;
+  --thing: #ebb86f;
+  --red-alert: #ff0090;
+  --red-alert-shadow: #ff009019;
+}
+
+.light {
+  --color: #616161;
+  --background: #ffffff;
+  --border: #0000002c;
+  --highlight: #2735f7;
+  --hover: #4d59ff;
+  --glow: #4d59ff8f;
+  --select: #bcd6fe;
+  --background-accent: #f3f3f3;
+  --shadow: #272626c3;
+
+  --scene: #950ed8;
+  --player: #6b0100;
+  --person: #c10501;
+  --thing: #426528;
+  --red-alert: #ff0095;
+  --red-alert-shadow: #ff009528;
+}
+
+.serif {
+  font-family: serif;
+}
+
+.sans-serif {
+  font-family: sans-serif;
+}
+
+.monospace {
+  font-family: monospace;
+}
+
+.cursive {
+  font-family: cursive;
+}
+
+.medium {
+  font-size: medium;
+  --button-size: 2.5rem;
+}
+
+.large {
+  font-size: large;
+  --button-size: 3.5rem;
+}
+
+.small {
+  font-size: small;
+  --button-size: 2rem;
+}
+
+.App {
+  position: absolute;
+  background: var(--background);
+  color: var(--color);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  min-height: 100%;
+}
+
+.App > .Content {
+  min-width: 20rem;
+  max-width: 36rem;
+  min-height: 100%;
+  width: 100%;
+  font-size: larger;
+  padding-top: 1rem;
+  padding-left: 1rem;
+  padding-right: calc(1rem + var(--button-size));
+  padding-bottom: 5rem;
+}
+
+::selection {
+  background: var(--select);
+}
+
+h1,
+h2,
+.Subtitle {
+  text-align: center;
+}
+
+h1 {
+  margin-top: 5rem;
+  margin-bottom: 0.25rem;
+}
+
+p {
+  text-align: justify;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+a {
+  color: var(--color);
+  text-decoration: none;
+}
+
+a.scene {
+  color: var(--scene);
+  font-weight: bold;
+}
+
+a.player {
+  color: var(--player);
+  font-weight: bold;
+}
+
+a.person {
+  color: var(--person);
+  font-weight: bold;
+}
+
+a.thing {
+  color: var(--thing);
+  font-weight: bold;
+}
+
+select {
+  background: var(--background-accent);
+  color: var(--color);
+  height: 2.5rem;
+  border: none;
+  font-size: 1.2rem;
+  padding: 0.3rem;
+}
+
+select > option {
+  background: var(--background-accent);
+  color: var(--color);
+  height: 2.5rem;
+  border: none;
+}
+
+select > option:checked {
+  filter: invert();
+}
+
+.warn {
+  color: var(--red-alter);
+  animation: red-alert 1s ease-in-out infinite;
+}
+
+@keyframes red-alert {
+  0% {
+    color: var(--red-alert);
+    text-shadow: 1px 0px 10px var(--red-alert-shadow);
+  }
+  50% {
+    color: var(--color);
+    text-shadow: 1px 0px 5px #ffffff00;
+  }
+  100% {
+    color: var(--red-alert);
+    text-shadow: 1px 0px 10px var(--red-alert-shadow);
+  }
+}
+
+.alert-box h4 {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+.alert-box {
+  border: 3px solid var(--red-alert);
+  padding: 1rem;
+  background: var(--red-alert-shadow);
+}

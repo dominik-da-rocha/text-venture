@@ -1,0 +1,27 @@
+.Settings {
+  width: 100%;
+}
+
+.Settings ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.Settings li {
+  display: flex;
+  flex-direction: rew;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.Settings select {
+  width: 10rem;
+}
+
+.Settings label {
+  text-overflow: ellipsis;
+  max-width: 50%;
+}
