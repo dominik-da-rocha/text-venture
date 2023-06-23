@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./TextVentureInventory.css";
 import { TextPlayer, TextObject } from "./../model/TextVenture";
 import { TextOnOffMode } from "../model/TextSettings";

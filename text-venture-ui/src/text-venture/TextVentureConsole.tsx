@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./TextVentureConsole.css";
 import { TextAction } from "./../model/TextAction";
 import {
