@@ -27,7 +27,7 @@ export type TextObjectType =
   | "person"
   | "player";
 
-export type TextToken = TextObject | TextLink;
+export type TextToken = TextObject | TextLink | TextStyle;
 
 interface TextVentureAbstract extends TextObjectAbstract {
   currentSceneId: string;
@@ -128,6 +128,11 @@ export interface TextLink {
   id: string;
   url: string;
   isInternal?: boolean;
+}
+
+export interface TextStyle {
+  type: "style";
+  id: string;
 }
 
 export type TextLinkMap = IMap<TextLink>;

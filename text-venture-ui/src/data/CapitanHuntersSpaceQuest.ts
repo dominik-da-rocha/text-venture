@@ -684,7 +684,8 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
       type: "scene",
       id: "main-street-of-dry-water",
       name: "Main Street of Dry Water",
-      description: [
+      description: "todo",
+      paragraphs: [
         "Dry Water's Main Street bustled with life as merchants hawked their wares, the air thick with the scent of spices and the symphony of bartering voices.",
         "{player:captain-hunter:Captain Hunter} and {player:ames:Ames} strolled down the bustling main street of Dry Water, a humble desert town nestled amidst the sand dunes. The narrow road was lined with wooden storefronts, their weathered facades bearing the marks of time.",
         "Merchants of all kinds peddled their wares, their stalls overflowing with goods from far-off planets. Colorful fabrics hung from awnings, catching the desert breeze, while the aroma of exotic spices filled the air, enticing passersby.",
@@ -801,7 +802,8 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
       type: "scene",
       id: "bustling-port",
       name: "The Bustling Port",
-      description: [
+      description: "todo",
+      paragraphs: [
         "The bustling space port sprawled across the desert landscape, a chaotic convergence of ships, steam, and bureaucracy. Towering structures of rusted metal and creaking wood stood as a testament to the frontier spirit that permeated the air. The scent of steam and engine oil mingled with the hot desert wind, creating an atmosphere filled with anticipation and a hint of danger.",
         "Inspector Barnes, a stickler for rules and regulations, patrolled the port with unwavering determination. Clad in a neatly pressed uniform, he scrutinized every ship, cargo manifest, and passenger with an eagle eye. His presence cast a shadow of unease over the smugglers, who relied on cunning and luck to evade his watchful gaze.",
         "Amidst the organized chaos, merchants haggled over exotic goods from distant planets, their stalls overflowing with trinkets, spices, and oddities from every corner of the galaxy. A symphony of languages filled the air as traders from countless star systems engaged in spirited negotiations, their voices blending into a harmonious cacophony.",
@@ -835,7 +837,8 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
       type: "scene",
       id: "sandstorm-saloon",
       name: "The Sandstorm Saloon",
-      description: [
+      description: "todo",
+      paragraphs: [
         "Above the entrance of the Sandstorm Saloon, a weathered wooden sign swings in the desert breeze, adorned with intricate golden filigree and vibrant neon letters, casting a flickering glow upon the rugged frontier of Dry Water.",
         "The dusty frontier town buzzed with life as {player:captain-hunter:Captain Hunter} and {player:ames:Ames} stepped into the rowdy saloon. The swinging doors creaked as they entered, revealing a scene straight out of a wild west tale. The air was thick with the scent of whiskey and the sound of rowdy laughter.",
         "{player:captain-hunter:Captain Hunter}'s eyes scanned the room, taking in the motley crew of pilots, outlaws, and prospectors huddled around tables and propped up against the bar. But what truly caught his attention were the band of aliens on a small stage in the corner. Their strange, otherworldly instruments emitted hypnotic melodies that seemed to arouse both curiosity and excitement.",
@@ -873,7 +876,8 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
       type: "scene",
       id: "desert",
       name: "The Endless Desert",
-      description: [
+      description: "todo",
+      paragraphs: [
         "The scorching desert stretched out, an unforgiving expanse of golden sand and relentless heat. The sun beat down mercilessly, casting shimmering mirages on the horizon. The vastness of the desert seemed to swallow their presence, leaving them feeling small and insignificant.",
         "{player:captain-hunter:Captain Hunter} adjusted the wide-brimmed hat on his head, shielding his eyes from the blinding sun. Beads of sweat dripped down his forehead as he surveyed the barren landscape. Every dune appeared identical, devoid of any landmarks or signs of civilization.",
         "`I've navigated through treacherous asteroid belts and evaded the clutches of space pirates, but nothing compares to the challenges of this desert,' {player:captain-hunter:Captain Hunter} mused, his voice tinged with a mix of determination and unease.",

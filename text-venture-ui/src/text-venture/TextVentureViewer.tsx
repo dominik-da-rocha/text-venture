@@ -299,6 +299,11 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
           return text.scenes[id];
         case "link":
           return text.links[id];
+        case "style":
+          return {
+            type: "style",
+            id: id,
+          };
       }
     }
     return undefined;
@@ -465,9 +470,9 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
   function removeObjectFromScenesDescription(object: TextObject) {
     if (scene) {
       const paragraphs: string[] =
-        typeof scene.description === "string"
-          ? [scene.description]
-          : scene.description;
+        typeof scene.paragraphs === "string"
+          ? [scene.paragraphs]
+          : scene.paragraphs;
       const description: string[] = [];
       paragraphs.forEach((paragraph) => {
         if (paragraph.indexOf("{" + object.type + ":" + object.id + ":") < 0) {
@@ -475,7 +480,7 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
         }
       });
       if (description.length !== paragraphs.length) {
-        scene.description = description;
+        scene.paragraphs = description;
         text.scenes[scene.id] = scene;
         props.onTextChanged(text);
       }

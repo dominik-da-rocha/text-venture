@@ -7,6 +7,7 @@ export interface TextScene {
   id: string;
   name: string;
   description: TextDescription;
+  paragraphs: string[];
   things: TextThing[];
   persons: TextPerson[];
   interactions: TextInteraction[];

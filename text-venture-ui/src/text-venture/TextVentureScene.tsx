@@ -44,7 +44,7 @@ function SceneViewer(props: SceneViewerProps) {
       <div className="Description">
         <h2>{props.scene.name}</h2>
         <SceneTextViewer
-          text={props.scene.description ?? []}
+          text={props.scene.paragraphs ?? []}
           onRenderToken={props.onRenderToken}
           onObjectClick={props.onObjectClick}
         />
@@ -98,38 +98,49 @@ function SceneTextArrayViewer(props: SceneTextArrayViewerProps) {
           const object = props.onRenderToken(tokenType, tokenId);
           const warn = object === undefined || tokens.length < 3 ? "warn" : "";
           const className = [object?.type, object?.id, warn].join(" ");
-          if (object?.type === "link") {
-            return (
-              <a
-                title={warn ? s : ""}
-                key={skey}
-                href={object.url}
-                target={object.isInternal ? undefined : "_blank"}
-                rel={object.isInternal ? undefined : "noreferrer noopener"}
-                className={className}
-              >
-                {warn ? "⚠" : ""}
-                {tokenText ?? s}
-              </a>
-            );
+          switch (object?.type) {
+            case "link":
+              return (
+                <a
+                  title={warn ? s : ""}
+                  key={skey}
+                  href={object.url}
+                  target={object.isInternal ? undefined : "_blank"}
+                  rel={object.isInternal ? undefined : "noreferrer noopener"}
+                  className={"SceneLink " + className}
+                >
+                  {warn ? "⚠" : ""}
+                  {tokenText ?? s}
+                </a>
+              );
+            case "style":
+              return (
+                <span
+                  key={skey}
+                  className={"SceneStyle " + className + " " + object.id}
+                >
+                  {tokens[2]}
+                </span>
+              );
+            default:
+              return (
+                <a
+                  title={warn ? s : ""}
+                  key={skey}
+                  href={tokenId}
+                  className={"SceneStyle " + className}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    if (object !== undefined) {
+                      props.onObjectClick(object);
+                    }
+                  }}
+                >
+                  {warn ? "⚠" : ""}
+                  {tokenText ?? s}
+                </a>
+              );
           }
-          return (
-            <a
-              title={warn ? s : ""}
-              key={skey}
-              href={tokenId}
-              className={className}
-              onClick={(event) => {
-                event.preventDefault();
-                if (object !== undefined) {
-                  props.onObjectClick(object);
-                }
-              }}
-            >
-              {warn ? "⚠" : ""}
-              {tokenText ?? s}
-            </a>
-          );
         } else {
           return (
             <span key={skey} className="Text">

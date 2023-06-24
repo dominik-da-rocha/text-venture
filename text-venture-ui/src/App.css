@@ -230,3 +230,11 @@ p.first-letter:first-letter {
   margin-bottom: -1rem;
   margin-top: -0.5rem;
 }
+
+.bold {
+  font-weight: bold;
+}
+
+.italic {
+  font-style: italic;
+}
