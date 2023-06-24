@@ -11,16 +11,17 @@ import { Navbar } from "./utils/Navbar";
 import { About, Home } from "./utils/Home";
 import { Settings } from "./utils/Settings";
 import { PopupAlertProvider } from "./utils/PopupAlert";
-import { PrefaceQuest } from "./data/PrefaceQuest";
+import { PrologueQuest } from "./data/PrologueQuest";
 
 function App() {
   const [settings, setSettings] = useLocalState<TextSettings>(
     "text-venture.settings",
     DefaultSettings
   );
-  const [prefaceQuest, setPrefaceQuest] = useLocalState<TextVenture>(
-    "text-venture.preface",
-    toTextVenture(PrefaceQuest)
+
+  const [prologueQuest, setPrologueQuest] = useLocalState<TextVenture>(
+    "text-venture." + PrologueQuest.id,
+    toTextVenture(PrologueQuest)
   );
 
   const [captainHuntersSpaceQuest, setCaptainHuntersSpaceQuest] = useLocalState<
@@ -31,7 +32,7 @@ function App() {
   );
 
   const chapters = [
-    { ...prefaceQuest, setter: setPrefaceQuest },
+    { ...prologueQuest, setter: setPrologueQuest },
     { ...captainHuntersSpaceQuest, setter: setCaptainHuntersSpaceQuest },
   ];
 
@@ -57,26 +58,21 @@ function App() {
                   <Settings
                     settings={settings}
                     onChange={setSettings}
-                    dataItems={[
-                      {
-                        id: prefaceQuest.id,
-                        name: prefaceQuest.name,
-                        data: prefaceQuest,
-                        onChange: setPrefaceQuest,
-                      },
-                      {
-                        id: captainHuntersSpaceQuest.id,
-                        name: captainHuntersSpaceQuest.name,
-                        data: captainHuntersSpaceQuest,
-                        onChange: setCaptainHuntersSpaceQuest,
-                      },
-                    ]}
+                    dataItems={chapters.map((chapter) => {
+                      return {
+                        id: chapter.id,
+                        name: chapter.name,
+                        data: chapter,
+                        onChange: chapter.setter,
+                      };
+                    })}
                   />
                 }
               />
               {chapters.map((chapter) => {
                 return (
                   <Route
+                    key={chapter.id}
                     path={"/" + chapter.id}
                     element={
                       <TextVentureViewer

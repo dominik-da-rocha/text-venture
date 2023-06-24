@@ -23,28 +23,26 @@ export function Home(props: HomeProps) {
         chronicler="Orion Starfield"
         source="Anachronic of the Milky Way"
       >
-        'Ah, my dear friends, let me regale you with the wonders I've witnessed!
+        Ah, my dear friends, let me regale you with the wonders I've witnessed!
         I've soared through galaxies, danced with stars, and beheld
         civilizations beyond imagination. Time itself has unraveled before my
         very eyes, revealing the tapestry of history as I gallantly traversed
-        its threads.''
+        its threads.
       </Anecdote>
 
-      <p>
-        <TableOfContents>
-          {props.chapters.map((chapter) => {
-            return (
-              <TableOfContentsItem
-                key={chapter.id}
-                path={"/" + chapter.id}
-                title={chapter.name}
-                page={page++}
-              />
-            );
-          })}
-          <TableOfContentsItem path="/about" title="About" page={page++} />
-        </TableOfContents>
-      </p>
+      <TableOfContents>
+        {props.chapters.map((chapter) => {
+          return (
+            <TableOfContentsItem
+              key={chapter.id}
+              path={"/" + chapter.id}
+              title={chapter.name}
+              page={page++}
+            />
+          );
+        })}
+        <TableOfContentsItem path="/about" title="About" page={page++} />
+      </TableOfContents>
     </div>
   );
 }

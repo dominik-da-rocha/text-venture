@@ -2,13 +2,13 @@ import { TextActionNone } from "../model/TextAction";
 import { TextVentureJson } from "../model/TextVenture";
 import { GithubUrl } from "./DefaultSettings";
 
-export const PrefaceQuest: TextVentureJson = {
-  id: "preface-quest",
-  name: "Preface",
+export const PrologueQuest: TextVentureJson = {
+  id: "prologue-quest",
+  name: "Prologue",
   description: "A Guide to Unravel the Secrets beyond the Milch Glass Door",
   anecdote: {
     quote:
-      "'In my illustrious career as a Holonovel author, I've penned countless thrilling adventures, but none quite like the time I found myself face-to-fang with my own creation. Picture this: I was knee-deep in writing my latest masterpiece, 'The Wrath of Nebula Beasts', when suddenly, I found myself inside the very holo-monster I had conjured up.'",
+      "In my illustrious career as a Holonovel author, I've penned countless thrilling adventures, but none quite like the time I found myself face-to-fang with my own creation. Picture this: I was knee-deep in writing my latest masterpiece, 'The Wrath of Nebula Beasts', when suddenly, I found myself inside the very holo-monster I had conjured up.",
     chronicler: "Stellar Havoc",
     source: "Virtual Adventures That Might Kill You",
   },
@@ -902,14 +902,45 @@ export const PrefaceQuest: TextVentureJson = {
       description:
         "The kitchen, a chaotic battleground, featured a towering mound of dishes, cluttered countertops, and a mysterious refrigerator secured by chains.",
       paragraphs: [
-        "As Hardy and Isa cautiously tiptoed into the kitchen, a spectacle of pandemonium unfolded right before their bewildered eyes. The sink, burdened with an improbable heap of dishes, defied the very laws of gravity, threatening an imminent avalanche of culinary chaos.",
+        "As {player:hardy-grow:Hardy} and {player:isa-ruff:Isa} cautiously tiptoed into the kitchen, a spectacle of pandemonium unfolded right before their bewildered eyes. The sink, burdened with an improbable heap of {thing:dishes:dishes}, defied the very laws of gravity, threatening an imminent avalanche of culinary chaos.",
         "Countertops, once pristine and orderly, now hosted a jumble of pots, pans, and utensils in a delightful display of anarchic artwork. It was as if a mischievous poltergeist had orchestrated a whimsical obstacle course, daring any daring cook to attempt a culinary feat amidst the tumultuous tangle.",
-        "However, it was the refrigerator that stole the show, a tantalizing enigma buzzing in the corner. Secured by a formidable chain and lock, it guarded its mysterious contents like a sentinel protecting an arcane treasure. Hardy and Isa found themselves captivated by its seductive hum, their minds wandering into the realm of gastronomic possibilities.",
-        "Within this battleground of conflicting forces—sanity and disorder, hunger and tidiness—Hardy and Isa sensed a grand adventure waiting to unfold. With a dash of audacity and a pinch of culinary courage, they were ready to brave the towering dishes, decipher the secrets of the chained fridge, and unlock the hidden wonders of the kitchen.",
-        "From the vantage point of the scene, the office unfurled—a concoction of character and clutter. A desk adorned with important documents, a sofa that whispered tales of relaxation, and an air of enigmatic possibilities permeating the atmosphere.",
+        "However, it was the {thing:refrigerator:refrigerator} that stole the show, a tantalizing enigma buzzing in the corner. Secured by a formidable {thing:chain:chain} and {thing:lock:lock}, it guarded its mysterious contents like a sentinel protecting an arcane treasure. {player:hardy-grow:Hardy} and {player:isa-ruff:Isa} found themselves captivated by its seductive hum, their minds wandering into the realm of gastronomic possibilities.",
+        "From the vantage point of the scene, the {scene:office:office} unfurled—a concoction of character and clutter. A desk adorned with important documents, a sofa that whispered tales of relaxation, and an air of enigmatic possibilities permeating the atmosphere.",
       ],
       persons: [],
-      things: [],
+      things: [
+        {
+          type: "thing",
+          id: "dishes",
+          name: "dishes",
+          description: "heap of dishes, defied the very laws of gravity",
+          interactions: [],
+        },
+        {
+          type: "thing",
+          id: "refrigerator",
+          name: "refrigerator",
+          description:
+            "The refrigerator, a humming enigma, stood in the corner, its contents concealed behind a chain and lock, tempting curiosity.",
+          interactions: [],
+        },
+        {
+          type: "thing",
+          id: "chain",
+          name: "chain",
+          description:
+            "The chain, a sturdy barrier, secured the refrigerator with unyielding determination.",
+          interactions: [],
+        },
+        {
+          type: "thing",
+          id: "lock",
+          name: "lock",
+          description:
+            "The lock, an impenetrable guardian, safeguarded the refrigerator's secrets with unwavering resolve.",
+          interactions: [],
+        },
+      ],
       interactions: [
         {
           type: "walk-to",
@@ -922,7 +953,9 @@ export const PrefaceQuest: TextVentureJson = {
               oneIdOf: "office",
             },
           ],
-          responses: ["I love my desk"],
+          responses: [
+            "The office, a den of intrigue, housed a cluttered desk, a worn sofa, and an air of enigmatic possibilities.",
+          ],
         },
       ],
     },

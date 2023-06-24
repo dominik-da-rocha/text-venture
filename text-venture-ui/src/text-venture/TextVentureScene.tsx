@@ -128,7 +128,7 @@ function SceneTextArrayViewer(props: SceneTextArrayViewerProps) {
                   title={warn ? s : ""}
                   key={skey}
                   href={tokenId}
-                  className={"SceneStyle " + className}
+                  className={"SceneObject " + className}
                   onClick={(event) => {
                     event.preventDefault();
                     if (object !== undefined) {

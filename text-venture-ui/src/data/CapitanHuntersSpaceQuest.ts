@@ -6,9 +6,10 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
   name: "Captain Hunter's Escape from the Desert Planet",
   description: "A Steam-Fueled Space Adventure",
   anecdote: {
-    quote: "'Here you can add a quote'",
+    quote:
+      "As I strutted confidently through the space port, I thought I had successfully smuggled a crate of 'rare artifacts.' But when Port Inspector approached, my heart skipped a beat. He opened the crate, revealing not priceless relics, but a shipment of rubber ducks! The laughter of the onlookers echoed through the port as I blushed furiously. Turns out, I accidentally swapped crates with a prankster smuggler. Lesson learned: always double-check the contents!",
     chronicler: "Anonymous",
-    source: "The book of souls",
+    source: "Stories from the Sandstorm Saloon",
   },
   logbookMaxLength: 1000,
   logbook: [],

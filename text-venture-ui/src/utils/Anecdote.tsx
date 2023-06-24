@@ -9,12 +9,13 @@ export interface AnecdoteProps {
 
 export function Anecdote(props: AnecdoteProps) {
   return (
-    <p className="Anecdote">
+    <div className="Anecdote">
       <span className="Quote">{props.children}</span>
       <span className="Quotation">
-        <span className="Chronicler">{props.chronicler} </span>
+        <span className="Chronicler">– {props.chronicler}</span>
+        <span>, </span>
         <span className="Source">{props.source}</span>
       </span>
-    </p>
+    </div>
   );
 }
