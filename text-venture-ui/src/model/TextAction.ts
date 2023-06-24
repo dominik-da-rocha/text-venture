@@ -2,15 +2,15 @@ import { IMap } from "../utils/Utils";
 
 export type TextActionId =
   | "none"
-  | "walkTo"
-  | "pickUp"
-  | "talkTo"
+  | "walk-to"
+  | "pick-up"
+  | "talk-to"
   | "give"
   | "use"
-  | "lookAt"
+  | "look-at"
   //----- todo ---- may be reduced to use object
-  | "turnOn"
-  | "turnOff"
+  | "turn-on"
+  | "turn-off"
   | "open"
   | "close"
   | "push"

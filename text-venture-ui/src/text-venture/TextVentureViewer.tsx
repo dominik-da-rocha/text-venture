@@ -149,8 +149,8 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
       if (listed === undefined) {
         newCommand.objects.push(object);
         update = true;
-        if (newCommand.action.id === "none" && text.actions["lookAt"]) {
-          newCommand.action = text.actions["lookAt"];
+        if (newCommand.action.id === "none" && text.actions["look-at"]) {
+          newCommand.action = text.actions["look-at"];
         }
       }
     }

@@ -68,7 +68,7 @@ function joinObjects(objects: TextObject[], action: TextAction) {
 
 export function TextVentureLogbook(log: TextLogbook) {
   if (
-    log.actionId === "talkTo" &&
+    log.actionId === "talk-to" &&
     log.objects.length > 0 &&
     (log.objects[0].type === "person" || log.objects[0].type === "player")
   ) {

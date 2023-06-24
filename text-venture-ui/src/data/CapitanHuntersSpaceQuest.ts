@@ -17,25 +17,25 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
   actions: [
     TextActionNone,
     {
-      id: "lookAt",
+      id: "look-at",
       name: "Look at",
       minCount: 1,
       maxCount: 1,
     },
     {
-      id: "walkTo",
+      id: "walk-to",
       name: "Walk to",
       minCount: 1,
       maxCount: 1,
     },
     {
-      id: "talkTo",
+      id: "talk-to",
       name: "Talk to",
       minCount: 1,
       maxCount: 1,
     },
     {
-      id: "pickUp",
+      id: "pick-up",
       name: "Pick up",
       minCount: 1,
       maxCount: 1,
@@ -60,7 +60,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
       id: "talk-to-my-self",
       type: "random",
       matchesAction: {
-        oneOf: "talkTo",
+        oneOf: "talk-to",
       },
       matchesObjects: [{ isPlayer: true }],
       responses: [
@@ -90,7 +90,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
       id: "talk-to-hunter",
       type: "random-talk-to",
       matchesAction: {
-        oneOf: "talkTo",
+        oneOf: "talk-to",
       },
       matchesObjects: [{ oneIdOf: "captain-hunter", oneTypeOf: "player" }],
       questions: [
@@ -142,7 +142,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
       id: "talk-to-ames",
       type: "random-talk-to",
       matchesAction: {
-        oneOf: "talkTo",
+        oneOf: "talk-to",
       },
       matchesObjects: [{ oneIdOf: "ames", oneTypeOf: "player" }],
       questions: [
@@ -193,7 +193,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
     {
       id: "talk-to-person",
       type: "random-talk-to",
-      matchesAction: { oneOf: "talkTo" },
+      matchesAction: { oneOf: "talk-to" },
       matchesObjects: [{ oneTypeOf: "person" }],
       questions: [
         "Salutations, esteemed adventurer!",
@@ -244,7 +244,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
       id: "default-pick-up",
       type: "random",
       matchesAction: {
-        oneOf: "pickUp",
+        oneOf: "pick-up",
       },
       matchesObjects: [{ oneTypeOf: "thing" }],
       responses: [
@@ -358,7 +358,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
       id: "default-look-at",
       type: "look-at",
       matchesAction: {
-        oneOf: "lookAt",
+        oneOf: "look-at",
       },
       matchesObjects: [
         {
@@ -535,12 +535,12 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
           "close",
           "push",
           "pull",
-          "walkTo",
-          "pickUp",
-          "talkTo",
-          "lookAt",
-          "turnOn",
-          "turnOff",
+          "walk-to",
+          "pick-up",
+          "talk-to",
+          "look-at",
+          "turn-on",
+          "turn-off",
           "give",
         ],
       },
@@ -684,7 +684,8 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
       type: "scene",
       id: "main-street-of-dry-water",
       name: "Main Street of Dry Water",
-      description: "todo",
+      description:
+        "Dry Water, a dusty frontier town, where dreams of fortune and adventure converge under the scorching desert sun.",
       paragraphs: [
         "Dry Water's Main Street bustled with life as merchants hawked their wares, the air thick with the scent of spices and the symphony of bartering voices.",
         "{player:captain-hunter:Captain Hunter} and {player:ames:Ames} strolled down the bustling main street of Dry Water, a humble desert town nestled amidst the sand dunes. The narrow road was lined with wooden storefronts, their weathered facades bearing the marks of time.",
@@ -740,7 +741,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
               id: "pick-up-coin-of-fortune",
               type: "pick-up",
               matchesAction: {
-                oneOf: "pickUp",
+                oneOf: "pick-up",
               },
               matchesObjects: [{ oneIdOf: "coin-of-fortune" }],
               responses: [
@@ -755,7 +756,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
           type: "walk-to",
           id: "walk-to-sandstorm-saloon",
           matchesAction: {
-            oneOf: "walkTo",
+            oneOf: "walk-to",
           },
           matchesObjects: [
             {
@@ -770,7 +771,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
           type: "walk-to",
           id: "walk-to-port",
           matchesAction: {
-            oneOf: "walkTo",
+            oneOf: "walk-to",
           },
           matchesObjects: [
             {
@@ -785,7 +786,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
           type: "walk-to",
           id: "walk-to-desert",
           matchesAction: {
-            oneOf: "walkTo",
+            oneOf: "walk-to",
           },
           matchesObjects: [
             {
@@ -802,7 +803,8 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
       type: "scene",
       id: "bustling-port",
       name: "The Bustling Port",
-      description: "todo",
+      description:
+        "The Space Port, a bustling hub of interstellar trade, where ships of steam and steel soar amidst bureaucratic chaos and constant surveillance.",
       paragraphs: [
         "The bustling space port sprawled across the desert landscape, a chaotic convergence of ships, steam, and bureaucracy. Towering structures of rusted metal and creaking wood stood as a testament to the frontier spirit that permeated the air. The scent of steam and engine oil mingled with the hot desert wind, creating an atmosphere filled with anticipation and a hint of danger.",
         "Inspector Barnes, a stickler for rules and regulations, patrolled the port with unwavering determination. Clad in a neatly pressed uniform, he scrutinized every ship, cargo manifest, and passenger with an eagle eye. His presence cast a shadow of unease over the smugglers, who relied on cunning and luck to evade his watchful gaze.",
@@ -820,7 +822,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
           type: "walk-to",
           id: "walk-to-dry-water",
           matchesAction: {
-            oneOf: "walkTo",
+            oneOf: "walk-to",
           },
           matchesObjects: [
             {
@@ -837,7 +839,8 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
       type: "scene",
       id: "sandstorm-saloon",
       name: "The Sandstorm Saloon",
-      description: "todo",
+      description:
+        "The Sandstorm Saloon, a wild west oasis in the heart of the desert, where alien melodies and swirling sands dance under dim flickering neon.",
       paragraphs: [
         "Above the entrance of the Sandstorm Saloon, a weathered wooden sign swings in the desert breeze, adorned with intricate golden filigree and vibrant neon letters, casting a flickering glow upon the rugged frontier of Dry Water.",
         "The dusty frontier town buzzed with life as {player:captain-hunter:Captain Hunter} and {player:ames:Ames} stepped into the rowdy saloon. The swinging doors creaked as they entered, revealing a scene straight out of a wild west tale. The air was thick with the scent of whiskey and the sound of rowdy laughter.",
@@ -859,7 +862,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
           type: "walk-to",
           id: "walk-to-dry-water",
           matchesAction: {
-            oneOf: "walkTo",
+            oneOf: "walk-to",
           },
           matchesObjects: [
             {
@@ -876,7 +879,8 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
       type: "scene",
       id: "desert",
       name: "The Endless Desert",
-      description: "todo",
+      description:
+        "The endless desert stretches as far as the eye can see, a vast sea of shifting sands and merciless sun.",
       paragraphs: [
         "The scorching desert stretched out, an unforgiving expanse of golden sand and relentless heat. The sun beat down mercilessly, casting shimmering mirages on the horizon. The vastness of the desert seemed to swallow their presence, leaving them feeling small and insignificant.",
         "{player:captain-hunter:Captain Hunter} adjusted the wide-brimmed hat on his head, shielding his eyes from the blinding sun. Beads of sweat dripped down his forehead as he surveyed the barren landscape. Every dune appeared identical, devoid of any landmarks or signs of civilization.",
@@ -899,7 +903,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
           type: "walk-to",
           id: "walk-to-dry-water",
           matchesAction: {
-            oneOf: "walkTo",
+            oneOf: "walk-to",
           },
           matchesObjects: [
             {

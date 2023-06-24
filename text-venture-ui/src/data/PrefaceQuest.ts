@@ -31,25 +31,25 @@ export const PrefaceQuest: TextVentureJson = {
   actions: [
     TextActionNone,
     {
-      id: "lookAt",
+      id: "look-at",
       name: "Look at",
       minCount: 1,
       maxCount: 1,
     },
     {
-      id: "walkTo",
+      id: "walk-to",
       name: "Walk to",
       minCount: 1,
       maxCount: 1,
     },
     {
-      id: "talkTo",
+      id: "talk-to",
       name: "Talk to",
       minCount: 1,
       maxCount: 1,
     },
     {
-      id: "pickUp",
+      id: "pick-up",
       name: "Pick up",
       minCount: 1,
       maxCount: 1,
@@ -74,7 +74,7 @@ export const PrefaceQuest: TextVentureJson = {
       id: "default-pick-up",
       type: "random",
       matchesAction: {
-        oneOf: "pickUp",
+        oneOf: "pick-up",
       },
       matchesObjects: [{ oneTypeOf: "thing" }],
       responses: [
@@ -104,7 +104,7 @@ export const PrefaceQuest: TextVentureJson = {
       id: "default-look-at",
       type: "look-at",
       matchesAction: {
-        oneOf: "lookAt",
+        oneOf: "look-at",
       },
       matchesObjects: [
         {
@@ -282,12 +282,12 @@ export const PrefaceQuest: TextVentureJson = {
           "close",
           "push",
           "pull",
-          "walkTo",
-          "pickUp",
-          "talkTo",
-          "lookAt",
-          "turnOn",
-          "turnOff",
+          "walk-to",
+          "pick-up",
+          "talk-to",
+          "look-at",
+          "turn-on",
+          "turn-off",
           "give",
         ],
       },
@@ -330,7 +330,7 @@ export const PrefaceQuest: TextVentureJson = {
           id: "talk-to-self",
           matchesPlayer: "hardy-grow",
           matchesAction: {
-            oneOf: "talkTo",
+            oneOf: "talk-to",
           },
           matchesObjects: [
             {
@@ -365,7 +365,7 @@ export const PrefaceQuest: TextVentureJson = {
           id: "look-at-self",
           matchesPlayer: "hardy-grow",
           matchesAction: {
-            oneOf: "lookAt",
+            oneOf: "look-at",
           },
           matchesObjects: [
             {
@@ -400,7 +400,7 @@ export const PrefaceQuest: TextVentureJson = {
           id: "look-at-isa",
           matchesPlayer: "hardy-grow",
           matchesAction: {
-            oneOf: "lookAt",
+            oneOf: "look-at",
           },
           matchesObjects: [
             {
@@ -434,7 +434,7 @@ export const PrefaceQuest: TextVentureJson = {
           id: "talk-to-person",
           type: "random-talk-to",
           matchesPlayer: "hardy-grow",
-          matchesAction: { oneOf: "talkTo" },
+          matchesAction: { oneOf: "talk-to" },
           matchesObjects: [{ oneTypeOf: "person" }],
           questions: [
             "Hey there, how's the day?",
@@ -542,7 +542,7 @@ export const PrefaceQuest: TextVentureJson = {
           type: "look-at-player",
           matchesPlayer: "isa-ruff",
           matchesAction: {
-            oneOf: "lookAt",
+            oneOf: "look-at",
           },
           matchesObjects: [
             {
@@ -577,7 +577,7 @@ export const PrefaceQuest: TextVentureJson = {
           type: "look-at",
           matchesPlayer: "isa-ruff",
           matchesAction: {
-            oneOf: "lookAt",
+            oneOf: "look-at",
           },
           matchesObjects: [{ oneIdOf: "isa-ruff" }],
           responses: [
@@ -607,7 +607,7 @@ export const PrefaceQuest: TextVentureJson = {
           id: "talk-to-person",
           type: "random-talk-to",
           matchesPlayer: "isa-ruff",
-          matchesAction: { oneOf: "talkTo" },
+          matchesAction: { oneOf: "talk-to" },
           matchesObjects: [{ oneTypeOf: "person" }],
           questions: [
             "Hey, got any new punk rock anthems to recommend?",
@@ -717,7 +717,8 @@ export const PrefaceQuest: TextVentureJson = {
       type: "scene",
       id: "office",
       name: "Ruff Grow - Private Investigations",
-      description: "todo",
+      description:
+        "The office, a den of intrigue, housed a cluttered desk, a worn sofa, and an air of enigmatic possibilities.",
       paragraphs: [
         "Behind the milch glass front door, adorned with golden letters spelling out the name of the office, 'Ruff Grow - Private Investigations', beckoned a realm of captivating intrigue. ",
         "Step inside, and you'd find yourself in the heart of their eccentric furniture. The {thing:desk:desk}, weathered and wooden, stood as a testament to time's enduring presence. Its surface bore the weight of countless important documents, scattered among ink stains and the occasional coffee ring. And there, in a corner, resided the {thing:sofa:Chesterfield sofa}, a relic of ancient times. Its worn leather exuded a subtle aroma, a breath that whispered stories of long-forgotten tales and investigations past.",
@@ -765,7 +766,7 @@ export const PrefaceQuest: TextVentureJson = {
               type: "random",
               id: "pick-up-desk",
               matchesAction: {
-                oneOf: "pickUp",
+                oneOf: "pick-up",
               },
               matchesObjects: [
                 {
@@ -808,7 +809,7 @@ export const PrefaceQuest: TextVentureJson = {
               type: "random",
               id: "pick-up",
               matchesAction: {
-                oneOf: "pickUp",
+                oneOf: "pick-up",
               },
               matchesObjects: [
                 {
@@ -851,7 +852,7 @@ export const PrefaceQuest: TextVentureJson = {
               type: "pick-up",
               id: "pick-up-key",
               matchesAction: {
-                oneOf: "pickUp",
+                oneOf: "pick-up",
               },
               matchesObjects: [
                 {
@@ -870,7 +871,7 @@ export const PrefaceQuest: TextVentureJson = {
           type: "walk-to",
           id: "walk-to-kitchen",
           matchesAction: {
-            oneOf: "walkTo",
+            oneOf: "walk-to",
           },
           matchesObjects: [
             {
@@ -883,7 +884,7 @@ export const PrefaceQuest: TextVentureJson = {
           type: "walk-to",
           id: "walk-to-world",
           matchesAction: {
-            oneOf: "walkTo",
+            oneOf: "walk-to",
           },
           matchesObjects: [
             {
@@ -898,7 +899,8 @@ export const PrefaceQuest: TextVentureJson = {
       type: "scene",
       id: "kitchen",
       name: "The Kitchen",
-      description: "todo",
+      description:
+        "The kitchen, a chaotic battleground, featured a towering mound of dishes, cluttered countertops, and a mysterious refrigerator secured by chains.",
       paragraphs: [
         "As Hardy and Isa cautiously tiptoed into the kitchen, a spectacle of pandemonium unfolded right before their bewildered eyes. The sink, burdened with an improbable heap of dishes, defied the very laws of gravity, threatening an imminent avalanche of culinary chaos.",
         "Countertops, once pristine and orderly, now hosted a jumble of pots, pans, and utensils in a delightful display of anarchic artwork. It was as if a mischievous poltergeist had orchestrated a whimsical obstacle course, daring any daring cook to attempt a culinary feat amidst the tumultuous tangle.",
@@ -913,7 +915,7 @@ export const PrefaceQuest: TextVentureJson = {
           type: "walk-to",
           id: "walk-to-office",
           matchesAction: {
-            oneOf: "walkTo",
+            oneOf: "walk-to",
           },
           matchesObjects: [
             {
