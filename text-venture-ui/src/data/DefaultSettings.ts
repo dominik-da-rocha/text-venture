@@ -10,4 +10,4 @@ export const DefaultSettings: TextSettings = {
   actionMode: "on",
 };
 
-export const GithubUrl = "https://github.com/dominik-da-rocha";
+export const GithubUrl = "https://github.com/dominik-da-rocha/text-venture";

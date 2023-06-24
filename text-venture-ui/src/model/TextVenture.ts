@@ -127,6 +127,7 @@ export interface TextLink {
   type: "link";
   id: string;
   url: string;
+  isInternal?: boolean;
 }
 
 export type TextLinkMap = IMap<TextLink>;

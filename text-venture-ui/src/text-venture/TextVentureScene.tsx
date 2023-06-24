@@ -104,8 +104,8 @@ function SceneTextArrayViewer(props: SceneTextArrayViewerProps) {
                 title={warn ? s : ""}
                 key={skey}
                 href={object.url}
-                target="_blank"
-                rel="noreferrer noopener"
+                target={object.isInternal ? undefined : "_blank"}
+                rel={object.isInternal ? undefined : "noreferrer noopener"}
                 className={className}
               >
                 {warn ? "⚠" : ""}

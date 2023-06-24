@@ -36,6 +36,12 @@
   --red-alert-shadow: #ff009528;
 }
 
+body:has(div div.dark),
+body:has(div div.light) {
+  background: var(--background);
+  color: var(--color);
+}
+
 .App::selection {
   background: var(--select);
 }
@@ -87,6 +93,7 @@
   max-width: 36rem;
   min-height: 100%;
   width: 100%;
+  min-height: 100%;
   font-size: larger;
   padding-top: 4rem;
   padding-left: 1rem;

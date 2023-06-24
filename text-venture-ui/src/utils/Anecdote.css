@@ -1,8 +1,17 @@
 .Anecdote {
-  margin: 3rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
+}
+
+.Anecdote > * {
+  max-width: 30rem;
 }
 
 .Anecdote .Quote {

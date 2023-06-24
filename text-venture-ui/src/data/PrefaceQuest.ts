@@ -25,6 +25,7 @@ export const PrefaceQuest: TextVentureJson = {
       type: "link",
       id: "home",
       url: "/",
+      isInternal: true,
     },
   ],
   actions: [
@@ -721,7 +722,8 @@ export const PrefaceQuest: TextVentureJson = {
         "Step inside, and you'd find yourself in the heart of their eccentric furniture. The {thing:desk:desk}, weathered and wooden, stood as a testament to time's enduring presence. Its surface bore the weight of countless important documents, scattered among ink stains and the occasional coffee ring. And there, in a corner, resided the {thing:sofa:Chesterfield sofa}, a relic of ancient times. Its worn leather exuded a subtle aroma, a breath that whispered stories of long-forgotten tales and investigations past.",
         "In the cluttered office of Ruff Grow Investigations, {player:hardy-grow:Hardy Grow} scowled at a stack of bills on his {thing:desk:Desk}. Meanwhile, {player:isa-ruff:Isa Ruff} reclined lazily on the {thing:sofa:Chesterfield sofa}, her disheveled appearance perfectly complementing her punk-rock spirit.",
         "As Hardy lamented the ever-increasing expenses, he was abruptly interrupted by the entrance of a {person:young-lady:young lady}, her red dress contrasting with the sadness in her eyes. With a congenial smile, Hardy welcomed her to 'Ruff Grow Investigation - The Thrilling Text Venture Experience.'",
-        "Recalling his duty, Hardy proceeded to explain the mechanics of this peculiar text adventure. He outlined the five types of objects players could interact with: ordinary things like the {thing:desk:Desk}, individuals such as the {person:young-lady:young lady}, the players themselves ({player:isa-ruff:Isa} and, of course, {player:hardy-grow:his humble self}), scenes like the {scene:kitchen:Kitchen}, and enigmatic forgotten objects, such as the {scene:nimbus:wild and crazy world} lurking behind the milch glass door—an area best left unexplored.* Moving on, {player:hardy-grow:Hardy} introduced the primary actions players could undertake.",
+        "The {person:young-lady:young lady} shifted nervously in her red dress, uncertainty evident in her gaze. 'Mr. Grow,' she began, 'I need your help, but I'm not quite sure how this private investigation venture works. Could you please explain it to me?' {player:hardy-grow:Hardy}, ever the gentleman, leaned forward and gestured for her to take a seat. 'Of course, my dear. Allow me to shed some light on the thrilling world of private investigation.' He cleared his throat and began his explanation.",
+        "He outlined the five types of objects players could interact with: ordinary things like the {thing:desk:Desk}, individuals such as the {person:young-lady:young lady}, the players themselves ({player:isa-ruff:Isa} and, of course, {player:hardy-grow:his humble self}), scenes like the {scene:kitchen:Kitchen}, and enigmatic forgotten objects, such as the {scene:nimbus:wild and crazy world} lurking behind the milch glass door—an area best left unexplored.* Moving on, {player:hardy-grow:Hardy} introduced the primary actions players could undertake.",
         "'Look at' served as the default action, providing additional information about an object and allowing players to switch between characters. He pointed out a crucial feature located in the top left corner of the screen. With a wave of his hand, he drew attention to the menu that displayed the current character's name and a little box hinting to the inventory in it.",
         "'Walk to' facilitated scene transitions, tempting Hardy to venture into the {scene:kitchen:kitchen} for snack, despite the mountain of dirty dishes, while the mysterious {scene:nimbus:outside world} remained firmly off-limits.",
         "'Talk to' fostered information exchange with other characters,  such as the intriguing {person:young-lady:young lady} who just entered the office.",
@@ -744,7 +746,8 @@ export const PrefaceQuest: TextVentureJson = {
           type: "person",
           id: "young-lady",
           name: "Young Lady",
-          description: "todo",
+          description:
+            "The young lady, with fiery red dress and eyes filled with melancholy, exuded an intriguing mix of allure and sorrow.",
           interactions: [],
           things: [],
         },
@@ -756,7 +759,42 @@ export const PrefaceQuest: TextVentureJson = {
           description:
             "The desk, worn and weathered, holds the weight of important documents, its surface bearing the marks of Hardy's labor.",
           name: "Desk",
-          interactions: [],
+          interactions: [
+            {
+              type: "random",
+              id: "pick-up-desk",
+              matchesAction: {
+                oneOf: "pickUp",
+              },
+              matchesObjects: [
+                {
+                  oneIdOf: "desk",
+                },
+              ],
+              responses: [
+                "The desk is far too heavy to lift.",
+                "Picking up the desk would be a futile endeavor.",
+                "Attempting to lift the desk would strain your back.",
+                "The desk is firmly fixed to the floor, resisting any attempts to move it.",
+                "Moving the desk would disrupt the order of the office.",
+                "Lifting the desk might damage the floor or surrounding furniture.",
+                "There's no logical reason to pick up the desk.",
+                "The desk serves its purpose best where it is.",
+                "Moving the desk would create unnecessary chaos.",
+                "The desk is better left undisturbed.",
+                "Lifting the desk would achieve nothing of value.",
+                "Picking up the desk would be an exercise in futility.",
+                "The desk is firmly rooted in its place, defying any attempts to relocate it.",
+                "You have no need to lift the desk.",
+                "Moving the desk would disrupt the office's organization.",
+                "The desk is best appreciated as a stationary fixture.",
+                "Lifting the desk would serve no practical purpose.",
+                "Attempting to move the desk could lead to injury or damage.",
+                "The desk's weight and size make it an impractical object to handle.",
+                "Leave the desk be; it's where it belongs.",
+              ],
+            },
+          ],
         },
         {
           type: "thing",
