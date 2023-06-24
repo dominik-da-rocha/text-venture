@@ -1,18 +1,22 @@
 import React from "react";
-import { TextObject } from "./../model/TextVenture";
+import { TextObject, TextToken } from "./../model/TextVenture";
 import { TextScene } from "./../model/TextScene";
+
+export type SceneSwitchEffect = "start-scene-switch" | "end-scene-switch";
+export const sceneEffectChangeTime = 500;
+export const sceneSwitchEffectStart = "start-scene-switch";
+export const sceneSwitchEffectEnd = "end-scene-switch";
 
 export interface TextVentureSceneProps {
   scene: TextScene | undefined;
-  onRenderToken(type: string, id: string): TextObject | undefined;
+  onRenderToken(type: string, id: string): TextToken | undefined;
   onObjectClick(object: TextObject): void;
   onNextDialog(dialog: undefined): void;
-  blur: "blur" | "no-blur";
 }
 
 export function TextVentureScene(props: TextVentureSceneProps) {
   return (
-    <div className={props.blur}>
+    <div>
       <TextVentureSceneSelect {...props} />
     </div>
   );
@@ -51,7 +55,7 @@ function SceneViewer(props: SceneViewerProps) {
 
 interface SceneTextViewerProps {
   text: string | string[];
-  onRenderToken(type: string, id: string): TextObject | undefined;
+  onRenderToken(type: string, id: string): TextToken | undefined;
   onObjectClick(object: TextObject): void;
 }
 
@@ -77,7 +81,7 @@ function SceneTextViewer(props: SceneTextViewerProps) {
 
 interface SceneTextArrayViewerProps {
   text: string[];
-  onRenderToken(type: string, id: string): TextObject | undefined;
+  onRenderToken(type: string, id: string): TextToken | undefined;
   onObjectClick(object: TextObject): void;
 }
 
@@ -88,13 +92,32 @@ function SceneTextArrayViewer(props: SceneTextArrayViewerProps) {
       .map((s, skey) => {
         if (s.startsWith("{") && s.endsWith("}")) {
           const tokens = s.substring(1, s.length - 1).split(":");
-          const object = props.onRenderToken(tokens[0], tokens[1]);
+          const tokenType = tokens[0];
+          const tokenId = tokens[1];
+          const tokenText = tokens[2];
+          const object = props.onRenderToken(tokenType, tokenId);
           const warn = object === undefined || tokens.length < 3 ? "warn" : "";
           const className = [object?.type, object?.id, warn].join(" ");
+          if (object?.type === "link") {
+            return (
+              <a
+                title={warn ? s : ""}
+                key={skey}
+                href={object.url}
+                target="_blank"
+                rel="noreferrer noopener"
+                className={className}
+              >
+                {warn ? "⚠" : ""}
+                {tokenText ?? s}
+              </a>
+            );
+          }
           return (
             <a
+              title={warn ? s : ""}
               key={skey}
-              href="?"
+              href={tokenId}
               className={className}
               onClick={(event) => {
                 event.preventDefault();
@@ -104,7 +127,7 @@ function SceneTextArrayViewer(props: SceneTextArrayViewerProps) {
               }}
             >
               {warn ? "⚠" : ""}
-              {tokens[2] ?? s}
+              {tokenText ?? s}
             </a>
           );
         } else {
@@ -116,7 +139,10 @@ function SceneTextArrayViewer(props: SceneTextArrayViewerProps) {
         }
       });
     return (
-      <p className="Paragraph" key={pkey}>
+      <p
+        className={"Paragraph" + (pkey === 0 ? " first-letter" : "")}
+        key={pkey}
+      >
         {spans}
       </p>
     );

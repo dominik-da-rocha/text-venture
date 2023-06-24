@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { TextVentureScene } from "./TextVentureScene";
+import {
+  SceneSwitchEffect,
+  TextVentureScene,
+  sceneEffectChangeTime,
+  sceneSwitchEffectEnd,
+  sceneSwitchEffectStart,
+} from "./TextVentureScene";
 import { TextVentureHeader } from "./TextVentureHeader";
 import { TextVentureActions } from "./TextVentureActions";
 import {
@@ -21,6 +27,7 @@ import {
   TextLogbook,
   TextObject,
   TextPlayer,
+  TextToken,
   TextVenture,
 } from "./../model/TextVenture";
 import {
@@ -69,19 +76,21 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
     objects: [],
     response: "",
   });
-  const [blur, setBlur] = useState<"no-blur" | "blur">(() => "blur");
+  const [sceneSwitchEffect, setSceneSwitchEffect] = useState<SceneSwitchEffect>(
+    () => sceneSwitchEffectEnd
+  );
   const showPopup = useShowPopup();
 
   useEffect(() => {
-    if (blur === "blur") {
+    if (sceneSwitchEffect === sceneSwitchEffectStart) {
       var tout = setTimeout(() => {
-        setBlur("no-blur");
-      }, 2000);
+        setSceneSwitchEffect(sceneSwitchEffectEnd);
+      }, sceneEffectChangeTime);
     }
     return () => {
       clearTimeout(tout);
     };
-  }, [blur]);
+  }, [sceneSwitchEffect]);
 
   const scene = getByIdOrFirst(text.scenes, text.currentSceneId);
   if (scene === undefined) {
@@ -115,7 +124,7 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
   function appendLog(command: TextCommand) {
     const logbookEntry = toLogbook(command);
     const newLogbook = [logbookEntry, ...text.logbook];
-    while (newLogbook.length > text.commandLogMaxLength) {
+    while (newLogbook.length > text.logbookMaxLength) {
       newLogbook.splice(newLogbook.length - 1, 1);
     }
     text.logbook = newLogbook;
@@ -223,12 +232,18 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
         command.response = interaction.response;
         appendLog(command);
         return true;
-      case "lookAt":
+      case "look-at":
         command.playerName = player?.name;
         command.playerId = player?.id;
         command.response =
           getDescription(command.objects[0].description) ??
           randomItem(interaction.responses);
+        appendLog(command);
+        return true;
+      case "look-at-player":
+        command.playerName = player?.name;
+        command.playerId = player?.id;
+        command.response = randomItem(interaction.responses);
         appendLog(command);
         selectPlayer(command.objects[0]);
         return true;
@@ -271,7 +286,7 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
     updateCurrentCommand(action, undefined);
   }
 
-  function handleRenderToken(type: string, id: string): TextObject | undefined {
+  function handleRenderToken(type: string, id: string): TextToken | undefined {
     if (scene) {
       switch (type) {
         case "thing":
@@ -282,6 +297,8 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
           return scene.persons.find((p) => p.id === id);
         case "scene":
           return text.scenes[id];
+        case "link":
+          return text.links[id];
       }
     }
     return undefined;
@@ -306,6 +323,11 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
     const interaction = interactions.find((i) => {
       logInteraction("---------------------");
       logInteraction("checking interaction: " + i.id);
+
+      if (player && i.matchesPlayer && i.matchesPlayer !== player.id) {
+        logInteraction("does not match player");
+        return false;
+      }
       const actionMatch = doesActionMatch(command.action, i.matchesAction);
       if (actionMatch) {
         logInteraction("action matched ", i.matchesAction);
@@ -409,12 +431,12 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
 
   function selectScene(scene: TextObject) {
     if (scene.type === "scene" && scene.id !== text.currentSceneId) {
-      setBlur("blur");
+      setSceneSwitchEffect(sceneSwitchEffectStart);
       setTimeout(() => {
         text.currentSceneId = scene.id;
         props.onTextChanged(text);
         window.scrollTo({ top: 0 });
-      }, 1000);
+      }, sceneEffectChangeTime);
     }
   }
 
@@ -463,7 +485,7 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
   return (
     <>
       <TextVentureConsole
-        title={text.commandLogTitle}
+        title={text.logbookTitle}
         commandLog={text.logbook}
         command={currentCommand}
         player={player}
@@ -498,17 +520,18 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
         }}
       />
 
-      {scene.id === Object.keys(text.scenes)[0] && (
-        <TextVentureHeader text={text} />
-      )}
+      <div className={sceneSwitchEffect}>
+        {scene.id === Object.keys(text.scenes)[0] && (
+          <TextVentureHeader text={text} />
+        )}
 
-      <TextVentureScene
-        scene={scene}
-        blur={blur}
-        onNextDialog={handleNextDialog}
-        onObjectClick={handleObjectClick}
-        onRenderToken={handleRenderToken}
-      ></TextVentureScene>
+        <TextVentureScene
+          scene={scene}
+          onNextDialog={handleNextDialog}
+          onObjectClick={handleObjectClick}
+          onRenderToken={handleRenderToken}
+        ></TextVentureScene>
+      </div>
     </>
   );
 }

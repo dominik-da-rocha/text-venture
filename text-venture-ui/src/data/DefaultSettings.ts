@@ -9,3 +9,5 @@ export const DefaultSettings: TextSettings = {
   textSize: "medium",
   actionMode: "on",
 };
+
+export const GithubUrl = "https://github.com/dominik-da-rocha";

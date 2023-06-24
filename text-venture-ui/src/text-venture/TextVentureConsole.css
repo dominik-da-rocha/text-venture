@@ -11,6 +11,7 @@
   padding-bottom: var(--button-size);
   max-width: 10rem;
   max-width: 30rem;
+  z-index: 2090;
   width: calc(100% - var(--button-size));
 }
 

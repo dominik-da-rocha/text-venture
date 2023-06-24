@@ -5,6 +5,7 @@
   flex-direction: column;
   top: calc(var(--button-size) * 1.1);
   padding-bottom: 1rem;
+  z-index: 3000;
 }
 
 .PopupAlert {

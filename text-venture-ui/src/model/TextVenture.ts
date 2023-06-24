@@ -1,7 +1,8 @@
 // Data structure for complete text adventure
 
-import { arrayToIMap } from "../utils/Utils";
+import { IMap, arrayToIMap } from "../utils/Utils";
 import { TextAction, TextActionMap } from "./TextAction";
+import { TextAnecdote } from "./TextAnecdote";
 import { TextInteraction } from "./TextInteraction";
 import { TextScene, TextSceneMap } from "./TextScene";
 
@@ -24,33 +25,36 @@ export type TextObjectType =
   | "scene"
   | "thing"
   | "person"
-  | "player"
-  | "conversation";
+  | "player";
+
+export type TextToken = TextObject | TextLink;
+
+interface TextVentureAbstract extends TextObjectAbstract {
+  currentSceneId: string;
+  currentPlayerId: string;
+  logbook: TextLogbook[];
+  logbookMaxLength: number;
+  logbookTitle: string;
+  anecdote: TextAnecdote;
+}
 
 // this is loaded
-export interface TextVentureJson extends TextObjectAbstract {
+export interface TextVentureJson extends TextVentureAbstract {
+  anecdote: TextAnecdote;
   actions: TextAction[];
   scenes: TextScene[];
   players: TextPlayer[];
-  currentSceneId: string;
-  currentPlayerId: string;
-  commandLog: TextLogbook[];
-  commandLogMaxLength: number;
-  commandLogTitle: string;
+  links: TextLink[];
 }
 
 // this is the same as the TextVentureJson
 // but uses maps to access elements more faster
-export interface TextVenture extends TextObjectAbstract {
+export interface TextVenture extends TextVentureAbstract {
   type: "venture";
   actions: TextActionMap;
   scenes: TextSceneMap;
   players: TextPlayerMap;
-  currentSceneId: string;
-  currentPlayerId: string;
-  logbook: TextLogbook[];
-  commandLogMaxLength: number;
-  commandLogTitle: string;
+  links: TextLinkMap;
 }
 
 export function toTextVenture(json: TextVentureJson): TextVenture {
@@ -62,12 +66,14 @@ export function toTextVenture(json: TextVentureJson): TextVenture {
     actions: arrayToIMap(json.actions),
     scenes: arrayToIMap(json.scenes),
     players: arrayToIMap(json.players),
-    interactions: json.interactions,
+    links: arrayToIMap(json.links),
+    interactions: [...json.interactions],
     currentSceneId: json.currentSceneId,
     currentPlayerId: json.currentPlayerId,
-    logbook: [...json.commandLog],
-    commandLogMaxLength: json.commandLogMaxLength,
-    commandLogTitle: json.commandLogTitle,
+    logbook: [...json.logbook],
+    logbookMaxLength: json.logbookMaxLength,
+    logbookTitle: json.logbookTitle,
+    anecdote: { ...json.anecdote },
   };
 }
 
@@ -116,5 +122,13 @@ export interface TextLogbook {
   response: string;
   style?: string;
 }
+
+export interface TextLink {
+  type: "link";
+  id: string;
+  url: string;
+}
+
+export type TextLinkMap = IMap<TextLink>;
 
 export type TextDescription = string | string[];

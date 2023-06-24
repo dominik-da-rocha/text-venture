@@ -23,7 +23,7 @@ export function Button(props: ButtonProps) {
       ].join(" ")}
       onClick={props.onClick}
     >
-      <span className="Content">{props.children}</span>
+      {props.children}
     </button>
   );
 }

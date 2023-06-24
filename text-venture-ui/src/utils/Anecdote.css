@@ -10,10 +10,7 @@
 }
 
 .Anecdote .Quotation {
-  align-items: center;
-  justify-content: flex-end;
-  display: flex;
-  gap: 0.5rem;
+  text-align: right;
 }
 
 .Anecdote .Chronicler {

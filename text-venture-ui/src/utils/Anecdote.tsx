@@ -12,11 +12,9 @@ export function Anecdote(props: AnecdoteProps) {
     <p className="Anecdote">
       <span className="Quote">{props.children}</span>
       <span className="Quotation">
-        <span className="Chronicler">{props.chronicler}</span>
+        <span className="Chronicler">{props.chronicler} </span>
         <span className="Source">{props.source}</span>
       </span>
     </p>
   );
 }
-
-

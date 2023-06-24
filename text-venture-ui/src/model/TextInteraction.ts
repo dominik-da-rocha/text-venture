@@ -10,10 +10,12 @@ export type TextInteraction =
   | TextInteractionWalkTo
   | TextInteractionPickUp
   | TextInteractionRandomTalkTo
-  | TextInteractionTalkTo;
+  | TextInteractionTalkTo
+  | TextInteractionLookAtPlayer;
 
 interface TextInteractionAbstract {
   id: string;
+  matchesPlayer?: string;
   matchesAction: TextActionPattern;
   matchesObjects: TextObjectPattern[] | "any";
   style?: string;
@@ -46,7 +48,7 @@ export interface TextInteractionRandom extends TextInteractionAbstract {
 }
 
 export interface TextInteractionLookAt extends TextInteractionAbstract {
-  type: "lookAt";
+  type: "look-at";
   responses: string[];
 }
 
@@ -77,9 +79,14 @@ export interface TextInteractionTalkTo extends TextInteractionAbstract {
   questions: IMap<TextInteractionTalkToQuestion>;
 }
 
-export interface TextInteractionTalkToQuestion {
+export interface TextInteractionTalkToQuestion extends TextInteractionAbstract {
   question: string;
   response: string;
   next: string;
   dropIfAsked?: boolean;
+}
+
+export interface TextInteractionLookAtPlayer extends TextInteractionAbstract {
+  type: "look-at-player";
+  responses: string[];
 }

@@ -51,6 +51,8 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - [x] the do not store objects in commands only id, so that they are not copy to the log
 - [x] remove game actions  console, inventory and store them as settings and not in the text venture object
 - [x] save and restore from local storage to file
+- [ ] Add styling to the scene parser: {style:bold:text} will assign class bold to the span
+- [ ] Add Links to the scene parser
 - [ ] add dialogs and complex conversations
 - [ ] create Help Adventure and explain how it works
 - [ ] upload project to github and a reference to about page

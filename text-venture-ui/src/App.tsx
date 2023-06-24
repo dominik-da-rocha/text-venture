@@ -11,18 +11,29 @@ import { Navbar } from "./utils/Navbar";
 import { About, Home } from "./utils/Home";
 import { Settings } from "./utils/Settings";
 import { PopupAlertProvider } from "./utils/PopupAlert";
+import { PrefaceQuest } from "./data/PrefaceQuest";
 
 function App() {
+  const [settings, setSettings] = useLocalState<TextSettings>(
+    "text-venture.settings",
+    DefaultSettings
+  );
+  const [prefaceQuest, setPrefaceQuest] = useLocalState<TextVenture>(
+    "text-venture.preface",
+    toTextVenture(PrefaceQuest)
+  );
+
   const [captainHuntersSpaceQuest, setCaptainHuntersSpaceQuest] = useLocalState<
     TextVenture
   >(
     "text-venture.captain-hunters-space-quest",
     toTextVenture(CaptainHuntersSpaceQuest)
   );
-  const [settings, setSettings] = useLocalState<TextSettings>(
-    "text-venture.settings",
-    DefaultSettings
-  );
+
+  const chapters = [
+    { ...prefaceQuest, setter: setPrefaceQuest },
+    { ...captainHuntersSpaceQuest, setter: setCaptainHuntersSpaceQuest },
+  ];
 
   return (
     <BrowserRouter>
@@ -38,7 +49,7 @@ function App() {
         <PopupAlertProvider>
           <div className="Content">
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Home chapters={chapters} />} />
               <Route path="/about" element={<About />} />
               <Route
                 path="/settings"
@@ -47,6 +58,12 @@ function App() {
                     settings={settings}
                     onChange={setSettings}
                     dataItems={[
+                      {
+                        id: prefaceQuest.id,
+                        name: prefaceQuest.name,
+                        data: prefaceQuest,
+                        onChange: setPrefaceQuest,
+                      },
                       {
                         id: captainHuntersSpaceQuest.id,
                         name: captainHuntersSpaceQuest.name,
@@ -57,59 +74,27 @@ function App() {
                   />
                 }
               />
-              <Route path="/preface" element={<Lorem title="Preface" />} />
-              <Route
-                path="/captain-hunters-space-quest"
-                element={
-                  <TextVentureViewer
-                    text={captainHuntersSpaceQuest}
-                    onTextChanged={setCaptainHuntersSpaceQuest}
-                    settings={settings}
-                    onSettingsChanged={setSettings}
+              {chapters.map((chapter) => {
+                return (
+                  <Route
+                    path={"/" + chapter.id}
+                    element={
+                      <TextVentureViewer
+                        text={chapter}
+                        onTextChanged={chapter.setter}
+                        settings={settings}
+                        onSettingsChanged={setSettings}
+                      />
+                    }
                   />
-                }
-              />
+                );
+              })}
             </Routes>
           </div>
           <Navbar />
         </PopupAlertProvider>
       </div>
     </BrowserRouter>
-  );
-}
-
-function Lorem(props: { title: string }) {
-  const ps = [
-    "Chapter 1",
-    "Chapter 2",
-    "Chapter 3",
-    "Chapter 4",
-    "Chapter 5",
-    "Chapter 6",
-    "Chapter 7",
-    "Chapter 8",
-  ];
-  return (
-    <div>
-      <h1>{props.title}</h1>
-      <div className="Subtitle">Something to Do</div>
-      {ps.map((p) => {
-        return (
-          <p key={p}>
-            <h3>{p}</h3>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-            erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-            et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-            Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-            sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-            et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-            accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-            no sea takimata sanctus est Lorem ipsum dolor sit amet.
-          </p>
-        );
-      })}
-    </div>
   );
 }
 

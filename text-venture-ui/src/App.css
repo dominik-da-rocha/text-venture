@@ -88,7 +88,7 @@
   min-height: 100%;
   width: 100%;
   font-size: larger;
-  padding-top: 1rem;
+  padding-top: 4rem;
   padding-left: 1rem;
   padding-right: calc(1rem + var(--button-size));
   padding-bottom: 5rem;
@@ -132,22 +132,27 @@ a {
 
 a.scene {
   color: var(--scene);
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 
 a.player {
   color: var(--player);
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 
 a.person {
   color: var(--person);
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 
 a.thing {
   color: var(--thing);
-  font-weight: bold;
+  /*font-weight: bold;*/
+}
+
+a.link {
+  color: var(--highlight);
+  text-decoration: underline;
 }
 
 select {
@@ -199,4 +204,22 @@ select > option:checked {
   border: 3px solid var(--red-alert);
   padding: 1rem;
   background: var(--red-alert-shadow);
+}
+
+.start-scene-switch {
+  filter: blur(50px);
+  transition: filter 0.5s linear;
+}
+
+.end-scene-switch {
+  filter: blur(0);
+  transition: filter 0.5s linear;
+}
+
+p.first-letter:first-letter {
+  font-size: 275%;
+  float: left;
+  padding-right: 0.25rem;
+  margin-bottom: -1rem;
+  margin-top: -0.5rem;
 }

@@ -2,12 +2,18 @@ import { TextActionNone } from "../model/TextAction";
 import { TextVentureJson } from "../model/TextVenture";
 
 export const CaptainHuntersSpaceQuest: TextVentureJson = {
-  id: "captain-hunters-space-quest",
-  name: "Captain Hunter's Luck in the Deserts of the Stars",
+  id: "captain-hunters-space-quest-i",
+  name: "Captain Hunter's Escape from the Desert Planet",
   description: "A Steam-Fueled Space Adventure",
-  commandLogMaxLength: 1000,
-  commandLog: [],
-  commandLogTitle: "Logbook",
+  anecdote: {
+    quote: "'Here you can add a quote'",
+    chronicler: "Anonymous",
+    source: "The book of souls",
+  },
+  logbookMaxLength: 1000,
+  logbook: [],
+  logbookTitle: "Logbook",
+  links: [],
   actions: [
     TextActionNone,
     {
@@ -350,7 +356,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
     },
     {
       id: "default-look-at",
-      type: "lookAt",
+      type: "look-at",
       matchesAction: {
         oneOf: "lookAt",
       },

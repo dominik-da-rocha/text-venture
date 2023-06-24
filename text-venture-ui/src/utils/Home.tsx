@@ -4,7 +4,16 @@ import { TableOfContents, TableOfContentsItem } from "./TableOfContents";
 import { Link } from "react-router-dom";
 import { Anecdote } from "./Anecdote";
 
-export function Home() {
+export interface Chapter {
+  id: string;
+  name: string;
+}
+
+export interface HomeProps {
+  chapters: Chapter[];
+}
+
+export function Home(props: HomeProps) {
   let page = 1;
   return (
     <div className="Home">
@@ -14,21 +23,25 @@ export function Home() {
         chronicler="Orion Starfield"
         source="Anachronic of the Milky Way"
       >
-        "Ah, my dear friends, let me regale you with the wonders I've witnessed!
+        'Ah, my dear friends, let me regale you with the wonders I've witnessed!
         I've soared through galaxies, danced with stars, and beheld
         civilizations beyond imagination. Time itself has unraveled before my
         very eyes, revealing the tapestry of history as I gallantly traversed
-        its threads."
+        its threads.''
       </Anecdote>
 
       <p>
         <TableOfContents>
-          <TableOfContentsItem path="/preface" title="Preface" page={page++} />
-          <TableOfContentsItem
-            title="Captain Hunters Space Quest"
-            path="/captain-hunters-space-quest"
-            page={page++}
-          />
+          {props.chapters.map((chapter) => {
+            return (
+              <TableOfContentsItem
+                key={chapter.id}
+                path={"/" + chapter.id}
+                title={chapter.name}
+                page={page++}
+              />
+            );
+          })}
           <TableOfContentsItem path="/about" title="About" page={page++} />
         </TableOfContents>
       </p>

@@ -37,7 +37,7 @@ export function TextVentureActions(props: TextVentureActionsProps) {
         })}
       </div>
 
-      <Button className="Button" onClick={() => toggleMenu()}>
+      <Button className="ActionButton" onClick={() => toggleMenu()}>
         <Icon>add</Icon>
       </Button>
     </div>
