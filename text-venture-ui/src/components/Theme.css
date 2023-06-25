@@ -160,6 +160,10 @@ a {
   cursor: pointer;
 }
 
+.light .SceneObject {
+  font-weight: bold;
+}
+
 .SceneObject.scene {
   color: var(--scene);
 }
