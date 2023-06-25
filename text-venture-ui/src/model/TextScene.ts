@@ -1,6 +1,6 @@
-import { IMap } from "../utils/Utils";
+import { IMap } from "../components/Utils";
 import { TextInteraction } from "./TextInteraction";
-import { TextDescription, TextThing, TextPerson } from "./TextVenture";
+import { TextDescription, TextThing, TextPerson } from "./TextObject";
 
 export interface TextScene {
   type: "scene";

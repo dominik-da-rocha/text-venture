@@ -1,12 +1,12 @@
 import React from "react";
-import "./TextVentureActions.css";
+import "./ActionMenu.css";
 import { TextAction, TextActionMap } from "../model/TextAction";
-import { iMap } from "../utils/Utils";
-import { Button } from "../utils/Button";
-import { Icon } from "../utils/Icon";
+import { iMap } from "./Utils";
+import { Button } from "./Button";
+import { Icon } from "./Icon";
 import { TextOnOffMode } from "../model/TextSettings";
 
-interface TextVentureActionsProps {
+interface ActionMenuProps {
   actions: TextActionMap;
   currentAction: TextAction | undefined;
   onAction(action: TextAction): void;
@@ -14,13 +14,13 @@ interface TextVentureActionsProps {
   onModeChanged(mode: TextOnOffMode): void;
 }
 
-export function TextVentureActions(props: TextVentureActionsProps) {
+export function ActionMenu(props: ActionMenuProps) {
   const actions = props.actions;
   function toggleMenu() {
     props.onModeChanged(props.mode === "on" ? "off" : "on");
   }
   return (
-    <div className={["TextVentureActions", props.mode].join(" ")}>
+    <div className={["ActionMenu", props.mode].join(" ")}>
       <div className="Actions">
         {iMap(actions, (action) => {
           if (action.hidden) {

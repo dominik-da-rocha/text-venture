@@ -3,6 +3,7 @@ import { TextVentureJson } from "../model/TextVenture";
 import { GithubUrl } from "./DefaultSettings";
 
 export const PrologueQuest: TextVentureJson = {
+  type: "venture",
   id: "prologue-quest",
   name: "Prologue",
   description: "A Guide to Unravel the Secrets beyond the Milch Glass Door",

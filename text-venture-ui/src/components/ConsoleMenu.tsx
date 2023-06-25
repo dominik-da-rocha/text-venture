@@ -1,17 +1,13 @@
 import React from "react";
-import "./TextVentureConsole.css";
-import { TextAction } from "./../model/TextAction";
-import {
-  TextCommand,
-  TextLogbook,
-  TextObject,
-  TextPlayer,
-} from "./../model/TextVenture";
+import "./ConsoleMenu.css";
+import { TextAction } from "../model/TextAction";
+import { TextCommand, TextLogbook } from "../model/TextVenture";
 import { TextOnOffMode } from "../model/TextSettings";
-import { Button } from "../utils/Button";
-import { Icon } from "../utils/Icon";
+import { Button } from "../components/Button";
+import { Icon } from "../components/Icon";
+import { TextPlayer, TextObject } from "../model/TextObject";
 
-interface TextVentureConsoleProps {
+interface ConsoleMenuProps {
   commandLog: TextLogbook[];
   command: TextCommand;
   title: string;
@@ -20,22 +16,22 @@ interface TextVentureConsoleProps {
   onModeChanged(mode: TextOnOffMode): void;
 }
 
-export function TextVentureConsole(props: TextVentureConsoleProps) {
+export function ConsoleMenu(props: ConsoleMenuProps) {
   function toggleMode() {
     props.onModeChanged(props.mode === "on" ? "off" : "on");
   }
   return (
-    <div className={["TextVentureConsole", props.mode].join(" ")}>
+    <div className={["ConsoleMenu", props.mode].join(" ")}>
       <div className="Logbook">
         {props.commandLog.map((log, idx) => {
           return <TextVentureLogbook key={idx} {...log} />;
         })}
       </div>
-      <div className="CurrentCommand">
+      <div className="CommandMenu">
         <Button onClick={toggleMode}>
           <Icon>chat</Icon>
         </Button>
-        {commandToString(props.command)}
+        <div className="CurrentCommand">{commandToString(props.command)}</div>
       </div>
     </div>
   );
@@ -81,7 +77,7 @@ export function TextVentureLogbook(log: TextLogbook) {
     ].join(" ");
     const questionStyle = ["Question", "player", log.playerId ?? ""].join(" ");
     return (
-      <div className="TextVentureConsoleLog">
+      <div className="ConsoleMenuLog">
         <div className="Command">{log.command}:</div>
         {log.question ? (
           <div className={questionStyle}>
@@ -100,7 +96,7 @@ export function TextVentureLogbook(log: TextLogbook) {
   }
   const responseStyle = ["Response", "player", log.playerId ?? ""].join(" ");
   return (
-    <div className="TextVentureConsoleLog">
+    <div className="ConsoleMenuLog">
       <div className="Command">{log.command}</div>
       <div className={responseStyle}>
         {log.playerName ? (

@@ -1,28 +1,28 @@
 import React from "react";
-import { TextObject, TextToken } from "./../model/TextVenture";
-import { TextScene } from "./../model/TextScene";
+import { TextScene } from "../model/TextScene";
+import { TextObject, TextToken } from "../model/TextObject";
 
 export type SceneSwitchEffect = "start-scene-switch" | "end-scene-switch";
 export const sceneEffectChangeTime = 500;
 export const sceneSwitchEffectStart = "start-scene-switch";
 export const sceneSwitchEffectEnd = "end-scene-switch";
 
-export interface TextVentureSceneProps {
+export interface SceneProps {
   scene: TextScene | undefined;
   onRenderToken(type: string, id: string): TextToken | undefined;
   onObjectClick(object: TextObject): void;
   onNextDialog(dialog: undefined): void;
 }
 
-export function TextVentureScene(props: TextVentureSceneProps) {
+export function Scene(props: SceneProps) {
   return (
     <div>
-      <TextVentureSceneSelect {...props} />
+      <SceneSelect {...props} />
     </div>
   );
 }
 
-function TextVentureSceneSelect(props: TextVentureSceneProps) {
+function SceneSelect(props: SceneProps) {
   if (props.scene !== undefined) {
     switch (props.scene.type) {
       case "scene":
@@ -33,14 +33,14 @@ function TextVentureSceneSelect(props: TextVentureSceneProps) {
   return <article className="warn">No scene or conversation selected!</article>;
 }
 
-interface SceneViewerProps extends TextVentureSceneProps {}
+interface SceneViewerProps extends SceneProps {}
 
 function SceneViewer(props: SceneViewerProps) {
   if (!props.scene) {
     return <></>;
   }
   return (
-    <div key={props.scene?.id} className="TextVentureScene">
+    <div key={props.scene?.id} className="Scene">
       <div className="Description">
         <h2>{props.scene.name}</h2>
         <SceneTextViewer

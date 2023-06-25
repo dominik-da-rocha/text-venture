@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import "./Settings.css";
 import {
   TextLightMode,
+  TextLightModes,
   TextMode,
   TextSettings,
   TextSize,
@@ -9,6 +10,7 @@ import {
 import { Button } from "./Button";
 import { Icon } from "./Icon";
 import { useShowPopup } from "./PopupAlert";
+import { toFirstLetterUppercase } from "./Utils";
 
 export interface SettingsDataItem {
   id: string;
@@ -42,8 +44,13 @@ export function Settings(props: SettingsProps) {
               props.onChange(copy);
             }}
           >
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
+            {TextLightModes.map((mode) => {
+              return (
+                <option value={mode} key={mode}>
+                  {toFirstLetterUppercase(mode)}
+                </option>
+              );
+            })}
           </select>
         </li>
 

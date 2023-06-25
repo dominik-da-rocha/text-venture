@@ -1,35 +1,20 @@
 // Data structure for complete text adventure
 
-import { IMap, arrayToIMap } from "../utils/Utils";
+import { arrayToIMap } from "../components/Utils";
 import { TextAction, TextActionMap } from "./TextAction";
 import { TextAnecdote } from "./TextAnecdote";
-import { TextInteraction } from "./TextInteraction";
+import {
+  TextLink,
+  TextLinkMap,
+  TextObject,
+  TextObjectAbstract,
+  TextObjectType,
+  TextPlayer,
+} from "./TextObject";
 import { TextScene, TextSceneMap } from "./TextScene";
 
-interface TextObjectAbstract {
-  id: string;
-  name: string;
-  description: TextDescription;
-  interactions: TextInteraction[];
-}
-
-export type TextObject =
-  | TextVenture
-  | TextScene
-  | TextThing
-  | TextPerson
-  | TextPlayer;
-
-export type TextObjectType =
-  | "venture"
-  | "scene"
-  | "thing"
-  | "person"
-  | "player";
-
-export type TextToken = TextObject | TextLink | TextStyle;
-
 interface TextVentureAbstract extends TextObjectAbstract {
+  type: "venture";
   currentSceneId: string;
   currentPlayerId: string;
   logbook: TextLogbook[];
@@ -40,6 +25,7 @@ interface TextVentureAbstract extends TextObjectAbstract {
 
 // this is loaded
 export interface TextVentureJson extends TextVentureAbstract {
+  type: "venture";
   anecdote: TextAnecdote;
   actions: TextAction[];
   scenes: TextScene[];
@@ -77,20 +63,6 @@ export function toTextVenture(json: TextVentureJson): TextVenture {
   };
 }
 
-export interface TextThing extends TextObjectAbstract {
-  type: "thing";
-}
-
-export interface TextPerson extends TextObjectAbstract {
-  type: "person";
-  things: TextThing[];
-}
-
-export interface TextPlayer extends TextObjectAbstract {
-  type: "player";
-  things: TextThing[];
-}
-
 export interface TextPlayerMap {
   [index: string]: TextPlayer | undefined;
 }
@@ -122,19 +94,3 @@ export interface TextLogbook {
   response: string;
   style?: string;
 }
-
-export interface TextLink {
-  type: "link";
-  id: string;
-  url: string;
-  isInternal?: boolean;
-}
-
-export interface TextStyle {
-  type: "style";
-  id: string;
-}
-
-export type TextLinkMap = IMap<TextLink>;
-
-export type TextDescription = string | string[];

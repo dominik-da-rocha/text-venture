@@ -55,7 +55,8 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - [x] Add styling to the scene parser: {style:bold:text} will assign class bold to the span
 - [x] replace the description of a scene with a screen play property. Use the description for look at
 - [x] upload project to github and a reference to about page
-- [ ] create Help Adventure and explain how it works
+- [x] create Help Adventure and explain how it works
+- [ ] reposition the pop up it hides the inventory, only popup when logbook is off
 - [ ] add dialogs and complex conversations
 - [ ] add complex interactions that can manipulate the scenes
 - [ ] publish is on server

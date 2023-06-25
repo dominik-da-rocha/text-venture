@@ -1,4 +1,4 @@
-.TextVentureConsole {
+.ConsoleMenu {
   position: fixed;
   background: var(--background-accent);
   left: 0;
@@ -15,38 +15,44 @@
   width: calc(100% - var(--button-size));
 }
 
-.TextVentureConsole.on {
+.ConsoleMenu.on {
   height: 50vh;
   transition: height 0.25s linear;
 }
-.TextVentureConsole.off {
+.ConsoleMenu.off {
   height: 0;
   transition: height 0.25s linear;
 }
 
-.TextVentureConsole .CurrentCommand {
-  height: var(--button-size);
+.ConsoleMenu .CommandMenu {
+  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
+  height: var(--button-size);
   background: var(--background-accent);
-  position: absolute;
+  display: flex;
+  align-items: center;
 }
 
-.TextVentureConsole .Logbook {
+.ConsoleMenu .CommandMenu .CurrentCommand {
+  font-size: 0.95rem;
+}
+
+.ConsoleMenu .Logbook {
   overflow-y: scroll;
   height: 100%;
   bottom: var(--button-size);
 }
 
-.TextVentureConsoleLog .Question {
+.ConsoleMenuLog .Question {
   color: var(--player);
   margin-left: 2em;
   text-indent: -1em;
   text-align: left;
 }
 
-.TextVentureConsoleLog .Command {
+.ConsoleMenuLog .Command {
   color: var(--highlight);
   margin-left: 1em;
   text-indent: -1em;
@@ -55,7 +61,7 @@
   font-weight: bold;
 }
 
-.TextVentureConsoleLog .Response {
+.ConsoleMenuLog .Response {
   margin-top: 0.25em;
   color: var(--person);
   margin-bottom: 1em;
@@ -64,13 +70,13 @@
   text-align: left;
 }
 
-.TextVentureConsoleLog .Question .Talk,
-.TextVentureConsoleLog .Response .Talk {
+.ConsoleMenuLog .Question .Talk,
+.ConsoleMenuLog .Response .Talk {
   font-style: italic;
 }
 
-.TextVentureConsoleLog .Question .Talker,
-.TextVentureConsoleLog .Response .Talker {
+.ConsoleMenuLog .Question .Talker,
+.ConsoleMenuLog .Response .Talker {
   font-weight: bold;
   margin-right: 0.5em;
 }

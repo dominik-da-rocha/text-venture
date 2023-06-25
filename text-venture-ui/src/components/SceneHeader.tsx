@@ -1,14 +1,14 @@
 import React from "react";
-import { TextVenture } from "./../model/TextVenture";
-import { Anecdote } from "../utils/Anecdote";
+import { TextVenture } from "../model/TextVenture";
+import { Anecdote } from "./Anecdote";
 
-export interface TextVentureHeaderProps {
+export interface SceneHeaderProps {
   text: TextVenture;
 }
 
-export function TextVentureHeader(props: TextVentureHeaderProps) {
+export function SceneHeader(props: SceneHeaderProps) {
   return (
-    <div className="TextVentureHeader">
+    <div className="SceneHeader">
       <h1>{props.text.name}</h1>
       <div className="Subtitle">{props.text.description}</div>
       <Anecdote

@@ -1,4 +1,4 @@
-.TextVentureActions {
+.ActionMenu {
   position: fixed;
   right: 0;
   bottom: 0;
@@ -11,32 +11,32 @@
   z-index: 2100;
 }
 
-.TextVentureActions .Actions {
+.ActionMenu .Actions {
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
-.TextVentureActions.off .Actions {
+.ActionMenu.off .Actions {
   height: 0;
   transition: height 0.25s linear;
 }
 
-.TextVentureActions.on .Actions {
+.ActionMenu.on .Actions {
   height: calc(var(--button-size) * 6);
   transition: height 0.25s linear;
 }
 
-.TextVentureActions .ActionButton {
+.ActionMenu .ActionButton {
   position: absolute;
 }
 
-.TextVentureActions.off .ActionButton .Icon {
+.ActionMenu.off .ActionButton .Icon {
   transform: rotate(0deg);
   transition: transform 0.25s linear;
 }
 
-.TextVentureActions.on .ActionButton .Icon {
+.ActionMenu.on .ActionButton .Icon {
   transform: rotate(270deg);
   transition: transform 0.25s linear;
 }

@@ -1,4 +1,4 @@
-.TextVentureInventory {
+.InventoryMenu {
   position: fixed;
   background: var(--background-accent);
   border: 1px solid var(--border);
@@ -14,7 +14,7 @@
   z-index: 2080;
 }
 
-.TextVentureInventory .Header {
+.InventoryMenu .Header {
   top: 0;
   left: 0;
   right: 0;
@@ -26,7 +26,7 @@
   box-sizing: border-box;
 }
 
-.TextVentureInventory .Player {
+.InventoryMenu .Player {
   height: var(--button-size);
   padding: 0;
   margin: 0;
@@ -34,22 +34,22 @@
   align-items: center;
 }
 
-.TextVentureInventory .Inventory {
+.InventoryMenu .Inventory {
   padding-left: 1rem;
 }
 
-.TextVentureInventory .Inventory h4 {
+.InventoryMenu .Inventory h4 {
   padding: 0;
   margin-top: 0;
   margin-bottom: 0.25rem;
 }
 
-.TextVentureInventory.on .Inventory {
+.InventoryMenu.on .Inventory {
   height: 33vh;
   transition: height 0.25s linear;
 }
 
-.TextVentureInventory.off .Inventory {
+.InventoryMenu.off .Inventory {
   height: 0;
   transition: height 0.25s linear;
 }

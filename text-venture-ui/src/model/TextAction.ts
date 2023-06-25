@@ -1,4 +1,4 @@
-import { IMap } from "../utils/Utils";
+import { IMap } from "../components/Utils";
 
 export type TextActionId =
   | "none"

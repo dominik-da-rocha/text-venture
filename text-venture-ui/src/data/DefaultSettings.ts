@@ -2,7 +2,7 @@ import { TextSettings } from "../model/TextSettings";
 
 export const DefaultSettings: TextSettings = {
   textMode: "serif",
-  lightMode: "dark",
+  lightMode: "system",
   deviceMode: "mobile",
   consoleMode: "off",
   inventoryMode: "off",

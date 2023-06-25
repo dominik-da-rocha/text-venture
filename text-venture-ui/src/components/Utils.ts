@@ -79,3 +79,8 @@ export function notImplemented() {
   throw new Error("not implemented");
 }
 
+export function toFirstLetterUppercase(text: string) {
+  if (text.length > 0)
+    return text.substring(0, 1).toLocaleUpperCase() + text.substring(1);
+  else return text;
+}

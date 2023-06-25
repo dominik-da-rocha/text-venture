@@ -1,24 +1,24 @@
 import React from "react";
-import "./TextVentureInventory.css";
-import { TextPlayer, TextObject } from "./../model/TextVenture";
+import "./InventoryMenu.css";
 import { TextOnOffMode } from "../model/TextSettings";
-import { Button } from "../utils/Button";
-import { Icon } from "../utils/Icon";
+import { Button } from "../components/Button";
+import { Icon } from "../components/Icon";
+import { TextPlayer, TextObject } from "../model/TextObject";
 
-export interface TextVentureInventoryProps {
+export interface InventoryMenuProps {
   player: TextPlayer | undefined;
   onObjectClick(object: TextObject): void;
   mode: TextOnOffMode;
   onModeChanged(mode: TextOnOffMode): void;
 }
 
-export function TextVentureInventory(props: TextVentureInventoryProps) {
+export function InventoryMenu(props: InventoryMenuProps) {
   return (
     <>
-      <div className={["TextVentureInventory", props.mode].join(" ")}>
+      <div className={["InventoryMenu", props.mode].join(" ")}>
         <div className="Header">
           <Button
-            className="TextVentureInventoryButton"
+            className="InventoryMenuButton"
             onClick={() =>
               props.onModeChanged(props.mode === "on" ? "off" : "on")
             }

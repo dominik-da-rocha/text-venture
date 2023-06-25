@@ -8,7 +8,9 @@ export interface TextSettings {
   actionMode: TextOnOffMode;
 }
 
-export type TextLightMode = "light" | "dark";
+export type TextLightMode = "system" | "light" | "dark";
+
+export const TextLightModes = ["system", "light", "dark"];
 
 export type TextDeviceMode = "mobile" | "desktop";
 

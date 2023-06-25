@@ -1,45 +1,38 @@
 import React, { useEffect, useState } from "react";
 import {
   SceneSwitchEffect,
-  TextVentureScene,
+  Scene,
   sceneEffectChangeTime,
   sceneSwitchEffectEnd,
   sceneSwitchEffectStart,
-} from "./TextVentureScene";
-import { TextVentureHeader } from "./TextVentureHeader";
-import { TextVentureActions } from "./TextVentureActions";
+} from "./Scene";
+import { SceneHeader } from "./SceneHeader";
+import { ActionMenu } from "./ActionMenu";
 import {
-  TextVentureConsole,
+  ConsoleMenu,
   TextVentureLogbook,
   commandToString,
-} from "./TextVentureConsole";
-import { TextVentureInventory } from "./TextVentureInventory";
-import { TextActionNone, TextAction } from "./../model/TextAction";
-import {
-  getByIdOrFirst,
-  matchesAny,
-  matchesOneOf,
-  randomItem,
-} from "./../utils/Utils";
-import {
-  TextCommand,
-  TextDescription,
-  TextLogbook,
-  TextObject,
-  TextPlayer,
-  TextToken,
-  TextVenture,
-} from "./../model/TextVenture";
+} from "./ConsoleMenu";
+import { InventoryMenu } from "./InventoryMenu";
+import { TextActionNone, TextAction } from "../model/TextAction";
+import { getByIdOrFirst, matchesAny, matchesOneOf, randomItem } from "./Utils";
+import { TextCommand, TextLogbook, TextVenture } from "../model/TextVenture";
 import {
   TextInteraction,
   TextObjectPattern,
   TextActionPattern,
-} from "./../model/TextInteraction";
-import { TextScene } from "./../model/TextScene";
-import { useShowPopup } from "../utils/PopupAlert";
+} from "../model/TextInteraction";
+import { TextScene } from "../model/TextScene";
+import { useShowPopup } from "./PopupAlert";
 import { TextSettings } from "../model/TextSettings";
+import {
+  TextObject,
+  TextToken,
+  TextDescription,
+  TextPlayer,
+} from "../model/TextObject";
 
-interface TextVentureViewerProps {
+interface VentureProps {
   onSettingsChanged(copy: {
     textMode: import("../model/TextSettings").TextMode;
     textSize: import("../model/TextSettings").TextSize;
@@ -53,7 +46,7 @@ interface TextVentureViewerProps {
   onTextChanged(text: TextVenture | undefined): void;
 }
 
-export function TextVentureViewer(props: TextVentureViewerProps) {
+export function Venture(props: VentureProps) {
   const className = [
     "TextVenture",
     props.settings.deviceMode,
@@ -62,12 +55,12 @@ export function TextVentureViewer(props: TextVentureViewerProps) {
   ].join(" ");
   return (
     <div className={className}>
-      <TextVentureViewerWrapper {...props}></TextVentureViewerWrapper>
+      <VentureWrapper {...props}></VentureWrapper>
     </div>
   );
 }
 
-export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
+export function VentureWrapper(props: VentureProps) {
   const text = props.text;
   const settings = props.settings;
   const [currentCommand, setCurrentCommand] = useState<TextCommand>({
@@ -489,7 +482,7 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
 
   return (
     <>
-      <TextVentureConsole
+      <ConsoleMenu
         title={text.logbookTitle}
         commandLog={text.logbook}
         command={currentCommand}
@@ -502,7 +495,7 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
         }}
       />
 
-      <TextVentureInventory
+      <InventoryMenu
         onObjectClick={handleObjectClick}
         player={player}
         mode={settings.inventoryMode}
@@ -513,7 +506,7 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
         }}
       />
 
-      <TextVentureActions
+      <ActionMenu
         currentAction={currentCommand.action}
         actions={text.actions}
         onAction={handleAction}
@@ -527,15 +520,15 @@ export function TextVentureViewerWrapper(props: TextVentureViewerProps) {
 
       <div className={sceneSwitchEffect}>
         {scene.id === Object.keys(text.scenes)[0] && (
-          <TextVentureHeader text={text} />
+          <SceneHeader text={text} />
         )}
 
-        <TextVentureScene
+        <Scene
           scene={scene}
           onNextDialog={handleNextDialog}
           onObjectClick={handleObjectClick}
           onRenderToken={handleRenderToken}
-        ></TextVentureScene>
+        ></Scene>
       </div>
     </>
   );

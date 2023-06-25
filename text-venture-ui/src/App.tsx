@@ -1,16 +1,16 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { TextVentureViewer } from "./text-venture/TextVentureViewer";
+import { Venture } from "./components/Venture";
 import { CaptainHuntersSpaceQuest } from "./data/CapitanHuntersSpaceQuest";
 import { TextVenture, toTextVenture } from "./model/TextVenture";
 import { TextSettings } from "./model/TextSettings";
 import { DefaultSettings } from "./data/DefaultSettings";
-import { useLocalState } from "./utils/LocalState";
-import { Navbar } from "./utils/Navbar";
-import { About, Home } from "./utils/Home";
-import { Settings } from "./utils/Settings";
-import { PopupAlertProvider } from "./utils/PopupAlert";
+import { useLocalState } from "./components/LocalState";
+import { Navbar } from "./components/Navbar";
+import { About, Home } from "./components/Home";
+import { Settings } from "./components/Settings";
+import { PopupAlertProvider } from "./components/PopupAlert";
 import { PrologueQuest } from "./data/PrologueQuest";
 
 function App() {
@@ -75,7 +75,7 @@ function App() {
                     key={chapter.id}
                     path={"/" + chapter.id}
                     element={
-                      <TextVentureViewer
+                      <Venture
                         text={chapter}
                         onTextChanged={chapter.setter}
                         settings={settings}

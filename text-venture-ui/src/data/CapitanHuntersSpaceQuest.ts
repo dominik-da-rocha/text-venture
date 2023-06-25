@@ -2,6 +2,7 @@ import { TextActionNone } from "../model/TextAction";
 import { TextVentureJson } from "../model/TextVenture";
 
 export const CaptainHuntersSpaceQuest: TextVentureJson = {
+  type: "venture",
   id: "captain-hunters-space-quest-i",
   name: "Captain Hunter's Escape from the Desert Planet",
   description: "A Steam-Fueled Space Adventure",
