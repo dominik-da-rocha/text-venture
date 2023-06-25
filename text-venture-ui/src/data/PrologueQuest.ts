@@ -1,6 +1,20 @@
 import { TextActionNone } from "../model/TextAction";
+import { TextThing } from "../model/TextObject";
 import { TextVentureJson } from "../model/TextVenture";
 import { GithubUrl } from "./DefaultSettings";
+
+const a100Things = Array.from(Array(100).keys()).map((idx) => {
+  let no = idx + 1;
+  let thing: TextThing = {
+    type: "thing",
+    description:
+      "Blimey, someone 'ad to test the bleedin' inventory, didn't they? Guess who volunteered? Now I'm stuck luggin' 'round a hundred things like a bloomin' pack mule. Shitty programmer, I tell ya!",
+    id: "thing-" + no,
+    name: "Thing " + no + " of 100 with a long name filling up the inventory",
+    interactions: [],
+  };
+  return thing;
+});
 
 export const PrologueQuest: TextVentureJson = {
   type: "venture",
@@ -323,6 +337,7 @@ export const PrologueQuest: TextVentureJson = {
       type: "player",
       id: "hardy-grow",
       name: "Hardy Grow",
+      shortName: "Mr Grow",
       description:
         "Hardy Grow: A quintessentially English gentleman with impeccable attire, possessed of an air of mild perplexity and subtle intrigue.",
       interactions: [
@@ -432,6 +447,63 @@ export const PrologueQuest: TextVentureJson = {
           ],
         },
         {
+          type: "random-talk-to",
+          id: "talk-to-isa",
+          matchesPlayer: "hardy-grow",
+          matchesAction: {
+            oneOf: "talk-to",
+          },
+          matchesObjects: [
+            {
+              oneIdOf: "isa-ruff",
+            },
+          ],
+          questions: [
+            "My dear, might I humbly request your assistance in this delicate affair?",
+            "Would you be so kind as to lend your expertise in navigating these treacherous waters?",
+            "Could I trouble you for your invaluable insights in this rather intricate matter?",
+            "Might I implore your assistance in unraveling the intricacies of this perplexing situation?",
+            "Would you be so gracious as to lend your discerning eye to shed light on this conundrum?",
+            "My dear, I find myself in need of your wise counsel in this sensitive predicament.",
+            "Could I rely on your astute judgment to navigate this delicate tightrope?",
+            "Might I seek your guidance in treading the fine line of diplomacy in this matter?",
+            "Would you be willing to offer your invaluable assistance in these sensitive affairs?",
+            "My dear, your wisdom is unparalleled. Could you bestow upon me your guidance in this delicate matter?",
+            "Might I call upon your expertise to help me navigate these thorny intricacies?",
+            "Could I prevail upon your sharp intellect to assist me in this delicate puzzle?",
+            "My dear, I find myself in need of your deft touch to handle this sensitive situation.",
+            "Would you be so kind as to lend your aid in these delicate negotiations?",
+            "Might I lean upon your knowledge and experience to navigate this intricate web?",
+            "Could I trouble you to provide your discerning insights on this delicate matter?",
+            "My dear, your perspective is highly valued. Could you assist me in this delicate affair?",
+            "Might I enlist your aid in delicately maneuvering through these treacherous waters?",
+            "Would you be willing to lend your expertise in this intricate dance of diplomacy?",
+            "My dear, your guidance is indispensable. Might I request your assistance in this delicate endeavor?",
+          ],
+          responses: [
+            "Right, listen up, mate. I'll sort this mess out for ya.",
+            "Ain't no worries, love. I'll 'ave your back in this pickle.",
+            "Oi, don't you fret, sunshine. I'll lend ya a hand, no questions asked.",
+            "Look 'ere, I'll give ya a leg up in this dodgy business.",
+            "No need to panic, guv'nor. I'll 'ave a crack at fixin' it.",
+            "You just leave it to me, darlin'. I'll work me magic.",
+            "'Ave no fear, I'll take care of this sticky situation.",
+            "Don'tcha worry, mate. I'll sort it out in a jiffy.",
+            "Leave it with me, luv. I'll 'andle it like a pro.",
+            "Consider it done, my friend. I'll see to it right proper.",
+            "No need to thank me, sunshine. I'll lend ya a helping hand.",
+            "Oi, don't stress, darlin'. I'll make it right as rain.",
+            "Trust me, guv'nor. I'll come through for ya, no doubts.",
+            "I'll put me best foot forward, mate. You can count on me.",
+            "You can rest easy, love. I'll sort this out, no problemo.",
+            "No need to fret, luv. I'll 'ave it all under control.",
+            "'Ave faith in me, mate. I'll work me magic for ya.",
+            "Don'tcha worry, darlin'. I'll take care of ya, no worries.",
+            "You just leave it to ol' Isa. I'll 'ave a solution in no time.",
+            "Consider it done, guv. I'll sort it out, no sweat.",
+          ],
+        },
+        {
           id: "talk-to-person",
           type: "random-talk-to",
           matchesPlayer: "hardy-grow",
@@ -535,6 +607,7 @@ export const PrologueQuest: TextVentureJson = {
       type: "player",
       id: "isa-ruff",
       name: "Isa Ruff",
+      shortName: "Isa",
       description:
         "Isa Ruff: A punk-rock rebel, sporting vividly colored hair and an aura of rebellious nonchalance. Safety pin earring and untamed spirit included.",
       interactions: [
@@ -602,6 +675,57 @@ export const PrologueQuest: TextVentureJson = {
             "You're just another spectator in my punk world.",
             "Looking won't get you any closer, keep dreaming.",
             "I've got better things to do than entertain your gaze.",
+          ],
+        },
+        {
+          id: "talk-to-hardy",
+          type: "random-talk-to",
+          matchesPlayer: "isa-ruff",
+          matchesAction: { oneOf: "talk-to" },
+          matchesObjects: [{ oneIdOf: "hardy-grow" }],
+          questions: [
+            "Oi, what's the big idea, mate?",
+            "You got a clue what you're doin', guv?",
+            "Fancy sharin' some useful info, or am I wastin' me time?",
+            "'Ello, 'ave you lost yer marbles?",
+            "What's the game, fancy pants?",
+            "Got anythin' interestin' to say, or am I gonna nod off?",
+            "Lookin' to waste me day or actually get somethin' done?",
+            "'Ey, stop dawdlin' and spill the beans, will ya?",
+            "Got a proper plan or just wingin' it like a plonker?",
+            "'Ave you got any idea what you're blabberin' about?",
+            "Lookin' for answers or just givin' me a headache?",
+            "Fancy enlightenin' me with somethin' worth me while?",
+            "You got a clue how to get us movin', or should I take over?",
+            "Time's tickin', mate. Spit it out or I'm movin' on.",
+            "Got anythin' important to say or am I stuck 'ere listenin' to ya blabber?",
+            "Wake me up when you've got somethin' worth sayin', alright?",
+            "'Ey, stop natterin' and get to the point, will ya?",
+            "'Ave you got anythin' that's not a load of codswallop?",
+            "Time's precious, mate. Make it count or I'm outta 'ere.",
+            "What's the plan, Sherlock? 'Cause I ain't got all day.",
+          ],
+          responses: [
+            "Oh, my dear, let's not get our knickers in a twist.",
+            "Now, now, there's no need for such a fuss, is there?",
+            "Well, isn't this a jolly good start to our conversation?",
+            "Let's not be hasty, my dear. Patience is a virtue.",
+            "Ah, you're a breath of fresh air, always keeping me on my toes.",
+            "My apologies if I've seemed a bit off, old bean. Long day, you know.",
+            "Right you are, my dear. Let's dive into the heart of the matter, shall we?",
+            "Oh, don't you worry, I've got a few tricks up my sleeve.",
+            "Now, let's not jump to conclusions, my dear. All in good time.",
+            "Well, isn't this a fascinating turn of events? Pray, do tell.",
+            "Ah, the game of life, full of mysteries and surprises. Quite thrilling, wouldn't you say?",
+            "My dear, you always manage to bring a smile to my face. Quite refreshing.",
+            "You're quite the inquisitive one, aren't you? I admire your curiosity.",
+            "Ah, the joy of unraveling secrets. Let's see where this leads us, shall we?",
+            "No need to fret, my dear. We'll uncover the truth in due course.",
+            "You've caught me at a most opportune time, my dear. Let's dive into the depths of conversation.",
+            "Ah, the art of small talk. A delightful dance we engage in, wouldn't you agree?",
+            "Well, isn't this a splendid opportunity for some intellectual banter?",
+            "Fear not, my dear, for I'm here to guide us through this maze of uncertainty.",
+            "How delightful it is to engage in a tête-à-tête with a mind as sharp as yours.",
           ],
         },
         {
@@ -709,6 +833,7 @@ export const PrologueQuest: TextVentureJson = {
           name: "Batteries",
           interactions: [],
         },
+        ...a100Things,
       ],
     },
   ],

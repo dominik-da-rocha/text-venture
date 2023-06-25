@@ -635,6 +635,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
       type: "player",
       id: "captain-hunter",
       name: "Captain Hunter",
+      shortName: "Captain",
       description:
         "Captain Hunter, a rugged and resourceful spice smuggler, possesses a mix of unyielding luck and street smarts that guide him through the perils of space.",
       interactions: [],
@@ -666,6 +667,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
       type: "player",
       id: "ames",
       name: "Ames",
+      shortName: "Ames",
       description:
         "Ames, the grumpy yet skillful mechanic, hides a tender heart beneath a rough exterior, providing invaluable support and friendship to Captain Hunter in their daring adventures.",
       interactions: [],

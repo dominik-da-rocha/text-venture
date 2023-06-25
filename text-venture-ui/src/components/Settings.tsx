@@ -1,11 +1,15 @@
 import React, { useRef } from "react";
 import "./Settings.css";
 import {
-  TextLightMode,
-  TextLightModes,
-  TextMode,
+  LightMode,
+  LightModes,
+  FontStyle,
   TextSettings,
-  TextSize,
+  FontSize,
+  FontSizes,
+  FontStyles,
+  StorageMode,
+  StorageModes,
 } from "../model/TextSettings";
 import { Button } from "./Button";
 import { Icon } from "./Icon";
@@ -40,11 +44,11 @@ export function Settings(props: SettingsProps) {
             value={props.settings.lightMode}
             onChange={(e) => {
               const copy = { ...props.settings };
-              copy.lightMode = e.target.value as TextLightMode;
+              copy.lightMode = e.target.value as LightMode;
               props.onChange(copy);
             }}
           >
-            {TextLightModes.map((mode) => {
+            {LightModes.map((mode) => {
               return (
                 <option value={mode} key={mode}>
                   {toFirstLetterUppercase(mode)}
@@ -60,14 +64,17 @@ export function Settings(props: SettingsProps) {
             value={props.settings.textMode}
             onChange={(e) => {
               const copy = { ...props.settings };
-              copy.textMode = e.target.value as TextMode;
+              copy.textMode = e.target.value as FontStyle;
               props.onChange(copy);
             }}
           >
-            <option value={"serif"}>Serif</option>
-            <option value={"sans-serif"}>Sans Serif</option>
-            <option value={"monospace"}>Monospace</option>
-            <option value={"cursive"}>Cursive</option>
+            {FontStyles.map((style) => {
+              return (
+                <option value={style} key={style}>
+                  {toFirstLetterUppercase(style)}
+                </option>
+              );
+            })}
           </select>
         </li>
 
@@ -77,44 +84,91 @@ export function Settings(props: SettingsProps) {
             value={props.settings.textSize}
             onChange={(e) => {
               const copy = { ...props.settings };
-              copy.textSize = e.target.value as TextSize;
+              copy.textSize = e.target.value as FontSize;
               props.onChange(copy);
             }}
           >
-            <option value={"small"}>Small</option>
-            <option value={"medium"}>Medium</option>
-            <option value={"large"}>Large</option>
+            {FontSizes.map((size) => {
+              return (
+                <option value={size} key={size}>
+                  {toFirstLetterUppercase(size)}
+                </option>
+              );
+            })}
           </select>
         </li>
         {props.dataItems.length > 0 ? (
           <>
             <li>
-              <h3>Memory</h3>
+              <h3>Storage</h3>
             </li>
-            <li className="center">
-              <div className="warn alert-box">
-                <h3>Attention!</h3>
-                <p>Resetting the local storage will terminate all your data!</p>
-                <p>Also uploading a file may corrupt your game state!</p>
-                <p>Please make a backup before you proceed!</p>
+            <li>
+              <div className="center">
+                <div className="warn alert-box ">
+                  <h3>Attention!</h3>
+                  <p>
+                    Changing the storage mode might terminate all your data!
+                  </p>
+                  <p>Also uploading a file may corrupt your game state!</p>
+                  <p>Please make a backup before you proceed!</p>
+                </div>
               </div>
             </li>
+            <li>
+              <label>Storage Mode</label>
+              <select
+                value={props.settings.storageMode}
+                onChange={(e) => {
+                  const copy = { ...props.settings };
+                  copy.storageMode = e.target.value as StorageMode;
+                  props.onChange(copy);
+                }}
+              >
+                {StorageModes.map((style) => {
+                  return (
+                    <option value={style} key={style}>
+                      {toFirstLetterUppercase(style)}
+                    </option>
+                  );
+                })}
+              </select>
+            </li>
+            {props.settings.storageMode === "local" ? (
+              <>
+                <div>Local storage is stored until you delete it.</div>
+              </>
+            ) : (
+              <></>
+            )}
+            {props.settings.storageMode === "session" ? (
+              <div>
+                Session Storage is stored until you close the browser tab
+              </div>
+            ) : (
+              <></>
+            )}
+            {props.settings.storageMode === "memory" ? (
+              <div>Memory Storage is stored until the tab reloads</div>
+            ) : (
+              <></>
+            )}
+
+            {props.dataItems.map((dataItem) => {
+              return (
+                <li key={dataItem.id}>
+                  <label>{dataItem.name}</label>
+                  <div>
+                    <ButtonStorageDownload {...dataItem} />
+                    <ButtonStorageUpload {...dataItem} />
+                    <ButtonStorageClear {...dataItem} />
+                  </div>
+                </li>
+              );
+            })}
           </>
         ) : (
           <></>
         )}
-        {props.dataItems.map((dataItem) => {
-          return (
-            <li key={dataItem.id}>
-              <label>{dataItem.name}</label>
-              <div>
-                <ButtonStorageDownload {...dataItem} />
-                <ButtonStorageUpload {...dataItem} />
-                <ButtonStorageClear {...dataItem} />
-              </div>
-            </li>
-          );
-        })}
       </ul>
     </div>
   );

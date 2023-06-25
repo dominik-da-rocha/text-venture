@@ -96,7 +96,8 @@ function SceneTextArrayViewer(props: SceneTextArrayViewerProps) {
           const tokenId = tokens[1];
           const tokenText = tokens[2];
           const object = props.onRenderToken(tokenType, tokenId);
-          const warn = object === undefined || tokens.length < 3 ? "warn" : "";
+          const warn =
+            object === undefined || tokens.length < 3 ? "warn nop" : "";
           const className = [object?.type, object?.id, warn].join(" ");
           switch (object?.type) {
             case "link":
@@ -124,10 +125,9 @@ function SceneTextArrayViewer(props: SceneTextArrayViewerProps) {
               );
             default:
               return (
-                <a
+                <span
                   title={warn ? s : ""}
                   key={skey}
-                  href={tokenId}
                   className={"SceneObject " + className}
                   onClick={(event) => {
                     event.preventDefault();
@@ -138,7 +138,7 @@ function SceneTextArrayViewer(props: SceneTextArrayViewerProps) {
                 >
                   {warn ? "⚠" : ""}
                   {tokenText ?? s}
-                </a>
+                </span>
               );
           }
         } else {
@@ -151,7 +151,7 @@ function SceneTextArrayViewer(props: SceneTextArrayViewerProps) {
       });
     return (
       <p
-        className={"Paragraph" + (pkey === 0 ? " first-letter" : "")}
+        className={"Paragraph" + (pkey === 0 ? " first-letter-large" : "")}
         key={pkey}
       >
         {spans}

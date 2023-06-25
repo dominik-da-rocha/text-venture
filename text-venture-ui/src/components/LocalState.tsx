@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { StorageMode } from "../model/TextSettings";
 
 class MemoryStorage {
   private map: { [index: string]: string } = {};
@@ -28,9 +29,10 @@ const memoryStorage = new MemoryStorage();
 
 export function useLocalState<T>(
   id: string,
-  defaultValue: T
+  defaultValue: T,
+  storageMode: StorageMode
 ): [T, React.Dispatch<T>] {
-  const storage = memoryStorage;
+  const storage = selectStorage(storageMode);
 
   const [state, setState] = useState<T>(() => {
     const text = storage.getItem(id);
@@ -58,4 +60,14 @@ export function useLocalState<T>(
       storage.setItem(id, JSON.stringify(value));
     },
   ];
+}
+function selectStorage(storageMode: string) {
+  switch (storageMode) {
+    case "local":
+      return localStorage;
+    case "session":
+      return sessionStorage;
+    default:
+      return memoryStorage;
+  }
 }

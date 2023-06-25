@@ -4,14 +4,14 @@ import { TextAction, TextActionMap } from "../model/TextAction";
 import { iMap } from "./Utils";
 import { Button } from "./Button";
 import { Icon } from "./Icon";
-import { TextOnOffMode } from "../model/TextSettings";
+import { OnOffMode } from "../model/TextSettings";
 
 interface ActionMenuProps {
   actions: TextActionMap;
   currentAction: TextAction | undefined;
   onAction(action: TextAction): void;
-  mode: TextOnOffMode;
-  onModeChanged(mode: TextOnOffMode): void;
+  mode: OnOffMode;
+  onModeChanged(mode: OnOffMode): void;
 }
 
 export function ActionMenu(props: ActionMenuProps) {

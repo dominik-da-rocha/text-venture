@@ -1,6 +1,6 @@
 import React from "react";
 import "./InventoryMenu.css";
-import { TextOnOffMode } from "../model/TextSettings";
+import { OnOffMode } from "../model/TextSettings";
 import { Button } from "../components/Button";
 import { Icon } from "../components/Icon";
 import { TextPlayer, TextObject } from "../model/TextObject";
@@ -8,8 +8,8 @@ import { TextPlayer, TextObject } from "../model/TextObject";
 export interface InventoryMenuProps {
   player: TextPlayer | undefined;
   onObjectClick(object: TextObject): void;
-  mode: TextOnOffMode;
-  onModeChanged(mode: TextOnOffMode): void;
+  mode: OnOffMode;
+  onModeChanged(mode: OnOffMode): void;
 }
 
 export function InventoryMenu(props: InventoryMenuProps) {
@@ -32,19 +32,17 @@ export function InventoryMenu(props: InventoryMenuProps) {
         ) : (
           <div className="Inventory">
             <h4>Inventory</h4>
-            <ul>
+            <ul className="Items">
               {props.player.things.map((thing) => (
-                <li key={thing.id}>
-                  <a
-                    className="thing"
-                    href="?"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      props.onObjectClick(thing);
-                    }}
-                  >
-                    - {thing.name}
-                  </a>
+                <li
+                  key={thing.id}
+                  className={"Item SceneObject " + thing.type}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    props.onObjectClick(thing);
+                  }}
+                >
+                  <span>{thing.name}</span>
                 </li>
               ))}
             </ul>

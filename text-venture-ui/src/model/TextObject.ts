@@ -24,6 +24,7 @@ export interface TextPerson extends TextObjectAbstract {
 
 export interface TextPlayer extends TextObjectAbstract {
   type: "player";
+  shortName: string;
   things: TextThing[];
 }
 

@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import "./components/Theme.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Venture } from "./components/Venture";
 import { CaptainHuntersSpaceQuest } from "./data/CapitanHuntersSpaceQuest";
@@ -16,19 +17,22 @@ import { PrologueQuest } from "./data/PrologueQuest";
 function App() {
   const [settings, setSettings] = useLocalState<TextSettings>(
     "text-venture.settings",
-    DefaultSettings
+    DefaultSettings,
+    "local"
   );
 
   const [prologueQuest, setPrologueQuest] = useLocalState<TextVenture>(
     "text-venture." + PrologueQuest.id,
-    toTextVenture(PrologueQuest)
+    toTextVenture(PrologueQuest),
+    settings.storageMode
   );
 
   const [captainHuntersSpaceQuest, setCaptainHuntersSpaceQuest] = useLocalState<
     TextVenture
   >(
     "text-venture.captain-hunters-space-quest",
-    toTextVenture(CaptainHuntersSpaceQuest)
+    toTextVenture(CaptainHuntersSpaceQuest),
+    settings.storageMode
   );
 
   const chapters = [
@@ -42,7 +46,6 @@ function App() {
         className={[
           "App",
           settings.lightMode,
-          settings.deviceMode,
           settings.textMode,
           settings.textSize,
         ].join(" ")}

@@ -33,28 +33,15 @@ import {
 } from "../model/TextObject";
 
 interface VentureProps {
-  onSettingsChanged(copy: {
-    textMode: import("../model/TextSettings").TextMode;
-    textSize: import("../model/TextSettings").TextSize;
-    lightMode: import("../model/TextSettings").TextLightMode;
-    deviceMode: import("../model/TextSettings").TextDeviceMode;
-    consoleMode: import("../model/TextSettings").TextOnOffMode;
-    inventoryMode: import("../model/TextSettings").TextOnOffMode;
-  }): unknown;
+  onSettingsChanged(copy: TextSettings): void;
   settings: TextSettings;
   text: TextVenture;
   onTextChanged(text: TextVenture | undefined): void;
 }
 
 export function Venture(props: VentureProps) {
-  const className = [
-    "TextVenture",
-    props.settings.deviceMode,
-    props.settings.lightMode,
-    props.settings.textMode,
-  ].join(" ");
   return (
-    <div className={className}>
+    <div className="TextVenture">
       <VentureWrapper {...props}></VentureWrapper>
     </div>
   );
@@ -122,7 +109,9 @@ export function VentureWrapper(props: VentureProps) {
     }
     text.logbook = newLogbook;
     props.onTextChanged(text);
-    showPopup(() => <TextVentureLogbook {...logbookEntry} />);
+    if (props.settings.consoleMode === "off") {
+      showPopup(() => <TextVentureLogbook {...logbookEntry} />);
+    }
   }
 
   function updateCurrentCommand(
@@ -212,37 +201,29 @@ export function VentureWrapper(props: VentureProps) {
     interaction: TextInteraction
   ): boolean {
     command.style = interaction.style;
+    command.playerName = player?.shortName;
+    command.playerId = player?.id;
     switch (interaction.type) {
       case "random":
-        command.playerName = player?.name;
-        command.playerId = player?.id;
         command.response = randomItem(interaction.responses);
         appendLog(command);
         return true;
       case "simple":
-        command.playerName = player?.name;
-        command.playerId = player?.id;
         command.response = interaction.response;
         appendLog(command);
         return true;
       case "look-at":
-        command.playerName = player?.name;
-        command.playerId = player?.id;
         command.response =
           getDescription(command.objects[0].description) ??
           randomItem(interaction.responses);
         appendLog(command);
         return true;
       case "look-at-player":
-        command.playerName = player?.name;
-        command.playerId = player?.id;
         command.response = randomItem(interaction.responses);
         appendLog(command);
         selectPlayer(command.objects[0]);
         return true;
       case "give-item-to":
-        command.playerName = player?.name;
-        command.playerId = player?.id;
         command.response = randomItem(interaction.responses);
         appendLog(command);
         giveFromItemTo(player, command.objects[0], command.objects[1]);
@@ -253,16 +234,12 @@ export function VentureWrapper(props: VentureProps) {
         selectScene(command.objects[0]);
         return true;
       case "pick-up":
-        command.playerName = player?.name;
-        command.playerId = player?.id;
         command.response = randomItem(interaction.responses);
         appendLog(command);
         removeObjectFromScenesDescription(command.objects[0]);
         giveFromItemTo(scene, command.objects[0], player);
         return true;
       case "random-talk-to":
-        command.playerName = player?.name;
-        command.playerId = player?.id;
         command.question = randomItem(interaction.questions);
         command.response = randomItem(interaction.responses);
         appendLog(command);

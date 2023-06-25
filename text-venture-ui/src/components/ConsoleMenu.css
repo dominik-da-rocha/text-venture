@@ -9,10 +9,10 @@
   border: 1px solid var(--border);
   border-top-right-radius: calc(var(--button-size) / 5);
   padding-bottom: var(--button-size);
-  max-width: 10rem;
+  min-width: 10rem;
   max-width: 30rem;
+  width: calc(95% - var(--button-size));
   z-index: 2090;
-  width: calc(100% - var(--button-size));
 }
 
 .ConsoleMenu.on {
@@ -36,6 +36,7 @@
 }
 
 .ConsoleMenu .CommandMenu .CurrentCommand {
+  color: var(--player);
   font-size: 0.95rem;
 }
 
@@ -43,21 +44,23 @@
   overflow-y: scroll;
   height: 100%;
   bottom: var(--button-size);
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .ConsoleMenuLog .Question {
-  color: var(--player);
+  color: var(--highlight);
   margin-left: 2em;
   text-indent: -1em;
   text-align: left;
 }
 
 .ConsoleMenuLog .Command {
-  color: var(--highlight);
+  color: var(--player);
   margin-left: 1em;
   text-indent: -1em;
   text-align: left;
-  font-size: 1.1em;
+  font-size: 0.95em;
   font-weight: bold;
 }
 

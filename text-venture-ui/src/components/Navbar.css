@@ -7,7 +7,7 @@
   border: 1px solid var(--border);
   border-bottom-left-radius: calc(var(--button-size) / 5);
   background: var(--background);
-  z-index: 2070;
+  z-index: 3010;
   margin: 0;
   padding: 0;
 }

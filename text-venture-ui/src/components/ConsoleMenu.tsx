@@ -2,7 +2,7 @@ import React from "react";
 import "./ConsoleMenu.css";
 import { TextAction } from "../model/TextAction";
 import { TextCommand, TextLogbook } from "../model/TextVenture";
-import { TextOnOffMode } from "../model/TextSettings";
+import { OnOffMode } from "../model/TextSettings";
 import { Button } from "../components/Button";
 import { Icon } from "../components/Icon";
 import { TextPlayer, TextObject } from "../model/TextObject";
@@ -12,8 +12,8 @@ interface ConsoleMenuProps {
   command: TextCommand;
   title: string;
   player: TextPlayer;
-  mode: TextOnOffMode;
-  onModeChanged(mode: TextOnOffMode): void;
+  mode: OnOffMode;
+  onModeChanged(mode: OnOffMode): void;
 }
 
 export function ConsoleMenu(props: ConsoleMenuProps) {
@@ -31,7 +31,11 @@ export function ConsoleMenu(props: ConsoleMenuProps) {
         <Button onClick={toggleMode}>
           <Icon>chat</Icon>
         </Button>
-        <div className="CurrentCommand">{commandToString(props.command)}</div>
+        <div className="CurrentCommand">
+          {props.player.shortName}
+          {": "}
+          {commandToString(props.command)}
+        </div>
       </div>
     </div>
   );
@@ -78,10 +82,11 @@ export function TextVentureLogbook(log: TextLogbook) {
     const questionStyle = ["Question", "player", log.playerId ?? ""].join(" ");
     return (
       <div className="ConsoleMenuLog">
-        <div className="Command">{log.command}:</div>
+        <div className="Command">
+          {log.playerName}: {log.command}:
+        </div>
         {log.question ? (
           <div className={questionStyle}>
-            <span className="Talker">{log.playerName}:</span>
             <span className="Talk">{log.question}</span>
           </div>
         ) : (
@@ -97,13 +102,10 @@ export function TextVentureLogbook(log: TextLogbook) {
   const responseStyle = ["Response", "player", log.playerId ?? ""].join(" ");
   return (
     <div className="ConsoleMenuLog">
-      <div className="Command">{log.command}</div>
+      <div className="Command">
+        {log.playerName}: {log.command}
+      </div>
       <div className={responseStyle}>
-        {log.playerName ? (
-          <span className="Talker">{log.playerName}:</span>
-        ) : (
-          <></>
-        )}
         <span className="Talk">{log.response}</span>
       </div>
     </div>

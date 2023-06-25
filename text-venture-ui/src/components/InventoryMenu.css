@@ -6,12 +6,13 @@
   left: 0;
   top: 0;
   overflow: hidden;
-  width: 50%;
-  max-width: 30rem;
   display: flex;
   flex-direction: column;
   padding-top: var(--button-size);
   z-index: 2080;
+  min-width: 10rem;
+  max-width: 30rem;
+  width: calc(95% - var(--button-size));
 }
 
 .InventoryMenu .Header {
@@ -36,6 +37,9 @@
 
 .InventoryMenu .Inventory {
   padding-left: 1rem;
+  padding-right: 1rem;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .InventoryMenu .Inventory h4 {
@@ -52,4 +56,22 @@
 .InventoryMenu.off .Inventory {
   height: 0;
   transition: height 0.25s linear;
+}
+
+.InventoryMenu .Inventory ul.Items {
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.InventoryMenu .Inventory li.Item {
+  display: inline;
+  text-overflow: ellipsis;
+  margin-right: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+}
+
+.InventoryMenu .Inventory li.Item::before {
+  content: "-";
 }

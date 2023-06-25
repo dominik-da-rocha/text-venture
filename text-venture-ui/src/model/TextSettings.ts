@@ -1,21 +1,23 @@
 export interface TextSettings {
-  textMode: TextMode;
-  textSize: TextSize;
-  lightMode: TextLightMode;
-  deviceMode: TextDeviceMode;
-  consoleMode: TextOnOffMode;
-  inventoryMode: TextOnOffMode;
-  actionMode: TextOnOffMode;
+  textMode: FontStyle;
+  textSize: FontSize;
+  lightMode: LightMode;
+  storageMode: StorageMode;
+  consoleMode: OnOffMode;
+  inventoryMode: OnOffMode;
+  actionMode: OnOffMode;
 }
 
-export type TextLightMode = "system" | "light" | "dark";
+export type LightMode = "system" | "light" | "dark";
+export const LightModes = ["system", "light", "dark"];
 
-export const TextLightModes = ["system", "light", "dark"];
+export type OnOffMode = "on" | "off";
 
-export type TextDeviceMode = "mobile" | "desktop";
+export type FontStyle = "serif" | "sans-serif" | "monospace" | "cursive";
+export const FontStyles = ["serif", "sans-serif", "monospace", "cursive"];
 
-export type TextOnOffMode = "on" | "off";
+export type FontSize = "small" | "medium" | "large";
+export const FontSizes = ["small", "medium", "large"];
 
-export type TextMode = "serif" | "sans-serif" | "monospace" | "cursive";
-
-export type TextSize = "small" | "medium" | "large";
+export type StorageMode = "local" | "session" | "memory";
+export const StorageModes = ["local", "session", "memory"];
