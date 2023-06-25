@@ -51,6 +51,7 @@ function App() {
         ].join(" ")}
       >
         <PopupAlertProvider>
+          <div className="Watermark">β-version</div>
           <div className="Content">
             <Routes>
               <Route path="/" element={<Home chapters={chapters} />} />

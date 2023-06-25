@@ -21,3 +21,13 @@
   padding-right: calc(1rem + var(--button-size));
   padding-bottom: 5rem;
 }
+
+.App > .Watermark {
+  position: fixed;
+  font-size: 8rem;
+  overflow: hidden;
+  white-space: nowrap;
+  transform: rotate(45deg);
+  top: 15rem;
+  opacity: 0.06;
+}
