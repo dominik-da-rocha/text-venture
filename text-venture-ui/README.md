@@ -27,17 +27,7 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information
 
 ## Learn More
 
@@ -56,10 +46,11 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - [x] replace the description of a scene with a screen play property. Use the description for look at
 - [x] upload project to github and a reference to about page
 - [x] create Help Adventure and explain how it works
-- [ ] reposition the pop up it hides the inventory, only popup when logbook is off
+- [x] reposition the pop up it hides the inventory, only popup when logbook is off
 - [x] add dialogs and complex conversations
 - [ ] add scroll to bottom of scene 
 - [ ] add time delayed typing effect
-- [ ] add complex interactions that can manipulate the scenes
+- [ ] add complex interactions that can manipulate the scenes. add effect to Interactions 
+- [ ] add guestbook.
 - [ ] publish is on server
 - [ ] find testers
