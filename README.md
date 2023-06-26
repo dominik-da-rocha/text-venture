@@ -25,7 +25,7 @@ To play Text Venture, follow these steps:
 
 ## Support and Feedback
 
-If you encounter any issues while playing Text Venture or have any feedback to share, you can file an issue on [https://github.com/dominik-da-rocha/text-venture/issues](github). We appreciate your feedback and will strive to address any problems or concerns promptly.
+If you encounter any issues while playing Text Venture or have any feedback to share, you can file an issue on [github](/issues). We appreciate your feedback and will strive to address any problems or concerns promptly.
 
 ## License
 
