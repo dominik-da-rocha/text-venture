@@ -30,6 +30,7 @@ export const PrologueQuest: TextVentureJson = {
   logbookMaxLength: 1000,
   logbook: [],
   logbookTitle: "Logbook",
+  commandMode: "action",
   links: [
     {
       type: "link",
@@ -337,7 +338,7 @@ export const PrologueQuest: TextVentureJson = {
       type: "player",
       id: "hardy-grow",
       name: "Hardy Grow",
-      shortName: "Mr Grow",
+      shortName: "Mr. Grow",
       description:
         "Hardy Grow: A quintessentially English gentleman with impeccable attire, possessed of an air of mild perplexity and subtle intrigue.",
       interactions: [
@@ -866,8 +867,9 @@ export const PrologueQuest: TextVentureJson = {
         "{player:isa-ruff:Isa}, feeling slightly annoyed with {player:hardy-grow:Hardy}'s incessant chatter, let out a low growl of frustration. Her colorful hair seemed to bristle with impatience as she barked at him, her voice laced with a punk-rock edge, 'Oi, Hardy! Leave it be, will ya? Can't ya see I'm tryin' to catch some shut-eye here? For the love of all that's punk, just let me sleep, for god's sake!'",
         "In a hushed tone, {player:hardy-grow:Hardy} turned his attention to the reader, breaking the fourth wall with a conspiratorial air. 'Perhaps,' he whispered, 'it's best to let {player:isa-ruff:Isa} be for now. She does have a certain talent for irritable slumber, after all. But fear not, dear reader, for your adventure does not end here.'",
         "He leaned closer, his voice tinged with excitement. 'Why don't you take this opportunity to explore the world beyond these office walls? Go ahead, have a little wander. Peek into the mysterious corners and hidden nooks, for there's a realm of real adventure awaiting you. Who knows what wonders and puzzles lie just beyond that {link:home:milch glass door}?'",
-        "___",
-        "*note from the author: If you encounter an object from the nimbus. I did not define the object correctly, in that case please file bug on {link:github:github}",
+      ],
+      footnotes: [
+        "A gentle reminder from the author. In the unlikely event that you stumble upon an object from the nimbus, please bear with us. It appears that I might not have defined the object correctly in this particular instance. I apologize for any confusion caused, and I kindly request you to file a bug report on {link:github:GitHub}. Your feedback is invaluable in improving the text venture experience. Now, let's continue with our adventure through the quirky world of Hardy, Isa, and the enigmatic young lady.",
       ],
       persons: [
         {
@@ -993,6 +995,310 @@ export const PrologueQuest: TextVentureJson = {
         },
       ],
       interactions: [
+        {
+          type: "talk-to",
+          id: "talk-young-lady",
+          matchesAction: { oneOf: "talk-to" },
+          matchesObjects: [{ oneIdOf: "young-lady" }],
+          start: ["help-start", "case-start"],
+          dialogs: {
+            "help-start": {
+              pc: {
+                "hardy-grow":
+                  "Do you happen to have any inquiries of a technical nature regarding the intricacies of the private investigation profession, my dear?",
+                "isa-ruff":
+                  "Do ya 'ave any technical questions 'bout this investigation business, luv? Need me to shed some light on it for ya?",
+              },
+              npc:
+                "I find myself rather unfamiliar with the intricacies of this investigation business. Would you be so kind as to explain it to me once more?",
+              next: [
+                "help-ask-objects",
+                "help-ask-actions",
+                "help-ask-inventory",
+                "help-ask-logbook",
+                "help-end",
+              ],
+            },
+            "help-end": {
+              pc: {
+                "hardy-grow":
+                  "That, my dear interlocutor, encapsulates the sum total of my elucidation regarding the realm of investigations. Pray, do enlighten me, what else piques your curiosity?",
+                "isa-ruff":
+                  "That's all I can blabber about investigations, innit? So, spill the beans, what else tickles your fancy?",
+              },
+              npc:
+                "Unfortunately, it's rather disappointing that I won't be able to delve further into the intricacies of the subject. I must admit, I was quite eager to gain additional insights.",
+              next: ["help-start", "case-start"],
+              dropIfAsked: true,
+            },
+            "help-ask-objects": {
+              pc: {
+                "hardy-grow":
+                  "Might I offer a more elaborate discourse on the objects at hand?",
+                "isa-ruff":
+                  "Oi, reckon I should break down them bloomin' objects for ya?",
+              },
+              npc:
+                "Oh, absolutely. I would be most grateful if you could provide a more detailed explanation of the objects.",
+              next: ["help-explain-objects"],
+            },
+            "help-ask-actions": {
+              pc: {
+                "hardy-grow":
+                  "Might I propose a more comprehensive elucidation regarding the various actions at our disposal?",
+                "isa-ruff":
+                  "Oi, fancy me explainin' the bleedin' actions in more detail?",
+              },
+              npc:
+                "Oh, yes, please. I would greatly appreciate a more thorough explanation of the actions involved.",
+              next: ["help-explain-actions"],
+            },
+            "help-ask-inventory": {
+              pc: {
+                "hardy-grow":
+                  "Might I proffer a more comprehensive elucidation regarding the intricacies of our inventory system?",
+                "isa-ruff":
+                  "Oi, fancy me givin' ya a proper breakdown of the bleedin' inventory?",
+              },
+              npc:
+                "Oh, certainly. I would greatly appreciate a more detailed explanation of the inventory, if you would be so kind.",
+              next: ["help-explain-inventory"],
+            },
+            "help-ask-logbook": {
+              pc: {
+                "hardy-grow":
+                  "Might I offer a more elaborate elucidation regarding the intricacies of our logbook system?",
+                "isa-ruff":
+                  "Oi, reckon I should give ya a proper rundown of the bleedin' logbook?",
+              },
+              npc:
+                "Oh, absolutely. I would be most grateful if you could provide a more detailed explanation of the logbook.",
+              next: ["help-explain-logbook"],
+            },
+            "help-explain-objects": {
+              pc: {
+                "hardy-grow":
+                  "Allow me to elucidate the distinct categories of objects we encounter in our adventurous endeavors. Firstly, we have 'things'—inanimate objects that can be interacted with. Secondly, we have 'scenes'—locations or settings that serve as backdrops for our investigations. Thirdly, we have 'persons'—individuals we can engage in dialogue and exchange information with. And finally, we have 'players,' which include ourselves, Isa, and myself. As players, we navigate this thrilling text venture together, unraveling mysteries and forging our own path.",
+                "isa-ruff":
+                  "Right, listen up, mate. 'Ere's the deal with these four object types, innit? First off, ya got your 'things,' all them bits and bobs floatin' about, like proper stuff. Then there's the 'scenes,' yeah? Them environments where all the action goes down. Next up, we got the 'persons,' proper characters with their own stories and whatnot. And lastly, we 'ave the 'players,' which includes me and the fancy gent 'ardly 'ere, along with yerself, gettin' stuck in this adventure. So, that's the lowdown on the objects, right proper, innit?",
+              },
+              npc:
+                "Ah, splendid! I appreciate your thorough explanation of the various object types. It seems we have a wide array of elements to engage with in this intriguing text venture. Thank you for shedding light on the subject.",
+              next: [
+                "help-ask-actions",
+                "help-ask-inventory",
+                "help-ask-logbook",
+                "help-end",
+              ],
+              dropIfAsked: true,
+            },
+            "help-explain-actions": {
+              pc: {
+                "hardy-grow":
+                  "Allow me to elucidate the six fundamental actions at our disposal within this enthralling text venture. Firstly, we have 'look at,' a versatile command that not only provides more information about objects but also allows us to switch between players. Secondly, we have 'talk to,' enabling us to engage in conversations with various persons we encounter. Next, we have 'walk to,' which facilitates seamless transitions between different scenes, such as the bustling kitchen. Fourthly, we have 'pick up,' allowing us to acquire items of interest and store them in our inventory. Fifthly, we have 'give,' enabling us to exchange items from our inventory with other characters or objects. Lastly, we have 'use,' a delightful opportunity to experiment with inventive combinations of objects and witness the unexpected unfold.",
+                "isa-ruff":
+                  "Right, listen 'ere, mate. Let me break it down for ya. We've got six actions at our disposal, innit? First off, we've got 'look at.' You can snoop around and get more info on stuff. It's also a way to switch between players, yeah? Then we 'ave 'talk to,' where we can 'ave a good ol' chinwag with folks we come across. Next up is 'walk to,' takin' us to different scenes like that messy kitchen, ya know? 'Pick up' lets us snatch things and stash 'em in our inventory. 'Give' allows us to hand over items we've got in the inventory. And last but not least, we've got 'use,' where we can get a bit creative and combine things in fancy ways.",
+              },
+              npc:
+                "Oh, how fascinating! Thank you for the comprehensive explanations of the six actions. It seems we have a range of possibilities at our disposal to navigate this thrilling text adventure. I'm eager to dive deeper into the gameplay and uncover the secrets that await.",
+              next: [
+                "help-ask-objects",
+                "help-ask-inventory",
+                "help-ask-logbook",
+                "help-end",
+              ],
+              dropIfAsked: true,
+            },
+            "help-explain-inventory": {
+              pc: {
+                "hardy-grow":
+                  "Ah, the inventory, a vital component of our adventure. It is conveniently accessible via the menu located in the top left corner. Within the inventory, you'll find a collection of items you've acquired throughout your journey. These items can be examined, used, combined, and even exchanged with other characters or objects. It serves as a repository of your discoveries and a gateway to unraveling the enigmatic possibilities of this text venture.",
+                "isa-ruff":
+                  "Right, listen 'ere, mate. The inventory is like a stash of all the stuff you've picked up along the way. You can access it from the menu, up there in the top left corner. It's where you keep track of your items and can do all sorts of things with 'em. Look at 'em, use 'em, combine 'em, and even give 'em to other folks or objects. It's like your personal toolkit, ready to 'elp you on your quest.",
+              },
+              npc:
+                "Oh, how intriguing! The inventory sounds like a valuable resource in our adventure. Having a designated space to store and manage acquired items is essential for progressing through the game. The convenience of accessing it from the top left corner menu ensures easy navigation. I'm eager to see what items I'll discover and how they will aid us on our quest.",
+              next: [
+                "help-ask-objects",
+                "help-ask-actions",
+                "help-ask-logbook",
+                "help-end",
+              ],
+              dropIfAsked: true,
+            },
+            "help-explain-logbook": {
+              pc: {
+                "hardy-grow":
+                  "Ah, the logbook, a valuable tool for keeping track of your progress and adventures. You can access it from the menu, conveniently located in the bottom left corner. The logbook records all your actions, interactions, and important information, serving as a personal diary of your journey. It's a reliable companion, ensuring you never miss a clue or forget a significant detail. Feel free to browse through it whenever you need a refresher or want to relive your thrilling text venture experiences.",
+                "isa-ruff":
+                  "Right, listen up, guv'nor. The logbook is like a journal of your escapades, yeah? You can find it in the menu down there in the bottom left corner. It keeps track of every bleedin' thing you've done, from lookin' at stuff to talkin' to people and all that. It's like a memory bank, so you won't forget any important deets. Just pop in there when you need a reminder or fancy a trip down memory lane, mate.",
+              },
+              npc:
+                "How marvelous! The logbook serves as a digital chronicle of our expedition, capturing every action and detail for future reference. Its placement in the bottom left corner of the menu ensures easy access and a seamless user experience. I appreciate the ability to revisit past interactions and refresh my memory whenever necessary. It's a testament to the meticulousness of this text venture, providing a comprehensive account of our journey.",
+              next: [
+                "help-ask-objects",
+                "help-ask-actions",
+                "help-ask-inventory",
+                "help-end",
+              ],
+              dropIfAsked: true,
+            },
+            "case-start": {
+              pc: {
+                "hardy-grow":
+                  "Pray tell, madam, what prompted your visit to our esteemed P.I. office?",
+                "isa-ruff":
+                  "Oi, love, what's the reason you popped into our P.I. office?",
+              },
+              npc:
+                "My apologies, but I suspect my husband's fidelity is compromised.",
+              next: [
+                "case-not-one-of-those-cases",
+                "case-how-do-you-know-about-that",
+                "case-does-he-know-that-you-know",
+                "case-should-isa-kick-his-ass",
+                "case-should-we-take-photos",
+                "case-end",
+              ],
+            },
+            "case-end": {
+              pc: {
+                "hardy-grow":
+                  "I'm afraid we cannot take on any cases until the door is fixed. We cannot leave the door to the mad world outside. The programmer responsible for it is, well, let's just say lacking in motivation.",
+                "isa-ruff":
+                  "Sorry, luv, but we can't dive into any cases until the bleeding door's sorted. Can't let the nutter world wander in, can we? Blame that lazy programmer, the wanker.",
+              },
+              npc:
+                "That's too bad. I was hoping for some help with my situation.",
+              next: ["help-start", "case-start"],
+              dropIfAsked: true,
+            },
+            "case-not-one-of-those-cases": {
+              pc: {
+                "hardy-grow":
+                  "Oh, dear, not another one of those cases, I'm afraid. You see, these matters tend to stir up trouble. If we don't find evidence of your husband's infidelity, you won't pay us since you believe otherwise. And if he is indeed cheating, you won't pay us because we deliver the unfortunate news. In the end, we're left without payment.",
+                "isa-ruff":
+                  "Blimey, love, not another case like this. They always bring nothing but trouble. If we don't find your bloke's cheating, you won't pay us 'cause you're convinced. And if he is, you won't pay us 'cause we're the bearers of bad news. It's a lose-lose situation, innit?",
+              },
+              npc: "How can you say such things? I'm not that kind of person.",
+              next: [
+                "case-how-do-you-know-about-that",
+                "case-does-he-know-that-you-know",
+                "case-should-isa-kick-his-ass",
+                "case-should-we-take-photos",
+                "case-end",
+              ],
+              dropIfAsked: true,
+            },
+            "case-how-do-you-know-about-that": {
+              pc: {
+                "hardy-grow":
+                  "How do you know about this? Have you actually seen him with someone? There might be a reasonable explanation. Let me share a story with you. Once, we had a case where the husband was actually planning a surprise birthday party with the client's best friend. Let me tell you, that party was a disaster. Nobody was happy, and guess what? We didn't get paid.",
+                "isa-ruff":
+                  "Oi, love, how d'you know about that? Did you catch 'im red-handed? There might be a proper explanation, you know. Let me share a funny story with ya. We 'ad a case where the bloke was plannin' a surprise birthday bash with 'is missus' best mate. I'll tell ya, that party was a right mess. No one 'ad a good time, and you know what? We never got paid.",
+              },
+              npc: "That's quite a funny story.",
+              next: [
+                "case-not-one-of-those-cases",
+                "case-does-he-know-that-you-know",
+                "case-should-isa-kick-his-ass",
+                "case-should-we-take-photos",
+                "case-end",
+              ],
+              dropIfAsked: true,
+            },
+            "case-does-he-know-that-you-know": {
+              pc: {
+                "hardy-grow":
+                  "Does he have any idea that you're aware of his actions?",
+                "isa-ruff": "Does 'e 'ave a clue that you're onto 'im?",
+              },
+              npc: "I honestly don't know.",
+              next: [
+                "case-not-one-of-those-cases",
+                "case-how-do-you-know-about-that",
+                "case-should-isa-kick-his-ass",
+                "case-should-we-take-photos",
+                "case-end",
+              ],
+              dropIfAsked: true,
+            },
+            "case-should-isa-kick-his-ass": {
+              pc: {
+                "hardy-grow":
+                  "What course of action shall we take? Should we have Isa give him a proper thrashing?",
+                "isa-ruff":
+                  "Right, love, what do you reckon? Shall I give him a good kicking?",
+              },
+              npc:
+                "I'm not sure. She seems a bit slender. Do you think she can handle him?",
+              next: [
+                "case-not-one-of-those-cases",
+                "case-how-do-you-know-about-that",
+                "case-does-he-know-that-you-know",
+                "case-should-we-take-photos",
+                "case-end",
+              ],
+              dropIfAsked: true,
+            },
+            "case-should-we-take-photos": {
+              pc: {
+                "hardy-grow":
+                  "What course of action shall we pursue then? Shall we gather photographic evidence to strengthen your position in the divorce proceedings?",
+                "isa-ruff":
+                  "Right, love, what's our plan then? Shall we snap some pictures to give you an edge in the divorce?",
+              },
+              npc:
+                "That would be excellent. I want to ensure I have the upper hand.",
+              next: [
+                "case-not-one-of-those-cases",
+                "case-how-do-you-know-about-that",
+                "case-does-he-know-that-you-know",
+                "case-should-isa-kick-his-ass",
+                "case-end",
+              ],
+              dropIfAsked: true,
+            },
+          },
+        },
+        {
+          type: "random-talk-to",
+          id: "rnd-talk-to-young-lady",
+          matchesPlayer: "hardy-grow",
+          matchesAction: {
+            oneOf: "talk-to",
+          },
+          matchesObjects: [
+            {
+              oneIdOf: "young-lady",
+            },
+          ],
+          questions: [
+            "I'm afraid we cannot take on any cases until the door is fixed. We cannot leave the door to the mad world outside. The programmer responsible for it is, well, let's just say lacking in motivation.",
+          ],
+          responses: [
+            "That's too bad. I was hoping for some help with my situation.",
+          ],
+        },
+        {
+          type: "random-talk-to",
+          id: "rnd-talk-to-young-lady",
+          matchesPlayer: "isa-ruff",
+          matchesAction: {
+            oneOf: "talk-to",
+          },
+          matchesObjects: [
+            {
+              oneIdOf: "young-lady",
+            },
+          ],
+          questions: [
+            "Sorry, luv, but we can't dive into any cases until the bleeding door's sorted. Can't let the nutter world wander in, can we? Blame that lazy programmer, the wanker.",
+          ],
+          responses: [
+            "That's too bad. I was hoping for some help with my situation.",
+          ],
+        },
         {
           type: "walk-to",
           id: "walk-to-kitchen",

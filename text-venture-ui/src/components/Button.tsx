@@ -8,6 +8,7 @@ export interface ButtonProps {
   className?: string;
   hidden?: boolean;
   checked?: boolean;
+  disabled?: boolean;
 }
 
 export function Button(props: ButtonProps) {
@@ -17,11 +18,15 @@ export function Button(props: ButtonProps) {
   return (
     <button
       className={[
+        "Button",
         props.className ?? "",
         props.accent ? "accent" : "",
         props.checked ? "checked" : "",
-      ].join(" ")}
+      ]
+        .join(" ")
+        .trim()}
       onClick={props.onClick}
+      disabled={props.disabled}
     >
       {props.children}
     </button>

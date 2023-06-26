@@ -57,7 +57,9 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - [x] upload project to github and a reference to about page
 - [x] create Help Adventure and explain how it works
 - [ ] reposition the pop up it hides the inventory, only popup when logbook is off
-- [ ] add dialogs and complex conversations
+- [x] add dialogs and complex conversations
+- [ ] add scroll to bottom of scene 
+- [ ] add time delayed typing effect
 - [ ] add complex interactions that can manipulate the scenes
 - [ ] publish is on server
 - [ ] find testers

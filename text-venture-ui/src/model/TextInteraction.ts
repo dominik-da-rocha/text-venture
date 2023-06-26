@@ -75,14 +75,14 @@ export interface TextInteractionRandomTalkTo extends TextInteractionAbstract {
 
 export interface TextInteractionTalkTo extends TextInteractionAbstract {
   type: "talk-to";
-  first: string;
-  questions: IMap<TextInteractionTalkToQuestion>;
+  start: string[];
+  dialogs: IMap<TextInteractionTalkToQuestion>;
 }
 
-export interface TextInteractionTalkToQuestion extends TextInteractionAbstract {
-  question: string;
-  response: string;
-  next: string;
+export interface TextInteractionTalkToQuestion {
+  pc: IMap<string> | string;
+  npc: string;
+  next: string[];
   dropIfAsked?: boolean;
 }
 

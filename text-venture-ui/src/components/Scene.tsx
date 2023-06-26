@@ -1,4 +1,5 @@
 import React from "react";
+import "./Scene.css";
 import { TextScene } from "../model/TextScene";
 import { TextObject, TextToken } from "../model/TextObject";
 
@@ -15,11 +16,7 @@ export interface SceneProps {
 }
 
 export function Scene(props: SceneProps) {
-  return (
-    <div>
-      <SceneSelect {...props} />
-    </div>
-  );
+  return <SceneSelect {...props} />;
 }
 
 function SceneSelect(props: SceneProps) {
@@ -41,48 +38,62 @@ function SceneViewer(props: SceneViewerProps) {
   }
   return (
     <div key={props.scene?.id} className="Scene">
-      <div className="Description">
-        <h2>{props.scene.name}</h2>
-        <SceneTextViewer
-          text={props.scene.paragraphs ?? []}
-          onRenderToken={props.onRenderToken}
-          onObjectClick={props.onObjectClick}
-        />
-      </div>
+      <h2>{props.scene.name}</h2>
+      <SceneTextViewer
+        className="Paragraphs"
+        text={props.scene.paragraphs ?? []}
+        onRenderToken={props.onRenderToken}
+        onObjectClick={props.onObjectClick}
+        firstLetterLarge
+      />
+      <SceneTextViewer
+        className="Footnotes"
+        text={props.scene.footnotes ?? []}
+        onRenderToken={props.onRenderToken}
+        onObjectClick={props.onObjectClick}
+      />
     </div>
   );
 }
 
 interface SceneTextViewerProps {
+  className: string;
   text: string | string[];
   onRenderToken(type: string, id: string): TextToken | undefined;
   onObjectClick(object: TextObject): void;
+  firstLetterLarge?: boolean;
 }
 
 function SceneTextViewer(props: SceneTextViewerProps) {
   if (typeof props.text === "string") {
     return (
       <SceneTextArrayViewer
+        className={props.className}
         text={[props.text]}
         onRenderToken={props.onRenderToken}
         onObjectClick={props.onObjectClick}
+        firstLetterLarge={props.firstLetterLarge}
       />
     );
   } else {
     return (
       <SceneTextArrayViewer
+        className={props.className}
         text={props.text}
         onRenderToken={props.onRenderToken}
         onObjectClick={props.onObjectClick}
+        firstLetterLarge={props.firstLetterLarge}
       />
     );
   }
 }
 
 interface SceneTextArrayViewerProps {
+  className: string;
   text: string[];
   onRenderToken(type: string, id: string): TextToken | undefined;
   onObjectClick(object: TextObject): void;
+  firstLetterLarge?: boolean;
 }
 
 function SceneTextArrayViewer(props: SceneTextArrayViewerProps) {
@@ -149,14 +160,15 @@ function SceneTextArrayViewer(props: SceneTextArrayViewerProps) {
           );
         }
       });
+    const className = [
+      "Paragraph",
+      pkey === 0 && props.firstLetterLarge ? " first-letter-large" : "",
+    ].join(" ");
     return (
-      <p
-        className={"Paragraph" + (pkey === 0 ? " first-letter-large" : "")}
-        key={pkey}
-      >
+      <p className={className} key={pkey}>
         {spans}
       </p>
     );
   });
-  return <div className="Paragraphs">{paragraphs}</div>;
+  return <div className={props.className}>{paragraphs}</div>;
 }

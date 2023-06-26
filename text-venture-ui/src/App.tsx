@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import "./components/Theme.css";
+import "./theme/Theme.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Venture } from "./components/Venture";
 import { CaptainHuntersSpaceQuest } from "./data/CapitanHuntersSpaceQuest";

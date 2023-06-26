@@ -1,14 +1,8 @@
-button:hover,
-a:hover,
-.SceneObject:hover {
+button:not(:disabled):hover,
+a:not(:disabled):hover,
+.SceneObject:not(:disabled):hover {
   color: var(--hover);
   text-shadow: 0px 0px 3px var(--glow);
-}
-
-button:active,
-a:active {
-  color: var(--hover);
-  text-shadow: 1px 1px 5px var(--glow);
 }
 
 button {
@@ -33,7 +27,7 @@ button > * {
   opacity: 0.78;
 }
 
-button:active {
+button:not(:disabled):active {
   background: var(--background-accent);
 }
 
@@ -41,11 +35,17 @@ button.accent {
   background: var(--background-accent);
 }
 
-button.accent:active {
+button.accent:not(:disabled):active {
   background: var(--background);
 }
 
 button.checked {
   background: var(--color);
   color: var(--background);
+}
+
+button:disabled {
+  opacity: 0.5;
+  text-shadow: none;
+  cursor: not-allowed;
 }

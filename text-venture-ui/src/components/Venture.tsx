@@ -16,7 +16,6 @@ import {
 import { InventoryMenu } from "./InventoryMenu";
 import { TextActionNone, TextAction } from "../model/TextAction";
 import { getByIdOrFirst, matchesAny, matchesOneOf, randomItem } from "./Utils";
-import { TextCommand, TextLogbook, TextVenture } from "../model/TextVenture";
 import {
   TextInteraction,
   TextObjectPattern,
@@ -31,6 +30,8 @@ import {
   TextDescription,
   TextPlayer,
 } from "../model/TextObject";
+import { TextCommand, TextLogbook } from "../model/TextConsole";
+import { TextVenture } from "../model/TextVenture";
 
 interface VentureProps {
   onSettingsChanged(copy: TextSettings): void;
@@ -54,7 +55,6 @@ export function VentureWrapper(props: VentureProps) {
     type: "command",
     action: TextActionNone,
     objects: [],
-    response: "",
   });
   const [sceneSwitchEffect, setSceneSwitchEffect] = useState<SceneSwitchEffect>(
     () => sceneSwitchEffectEnd
@@ -98,19 +98,29 @@ export function VentureWrapper(props: VentureProps) {
       playerName: command.playerName,
       playerId: command.playerId,
     };
+    console.log(log);
     return log;
   }
 
-  function appendLog(command: TextCommand) {
-    const logbookEntry = toLogbook(command);
+  function appendLogbook(logbookEntry: TextLogbook) {
     const newLogbook = [logbookEntry, ...text.logbook];
     while (newLogbook.length > text.logbookMaxLength) {
       newLogbook.splice(newLogbook.length - 1, 1);
     }
     text.logbook = newLogbook;
     props.onTextChanged(text);
-    if (props.settings.consoleMode === "off") {
+    if (
+      props.settings.consoleMode === "off" &&
+      props.text.commandMode === "action"
+    ) {
       showPopup(() => <TextVentureLogbook {...logbookEntry} />);
+    }
+  }
+
+  function appendCommandToLogbook(command: TextCommand) {
+    if (command.response || command.question) {
+      const logbookEntry = toLogbook(command);
+      appendLogbook(logbookEntry);
     }
   }
 
@@ -118,6 +128,10 @@ export function VentureWrapper(props: VentureProps) {
     action: TextAction | undefined,
     object: TextObject | undefined
   ) {
+    if (text.commandMode !== "action") {
+      return;
+    }
+
     let newCommand = { ...currentCommand };
     let update = false;
     if (action && newCommand.action.id !== action.id) {
@@ -145,7 +159,6 @@ export function VentureWrapper(props: VentureProps) {
               type: "command",
               action: TextActionNone,
               objects: [],
-              response: "",
             }),
           1000
         );
@@ -206,48 +219,54 @@ export function VentureWrapper(props: VentureProps) {
     switch (interaction.type) {
       case "random":
         command.response = randomItem(interaction.responses);
-        appendLog(command);
+        appendCommandToLogbook(command);
         return true;
       case "simple":
         command.response = interaction.response;
-        appendLog(command);
+        appendCommandToLogbook(command);
         return true;
       case "look-at":
         command.response =
           getDescription(command.objects[0].description) ??
           randomItem(interaction.responses);
-        appendLog(command);
+        appendCommandToLogbook(command);
         return true;
       case "look-at-player":
         command.response = randomItem(interaction.responses);
-        appendLog(command);
+        appendCommandToLogbook(command);
         selectPlayer(command.objects[0]);
         return true;
       case "give-item-to":
         command.response = randomItem(interaction.responses);
-        appendLog(command);
+        appendCommandToLogbook(command);
         giveFromItemTo(player, command.objects[0], command.objects[1]);
         return true;
       case "walk-to":
         command.response = randomItem(interaction.responses);
-        appendLog(command);
+        appendCommandToLogbook(command);
         selectScene(command.objects[0]);
         return true;
       case "pick-up":
         command.response = randomItem(interaction.responses);
-        appendLog(command);
+        appendCommandToLogbook(command);
         removeObjectFromScenesDescription(command.objects[0]);
         giveFromItemTo(scene, command.objects[0], player);
         return true;
       case "random-talk-to":
         command.question = randomItem(interaction.questions);
         command.response = randomItem(interaction.responses);
-        appendLog(command);
+        appendCommandToLogbook(command);
+        return true;
+      case "talk-to":
+        text.commandMode = "conversation";
+        text.currentConversationId = interaction.id;
+        delete text.currentDialogId;
+        props.onTextChanged(text);
         return true;
     }
 
-    command.response = "Note from the programmer: That should not happen!";
-    appendLog(command);
+    command.response = "Note from the author: That should not happen!";
+    appendCommandToLogbook(command);
 
     return true;
   }
@@ -460,16 +479,16 @@ export function VentureWrapper(props: VentureProps) {
   return (
     <>
       <ConsoleMenu
-        title={text.logbookTitle}
-        commandLog={text.logbook}
+        text={text}
         command={currentCommand}
-        player={player}
         mode={settings.consoleMode}
         onModeChanged={(mode) => {
           let copy = { ...settings };
           copy.consoleMode = mode;
           props.onSettingsChanged(copy);
         }}
+        onTextChange={props.onTextChanged}
+        appendLogbook={appendLogbook}
       />
 
       <InventoryMenu
@@ -493,6 +512,7 @@ export function VentureWrapper(props: VentureProps) {
           copy.actionMode = mode;
           props.onSettingsChanged(copy);
         }}
+        commandMode={text.commandMode}
       />
 
       <div className={sceneSwitchEffect}>

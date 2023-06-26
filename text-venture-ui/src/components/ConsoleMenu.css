@@ -25,7 +25,6 @@
 }
 
 .ConsoleMenu .CommandMenu {
-  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
@@ -33,11 +32,14 @@
   background: var(--background-accent);
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
 }
 
 .ConsoleMenu .CommandMenu .CurrentCommand {
   color: var(--player);
   font-size: 0.95rem;
+  width: calc(100% - var(--button-size));
 }
 
 .ConsoleMenu .Logbook {

@@ -6,6 +6,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
   id: "captain-hunters-space-quest-i",
   name: "Captain Hunter's Escape from the Desert Planet",
   description: "A Steam-Fueled Space Adventure",
+  commandMode: "action",
   anecdote: {
     quote:
       "As I strutted confidently through the space port, I thought I had successfully smuggled a crate of 'rare artifacts.' But when Port Inspector approached, my heart skipped a beat. He opened the crate, revealing not priceless relics, but a shipment of rubber ducks! The laughter of the onlookers echoed through the port as I blushed furiously. Turns out, I accidentally swapped crates with a prankster smuggler. Lesson learned: always double-check the contents!",

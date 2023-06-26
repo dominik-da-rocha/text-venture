@@ -5,6 +5,7 @@ import { iMap } from "./Utils";
 import { Button } from "./Button";
 import { Icon } from "./Icon";
 import { OnOffMode } from "../model/TextSettings";
+import { CommandMode } from "../model/TextConsole";
 
 interface ActionMenuProps {
   actions: TextActionMap;
@@ -12,6 +13,7 @@ interface ActionMenuProps {
   onAction(action: TextAction): void;
   mode: OnOffMode;
   onModeChanged(mode: OnOffMode): void;
+  commandMode: CommandMode;
 }
 
 export function ActionMenu(props: ActionMenuProps) {
@@ -32,6 +34,7 @@ export function ActionMenu(props: ActionMenuProps) {
               action={action}
               onAction={props.onAction}
               checked={props.currentAction?.id === action.id}
+              disabled={props.commandMode !== "action"}
             />
           );
         })}
@@ -48,6 +51,7 @@ interface TextVentureActionProps {
   action: TextAction;
   onAction(action: TextAction): void;
   checked?: boolean;
+  disabled?: boolean;
 }
 
 function TextVentureAction(props: TextVentureActionProps) {
@@ -55,6 +59,7 @@ function TextVentureAction(props: TextVentureActionProps) {
     <Button
       className={["TextVentureAction"].join()}
       checked={props.checked}
+      disabled={props.disabled}
       accent
       onClick={() => {
         props.onAction(props.action);

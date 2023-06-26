@@ -3,12 +3,12 @@
 import { arrayToIMap } from "../components/Utils";
 import { TextAction, TextActionMap } from "./TextAction";
 import { TextAnecdote } from "./TextAnecdote";
+import { CommandMode, TextLogbook } from "./TextConsole";
+import { TextInteraction } from "./TextInteraction";
 import {
   TextLink,
   TextLinkMap,
-  TextObject,
   TextObjectAbstract,
-  TextObjectType,
   TextPlayer,
 } from "./TextObject";
 import { TextScene, TextSceneMap } from "./TextScene";
@@ -21,6 +21,10 @@ interface TextVentureAbstract extends TextObjectAbstract {
   logbookMaxLength: number;
   logbookTitle: string;
   anecdote: TextAnecdote;
+  commandMode: CommandMode;
+  currentConversationId?: string;
+  currentDialogId?: string;
+  interactions: TextInteraction[];
 }
 
 // this is loaded
@@ -60,37 +64,10 @@ export function toTextVenture(json: TextVentureJson): TextVenture {
     logbook: [...json.logbook],
     currentSceneId: json.currentSceneId,
     currentPlayerId: json.currentPlayerId,
+    commandMode: json.commandMode,
   };
 }
 
 export interface TextPlayerMap {
   [index: string]: TextPlayer | undefined;
-}
-
-export interface TextCommand {
-  type: "command";
-  action: TextAction;
-  objects: TextObject[];
-  playerName?: string;
-  playerId?: string;
-  question?: string;
-  response: string;
-  style?: string;
-}
-
-export interface TextLogbookObject {
-  type: TextObjectType;
-  name: string;
-  id: string;
-}
-
-export interface TextLogbook {
-  actionId: string;
-  command: string;
-  objects: TextLogbookObject[];
-  playerName?: string;
-  playerId?: string;
-  question?: string;
-  response: string;
-  style?: string;
 }

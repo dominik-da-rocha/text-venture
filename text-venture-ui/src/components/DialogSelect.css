@@ -1,0 +1,22 @@
+.DialogSelect {
+  height: var(--button-size);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.DialogSelect select {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.DialogSelect select:focus {
+  outline: none;
+}
+
+.DialogSelect .Player {
+  min-width: 4rem;
+}

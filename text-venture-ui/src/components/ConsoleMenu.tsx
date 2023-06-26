@@ -1,29 +1,35 @@
 import React from "react";
 import "./ConsoleMenu.css";
 import { TextAction } from "../model/TextAction";
-import { TextCommand, TextLogbook } from "../model/TextVenture";
 import { OnOffMode } from "../model/TextSettings";
 import { Button } from "../components/Button";
 import { Icon } from "../components/Icon";
-import { TextPlayer, TextObject } from "../model/TextObject";
+import { TextObject, TextPlayer } from "../model/TextObject";
+import { DialogSelect } from "./DialogSelect";
+import { TextCommand, TextLogbook } from "../model/TextConsole";
+import { TextVenture } from "../model/TextVenture";
 
 interface ConsoleMenuProps {
-  commandLog: TextLogbook[];
   command: TextCommand;
-  title: string;
-  player: TextPlayer;
   mode: OnOffMode;
   onModeChanged(mode: OnOffMode): void;
+  text: TextVenture;
+  onTextChange(text: TextVenture): void;
+  appendLogbook(logbookEntry: TextLogbook): void;
 }
 
 export function ConsoleMenu(props: ConsoleMenuProps) {
+  const text = props.text;
+  const player = text.players[text.currentPlayerId] as TextPlayer;
+
   function toggleMode() {
     props.onModeChanged(props.mode === "on" ? "off" : "on");
   }
+
   return (
     <div className={["ConsoleMenu", props.mode].join(" ")}>
       <div className="Logbook">
-        {props.commandLog.map((log, idx) => {
+        {text.logbook.map((log, idx) => {
           return <TextVentureLogbook key={idx} {...log} />;
         })}
       </div>
@@ -32,9 +38,25 @@ export function ConsoleMenu(props: ConsoleMenuProps) {
           <Icon>chat</Icon>
         </Button>
         <div className="CurrentCommand">
-          {props.player.shortName}
-          {": "}
-          {commandToString(props.command)}
+          {text.commandMode === "action" ? (
+            <span>
+              {player.shortName}
+              {": "}
+              {commandToString(props.command)}
+            </span>
+          ) : (
+            <></>
+          )}
+          {text.commandMode === "conversation" ? (
+            <DialogSelect
+              text={text}
+              personTalkedTo={props.command.objects[0]}
+              onTextChange={props.onTextChange}
+              appendLogbook={props.appendLogbook}
+            />
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>
@@ -83,7 +105,7 @@ export function TextVentureLogbook(log: TextLogbook) {
     return (
       <div className="ConsoleMenuLog">
         <div className="Command">
-          {log.playerName}: {log.command}:
+          {log.playerName}: {log.command}
         </div>
         {log.question ? (
           <div className={questionStyle}>
@@ -92,10 +114,14 @@ export function TextVentureLogbook(log: TextLogbook) {
         ) : (
           <></>
         )}
-        <div className={responseStyle}>
-          <span className="Talker">{log.objects[0].name}:</span>{" "}
-          <span className="Talk">{log.response}</span>
-        </div>
+        {log.response ? (
+          <div className={responseStyle}>
+            <span className="Talker">{log.objects[0].name}:</span>{" "}
+            <span className="Talk">{log.response}</span>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     );
   }

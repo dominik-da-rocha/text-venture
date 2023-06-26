@@ -85,20 +85,52 @@ body:has(div#root div.light) {
   background: var(--select);
 }
 
-.serif {
-  font-family: serif;
+@font-face {
+  font-family: kotta-one;
+  src: url(./KottaOne-Regular.ttf);
 }
 
-.sans-serif {
-  font-family: sans-serif;
+.serif,
+.serif select,
+.serif option,
+.serif button {
+  font-family: kotta-one, serif;
 }
 
-.monospace {
-  font-family: monospace;
+@font-face {
+  font-family: mplus-rounded-1c;
+  src: url(./MPLUSRounded1c-Regular.ttf);
 }
 
-.cursive {
-  font-family: cursive;
+.sans-serif,
+.sans-serif select,
+.sans-serif option,
+.sans-serif button {
+  font-family: mplus-rounded-1c, sans-serif;
+}
+
+@font-face {
+  font-family: source-code-pro;
+  src: url(./SourceCodePro-Regular.ttf);
+}
+
+.monospace,
+.monospace select,
+.monospace option,
+.monospace button {
+  font-family: source-code-pro, monospace;
+}
+
+@font-face {
+  font-family: kalam;
+  src: url(./Kalam-Regular.ttf);
+}
+
+.cursive,
+.cursive select,
+.cursive option,
+.cursive button {
+  font-family: kalam, cursive;
 }
 
 .medium {
