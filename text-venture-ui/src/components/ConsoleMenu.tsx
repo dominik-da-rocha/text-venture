@@ -16,6 +16,7 @@ interface ConsoleMenuProps {
   text: TextVenture;
   onTextChange(text: TextVenture): void;
   appendLogbook(logbookEntry: TextLogbook): void;
+  onScrollToBottom(): void;
 }
 
 export function ConsoleMenu(props: ConsoleMenuProps) {
@@ -53,6 +54,7 @@ export function ConsoleMenu(props: ConsoleMenuProps) {
               personTalkedTo={props.command.objects[0]}
               onTextChange={props.onTextChange}
               appendLogbook={props.appendLogbook}
+              onScrollToBottom={props.onScrollToBottom}
             />
           ) : (
             <></>

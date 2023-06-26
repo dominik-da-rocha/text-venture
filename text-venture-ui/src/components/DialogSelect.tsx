@@ -17,6 +17,7 @@ export interface DialogSelectProps {
   personTalkedTo: TextObject;
   onTextChange(text: TextVenture): void;
   appendLogbook(logbookEntry: TextLogbook): void;
+  onScrollToBottom(): void;
 }
 
 export function DialogSelect(props: DialogSelectProps) {
@@ -85,6 +86,7 @@ export function DialogSelect(props: DialogSelectProps) {
     }
 
     let pc = getDialogPlayerCharacterText(selectedDialog.pc, player.id);
+    props.onScrollToBottom();
     scene.paragraphs.push(toNameToken(player) + ": " + pc);
     let npc = selectedDialog.npc;
     scene.paragraphs.push(toNameToken(personTalkedTo) + ": " + npc);

@@ -13,6 +13,7 @@ export interface SceneProps {
   onRenderToken(type: string, id: string): TextToken | undefined;
   onObjectClick(object: TextObject): void;
   onNextDialog(dialog: undefined): void;
+  refLastParagraph: React.RefObject<HTMLDivElement>;
 }
 
 export function Scene(props: SceneProps) {
@@ -36,10 +37,12 @@ function SceneViewer(props: SceneViewerProps) {
   if (!props.scene) {
     return <></>;
   }
+
   return (
     <div key={props.scene?.id} className="Scene">
       <h2>{props.scene.name}</h2>
       <SceneTextViewer
+        refLastParagraph={props.refLastParagraph}
         className="Paragraphs"
         text={props.scene.paragraphs ?? []}
         onRenderToken={props.onRenderToken}
@@ -62,6 +65,7 @@ interface SceneTextViewerProps {
   onRenderToken(type: string, id: string): TextToken | undefined;
   onObjectClick(object: TextObject): void;
   firstLetterLarge?: boolean;
+  refLastParagraph?: React.RefObject<HTMLDivElement>;
 }
 
 function SceneTextViewer(props: SceneTextViewerProps) {
@@ -73,6 +77,7 @@ function SceneTextViewer(props: SceneTextViewerProps) {
         onRenderToken={props.onRenderToken}
         onObjectClick={props.onObjectClick}
         firstLetterLarge={props.firstLetterLarge}
+        refLastParagraph={props.refLastParagraph}
       />
     );
   } else {
@@ -83,6 +88,7 @@ function SceneTextViewer(props: SceneTextViewerProps) {
         onRenderToken={props.onRenderToken}
         onObjectClick={props.onObjectClick}
         firstLetterLarge={props.firstLetterLarge}
+        refLastParagraph={props.refLastParagraph}
       />
     );
   }
@@ -94,10 +100,11 @@ interface SceneTextArrayViewerProps {
   onRenderToken(type: string, id: string): TextToken | undefined;
   onObjectClick(object: TextObject): void;
   firstLetterLarge?: boolean;
+  refLastParagraph?: React.RefObject<HTMLDivElement>;
 }
 
 function SceneTextArrayViewer(props: SceneTextArrayViewerProps) {
-  const paragraphs = props.text.map((p, pkey) => {
+  const paragraphs = props.text.map((p, pkey, paragraphs) => {
     const spans = p
       .split(/({[a-z-]*:[a-z-]*:[a-zA-Z -,.—_:"']*})/)
       .map((s, skey) => {
@@ -164,8 +171,15 @@ function SceneTextArrayViewer(props: SceneTextArrayViewerProps) {
       "Paragraph",
       pkey === 0 && props.firstLetterLarge ? " first-letter-large" : "",
     ].join(" ");
+
     return (
-      <p className={className} key={pkey}>
+      <p
+        className={className}
+        key={pkey}
+        ref={
+          pkey === paragraphs.length - 1 ? props.refLastParagraph : undefined
+        }
+      >
         {spans}
       </p>
     );

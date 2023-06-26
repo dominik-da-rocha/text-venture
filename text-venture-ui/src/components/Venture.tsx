@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   SceneSwitchEffect,
   Scene,
@@ -60,6 +60,7 @@ export function VentureWrapper(props: VentureProps) {
     () => sceneSwitchEffectEnd
   );
   const showPopup = useShowPopup();
+  const refLastParagraph = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (sceneSwitchEffect === sceneSwitchEffectStart) {
@@ -71,6 +72,12 @@ export function VentureWrapper(props: VentureProps) {
       clearTimeout(tout);
     };
   }, [sceneSwitchEffect]);
+
+  function handleScrollToBottom() {
+    if (refLastParagraph.current) {
+      refLastParagraph.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }
 
   const scene = getByIdOrFirst(text.scenes, text.currentSceneId);
   if (scene === undefined) {
@@ -489,6 +496,7 @@ export function VentureWrapper(props: VentureProps) {
         }}
         onTextChange={props.onTextChanged}
         appendLogbook={appendLogbook}
+        onScrollToBottom={handleScrollToBottom}
       />
 
       <InventoryMenu
@@ -525,6 +533,7 @@ export function VentureWrapper(props: VentureProps) {
           onNextDialog={handleNextDialog}
           onObjectClick={handleObjectClick}
           onRenderToken={handleRenderToken}
+          refLastParagraph={refLastParagraph}
         ></Scene>
       </div>
     </>
