@@ -7,7 +7,6 @@ import {
   TextInteractionTalkTo,
   TextInteractionTalkToQuestion,
 } from "../model/TextInteraction";
-import { IMap } from "./Utils";
 import { TextVenture } from "../model/TextVenture";
 import { TextScene } from "../model/TextScene";
 import { TextLogbook } from "../model/TextConsole";
@@ -85,11 +84,21 @@ export function DialogSelect(props: DialogSelectProps) {
       return;
     }
 
-    let pc = getDialogPlayerCharacterText(selectedDialog.pc, player.id);
+    let pc = selectedDialog?.pc[player.id];
+    if (pc === undefined) {
+      console.warn("speech for " + player.id + " is undefined");
+      return;
+    }
     props.onScrollToBottom();
-    scene.paragraphs.push(toNameToken(player) + ": " + pc);
+    scene.paragraphs.push(...pc?.paragraphs);
+
     let npc = selectedDialog.npc;
-    scene.paragraphs.push(toNameToken(personTalkedTo) + ": " + npc);
+    scene.paragraphs.push(npc);
+    if (selectedDialog.effects) {
+      scene.paragraphs.push(...selectedDialog.effects);
+      delete selectedDialog.effects;
+    }
+
     let deletedIds = dropDialogIfAsked(conversation, selectedDialogId);
     deletedIds.forEach((id) => {
       let idx = selectedDialog.next.findIndex((next) => next === id);
@@ -111,7 +120,7 @@ export function DialogSelect(props: DialogSelectProps) {
       command: "",
       playerId: player.id,
       playerName: player.name,
-      question: pc,
+      question: pc.short,
       response: npc,
     };
     setTimeout(() => {
@@ -147,7 +156,7 @@ export function DialogSelect(props: DialogSelectProps) {
           }
           return (
             <option key={dialogId} value={idx}>
-              {getDialogPlayerCharacterText(dialog.pc, player.id)}
+              {dialog.pc[player.id]?.short ?? "speech is for player undefined"}
             </option>
           );
         })}
@@ -157,28 +166,6 @@ export function DialogSelect(props: DialogSelectProps) {
       </Button>
     </div>
   );
-}
-
-function toNameToken(obj: TextObject) {
-  return `{${obj.type}:${obj.id}:${obj.name}}`;
-}
-
-function getDialogPlayerCharacterText(
-  pc: string | IMap<string> | undefined,
-  playerId: string
-): string {
-  if (pc === undefined) {
-    return "pc is undefined error!";
-  } else if (typeof pc === "string") {
-    return pc;
-  } else {
-    let text = pc[playerId];
-    if (text) {
-      return text;
-    } else {
-      return "text is undefined error!";
-    }
-  }
 }
 
 function dropDialogIfAsked(

@@ -91,17 +91,17 @@ function joinObjects(objects: TextObject[], action: TextAction) {
 }
 
 export function TextVentureLogbook(log: TextLogbook) {
+  const personTalkedTo = log.objects[log.responseIdx ?? 0];
   if (
-    log.actionId === "talk-to" &&
     log.objects.length > 0 &&
-    (log.objects[0].type === "person" || log.objects[0].type === "player")
+    personTalkedTo &&
+    (personTalkedTo.type === "person" || personTalkedTo.type === "player")
   ) {
-    const person = log.objects[0];
     let responseStyle = [
       "Response",
       log.style ?? "",
-      person.type,
-      person.id,
+      personTalkedTo.type,
+      personTalkedTo.id,
     ].join(" ");
     const questionStyle = ["Question", "player", log.playerId ?? ""].join(" ");
     return (
@@ -118,7 +118,7 @@ export function TextVentureLogbook(log: TextLogbook) {
         )}
         {log.response ? (
           <div className={responseStyle}>
-            <span className="Talker">{log.objects[0].name}:</span>{" "}
+            <span className="Talker">{personTalkedTo.name}:</span>{" "}
             <span className="Talk">{log.response}</span>
           </div>
         ) : (
@@ -127,7 +127,12 @@ export function TextVentureLogbook(log: TextLogbook) {
       </div>
     );
   }
-  const responseStyle = ["Response", "player", log.playerId ?? ""].join(" ");
+  const responseStyle = [
+    "Response",
+    "player",
+    log.playerId ?? "",
+    log.style ?? "",
+  ].join(" ");
   return (
     <div className="ConsoleMenuLog">
       <div className="Command">

@@ -202,7 +202,7 @@ function ButtonStorageUpload(props: SettingsDataItem) {
     }
   }
   return (
-    <Button className="warn" onClick={() => loadRef.current?.click()}>
+    <Button className="red-alert" onClick={() => loadRef.current?.click()}>
       <Icon>upload</Icon>
       <input
         style={{ display: "none" }}
@@ -242,7 +242,7 @@ function ButtonStorageClear(props: SettingsDataItem) {
   const showPopup = useShowPopup();
   return (
     <Button
-      className="warn"
+      className="red-alert"
       onClick={() => {
         props.onChange(undefined);
         showPopup(() => (

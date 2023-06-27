@@ -237,8 +237,7 @@ select > option:checked {
   filter: invert();
 }
 
-.warn {
-  color: var(--red-alter);
+.red-alert {
   animation: red-alert 1s ease-in-out infinite;
 }
 
@@ -296,4 +295,17 @@ p.first-letter-large:first-letter {
 
 .nop {
   cursor: not-allowed;
+}
+
+.smoothIn {
+  animation: smoothIn 2s ease-out;
+}
+
+@keyframes smoothIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

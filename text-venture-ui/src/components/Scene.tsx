@@ -28,7 +28,9 @@ function SceneSelect(props: SceneProps) {
     }
   }
 
-  return <article className="warn">No scene or conversation selected!</article>;
+  return (
+    <article className="red-alert">No scene or conversation selected!</article>
+  );
 }
 
 interface SceneViewerProps extends SceneProps {}
@@ -39,22 +41,26 @@ function SceneViewer(props: SceneViewerProps) {
   }
 
   return (
-    <div key={props.scene?.id} className="Scene">
+    <div key={props.scene?.id} className="Scene smoothIn">
       <h2>{props.scene.name}</h2>
       <SceneTextViewer
-        refLastParagraph={props.refLastParagraph}
         className="Paragraphs"
         text={props.scene.paragraphs ?? []}
         onRenderToken={props.onRenderToken}
         onObjectClick={props.onObjectClick}
         firstLetterLarge
       />
-      <SceneTextViewer
-        className="Footnotes"
-        text={props.scene.footnotes ?? []}
-        onRenderToken={props.onRenderToken}
-        onObjectClick={props.onObjectClick}
-      />
+      {props.scene.footnotes && props.scene.footnotes.length > 0 ? (
+        <SceneTextViewer
+          className="Footnotes"
+          text={props.scene.footnotes ?? []}
+          onRenderToken={props.onRenderToken}
+          onObjectClick={props.onObjectClick}
+        />
+      ) : (
+        <></>
+      )}
+      <div className="SceneBottom" ref={props.refLastParagraph}></div>
     </div>
   );
 }
@@ -115,7 +121,7 @@ function SceneTextArrayViewer(props: SceneTextArrayViewerProps) {
           const tokenText = tokens[2];
           const object = props.onRenderToken(tokenType, tokenId);
           const warn =
-            object === undefined || tokens.length < 3 ? "warn nop" : "";
+            object === undefined || tokens.length < 3 ? "red-alert nop" : "";
           const className = [object?.type, object?.id, warn].join(" ");
           switch (object?.type) {
             case "link":
@@ -170,6 +176,7 @@ function SceneTextArrayViewer(props: SceneTextArrayViewerProps) {
     const className = [
       "Paragraph",
       pkey === 0 && props.firstLetterLarge ? " first-letter-large" : "",
+      "smoothIn",
     ].join(" ");
 
     return (

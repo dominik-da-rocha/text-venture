@@ -74,9 +74,11 @@ export function VentureWrapper(props: VentureProps) {
   }, [sceneSwitchEffect]);
 
   function handleScrollToBottom() {
-    if (refLastParagraph.current) {
-      refLastParagraph.current.scrollIntoView({ behavior: "smooth" });
-    }
+    setTimeout(() => {
+      if (refLastParagraph.current) {
+        refLastParagraph.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
   }
 
   const scene = getByIdOrFirst(text.scenes, text.currentSceneId);
@@ -102,6 +104,7 @@ export function VentureWrapper(props: VentureProps) {
       response: command.response,
       question: command.question,
       style: command.style,
+      responseIdx: command.responseIdx,
       playerName: command.playerName,
       playerId: command.playerId,
     };
@@ -221,6 +224,7 @@ export function VentureWrapper(props: VentureProps) {
     interaction: TextInteraction
   ): boolean {
     command.style = interaction.style;
+    command.responseIdx = interaction.responseIdx;
     command.playerName = player?.shortName;
     command.playerId = player?.id;
     switch (interaction.type) {
@@ -361,7 +365,7 @@ export function VentureWrapper(props: VentureProps) {
       logInteraction("objects length is okay");
       const matches = objects.map((obj, idx) => {
         const pattern = patterns[idx];
-        if (matchesAny(pattern?.any)) {
+        if (matchesAny(Boolean(pattern?.any))) {
           logInteraction("objects any matches");
           return true;
         }

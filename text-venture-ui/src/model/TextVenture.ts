@@ -1,4 +1,4 @@
-// Data structure for complete text adventure
+// Data structure for complete text venture
 
 import { arrayToIMap } from "../components/Utils";
 import { TextAction, TextActionMap } from "./TextAction";

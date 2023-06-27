@@ -12,6 +12,7 @@ export interface TextCommand {
   question?: string;
   response?: string;
   style?: string;
+  responseIdx?: number;
 }
 
 export interface TextLogbookObject {
@@ -29,4 +30,5 @@ export interface TextLogbook {
   question?: string;
   response?: string;
   style?: string;
+  responseIdx?: number;
 }

@@ -8,7 +8,7 @@ export interface SceneHeaderProps {
 
 export function SceneHeader(props: SceneHeaderProps) {
   return (
-    <div className="SceneHeader">
+    <div className="SceneHeader smoothIn">
       <h1>{props.text.name}</h1>
       <div className="Subtitle">{props.text.description}</div>
       <Anecdote
