@@ -138,7 +138,11 @@ export function VentureWrapper(props: VentureProps) {
     action: TextAction | undefined,
     object: TextObject | undefined
   ) {
-    if (text.commandMode !== "action") {
+    if (
+      text.commandMode !== "action" &&
+      action?.id !== "look-at" &&
+      object?.type !== "player"
+    ) {
       return;
     }
 
@@ -223,6 +227,7 @@ export function VentureWrapper(props: VentureProps) {
     command: TextCommand,
     interaction: TextInteraction
   ): boolean {
+    let result = false;
     command.style = interaction.style;
     command.responseIdx = interaction.responseIdx;
     command.playerName = player?.shortName;
@@ -231,49 +236,67 @@ export function VentureWrapper(props: VentureProps) {
       case "random":
         command.response = randomItem(interaction.responses);
         appendCommandToLogbook(command);
-        return true;
+        result = true;
+        break;
       case "simple":
         command.response = interaction.response;
         appendCommandToLogbook(command);
-        return true;
+        result = true;
+        break;
       case "look-at":
         command.response =
           getDescription(command.objects[0].description) ??
           randomItem(interaction.responses);
         appendCommandToLogbook(command);
-        return true;
+        result = true;
+        break;
       case "look-at-player":
         command.response = randomItem(interaction.responses);
         appendCommandToLogbook(command);
         selectPlayer(command.objects[0]);
-        return true;
+        result = true;
+        break;
       case "give-item-to":
         command.response = randomItem(interaction.responses);
         appendCommandToLogbook(command);
         giveFromItemTo(player, command.objects[0], command.objects[1]);
-        return true;
+        result = true;
+        break;
       case "walk-to":
         command.response = randomItem(interaction.responses);
         appendCommandToLogbook(command);
         selectScene(command.objects[0]);
-        return true;
+        result = true;
+        break;
       case "pick-up":
         command.response = randomItem(interaction.responses);
         appendCommandToLogbook(command);
         removeObjectFromScenesDescription(command.objects[0]);
         giveFromItemTo(scene, command.objects[0], player);
-        return true;
+        result = true;
+        break;
       case "random-talk-to":
         command.question = randomItem(interaction.questions);
         command.response = randomItem(interaction.responses);
         appendCommandToLogbook(command);
-        return true;
+        result = true;
+        break;
       case "talk-to":
         text.commandMode = "conversation";
         text.currentConversationId = interaction.id;
         delete text.currentDialogId;
         props.onTextChanged(text);
-        return true;
+        result = true;
+        break;
+    }
+    if (result === true) {
+      if (scene && interaction.effects !== undefined) {
+        scene.paragraphs.push(...interaction.effects);
+        delete interaction.effects;
+        handleScrollToBottom();
+        props.onTextChanged(text);
+      }
+      return result;
     }
 
     command.response = "Note from the author: That should not happen!";

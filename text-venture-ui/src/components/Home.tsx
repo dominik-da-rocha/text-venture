@@ -35,13 +35,13 @@ export function Home(props: HomeProps) {
           return (
             <TableOfContentsItem
               key={chapter.id}
-              path={"/" + chapter.id}
+              path={chapter.id}
               title={chapter.name}
               page={page++}
             />
           );
         })}
-        <TableOfContentsItem path="/about" title="About" page={page++} />
+        <TableOfContentsItem path="about" title="About" page={page++} />
       </TableOfContents>
     </div>
   );

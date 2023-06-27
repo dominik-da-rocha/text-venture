@@ -1238,14 +1238,14 @@ export const PrologueQuest: TextVentureJson = {
               pc: {
                 "hardy-grow": {
                   short:
-                    "Might I proffer a more comprehensive elucidation regarding our {style:bold:'Inventory'} system?",
+                    "Might I proffer a more comprehensive elucidation regarding our 'Inventory' system?",
                   paragraphs: [
                     "{player:hardy-grow:Hardy}, posed the question to the {person:young-lady:Young Lady} with a sense of earnestness. 'Might I offer a more thorough explanation of our {style:bold:'Inventory'} system? It's a crucial aspect of our investigative endeavors, and I believe it would greatly benefit your understanding.'",
                   ],
                 },
                 "isa-ruff": {
                   short:
-                    "Oi, fancy me givin' ya a proper breakdown of the bleedin' {style:bold:'Inventory'}?",
+                    "Oi, fancy me givin' ya a proper breakdown of the bleedin' 'Inventory'?",
                   paragraphs: [
                     "{player:isa-ruff:Isa}, leaned in slightly and asked the young woman with a mischievous glint in her eye, 'Oi, fancy me givin' ya a proper breakdown of the bleedin' {style:bold:'Inventory'}? It's a nifty little system we've got 'ere, and I reckon you'll find it right useful in our detective escapades.'",
                   ],
@@ -1259,14 +1259,14 @@ export const PrologueQuest: TextVentureJson = {
               pc: {
                 "hardy-grow": {
                   short:
-                    "Might I offer a more elaborate elucidation regarding our {style:bold:'Logbook'} system?",
+                    "Might I offer a more elaborate elucidation regarding our 'Logbook' system?",
                   paragraphs: [
                     "{player:hardy-grow:Hardy} posed the question to the {person:young-lady:Young Lady}, 'Might I offer a more elaborate elucidation regarding our {style:bold:'Logbook'} system? It would provide you with a comprehensive understanding of its significance in our investigative pursuits.'",
                   ],
                 },
                 "isa-ruff": {
                   short:
-                    "Oi, reckon I should give ya a proper rundown of the bleedin' {style:bold:'Logbook'}?",
+                    "Oi, reckon I should give ya a proper rundown of the bleedin' 'Logbook'?",
                   paragraphs: [
                     "{player:isa-ruff:Isa}, asked the {person:young-lady:Young Lady}, 'Oi, reckon I should give ya a proper rundown of the bleedin' {style:bold:'Logbook'}? It'll give ya all the juicy details about our investigative escapades, luv.'",
                   ],
@@ -1344,14 +1344,14 @@ export const PrologueQuest: TextVentureJson = {
               pc: {
                 "hardy-grow": {
                   short:
-                    "Ah, the {style:bold:'Inventory'}, a vital component of our adventure...",
+                    "Ah, the 'Inventory', a vital component of our adventure...",
                   paragraphs: [
                     "Before delving further, {player:hardy-grow:Hardy} felt obliged to explain the concept of the {style:bold:'Inventory'}—a repository for all the little gadgets that made their lives easier. With a sly smile, he continued, eager to guide players through this peculiar and enthralling text venture experience.",
                   ],
                 },
                 "isa-ruff": {
                   short:
-                    "The {style:bold:'Inventory'} is like a stash of all the stuff you've picked",
+                    "The 'Inventory' is like a stash of all the stuff you've picked",
                   paragraphs: [
                     "Right, listen up, love. Gotta tell ya 'bout this thing called the {style:bold:'Inventory'}. It's like a stash where we keep all our handy bits and bobs. Ya know, gadgets, tools, and whatnot. Comes in mighty useful in this peculiar text venture we're in. So, hold tight, and I'll show ya the ropes.",
                   ],
@@ -1371,16 +1371,21 @@ export const PrologueQuest: TextVentureJson = {
               pc: {
                 "hardy-grow": {
                   short:
-                    "Ah, the {style:bold:'Logbook'}, a valuable tool for keeping track of your progress...",
+                    "Ah, the 'Logbook', a valuable tool for keeping track of your progress...",
                   paragraphs: [
                     "{player:hardy-grow:Hardy} proceeded to describe an essential feature of the text venture known as the {style:bold:'Logbook'}. Positioned conveniently at the bottom left corner of the screen, it served as a record of all user inputs and interactions throughout the adventure. The {style:bold:'Logbook'}, {player:hardy-grow:Hardy} explained, 'is a valuable tool for tracking your progress and revisiting important information.'",
+                    "With a reassuring tone, he emphasized that privacy and data security were of utmost importance. 'Now, fear not, my dear adventurers,' {player:hardy-grow:Hardy} assured them, 'for there is no need to worry about data mining or intrusive data farming practices. Rest assured, all the data collected is stored solely in the browser's local storage, ensuring your privacy remains intact.'",
+                    "Furthermore, {player:hardy-grow:Hardy} enlightened the players about their control over their own data. 'Should you ever wish to clear this log of your escapades, you can do so effortlessly. Simply head to the settings menu or the cookie settings of your browser, and with a few clicks, your data shall be wiped clean.'",
+                    "He concluded with a final reassurance, 'Here at Ruff Grow - Private Investigation, we prioritize trust, fairness, and respect for your privacy. So venture forth with confidence, knowing that your data is in safe and trustworthy hands.'",
                   ],
                 },
                 "isa-ruff": {
-                  short:
-                    "The {style:bold:'Logbook'} is like a journal of your escapades...",
+                  short: "The 'Logbook' is like a journal of your escapades...",
                   paragraphs: [
                     "{player:isa-ruff:Isa}, adopting a more casual tone, took a moment to explain another crucial aspect of the text venture – the {style:bold:'Logbook'}. With a slight tilt of the head and a friendly smile, he shared, 'Alright, here's the deal. We've got this nifty thing called the {style:bold:'Logbook'}. You'll find it chillin' at the bottom left corner of the screen. It's like a handy record of everything you do and say in this adventure. You know, all your epic moves and important interactions? Yeah, the {style:bold:'Logbook'} keeps track of 'em all. It's a real gem for stayin' on top of your progress and checkin' back on stuff when needed. Gotta admit, it's quite the handy tool!'",
+                    "'Listen up, me darlin' adventurers,' she began, her voice carrying a hint of warmth. 'No need to fret about dodgy data mining or intrusive snooping 'ere. Your privacy matters to us, and we make sure all the data we collect stays put in your browser's local storage. No funny business goin' on, I promise.'",
+                    "She continued, sharing more details about the players' control over their own data. 'And if ya ever fancy clearin' out this log of your escapades, it's a piece of cake. Just 'ead to the settings or cookie settings in your browser, give a couple o' clicks, and boom! Your data's wiped clean as a whistle.'",
+                    "Isa then wrapped up her explanation with a final assurance. 'Remember, at Ruff Grow - Private Investigation, we've got your back. Trust, fairness, and respect for your privacy are our top priorities. So go on, my lovelies, venture forth with confidence, knowin' your data is safe and sound in our trustworthy hands.'",
                   ],
                 },
               },
@@ -1529,8 +1534,7 @@ export const PrologueQuest: TextVentureJson = {
             "case-should-isa-kick-his-ass": {
               pc: {
                 "hardy-grow": {
-                  short:
-                    "Should we have {player:isa-ruff:Isa} give him a proper thrashing?",
+                  short: "Should we have Isa give him a proper thrashing?",
                   paragraphs: [
                     "{player:hardy-grow:Hardy}'s voice carried a hint of amusement as he posed the question, 'Pray, should we enlist {player:isa-ruff:Isa}'s services to administer a thorough thrashing? Rest assured, a sum of 5000 dollars in cash will suffice, and no inquiries shall be made regarding the matter. Allow me to elucidate on the details of this proposition.'",
                   ],
@@ -1604,6 +1608,11 @@ export const PrologueQuest: TextVentureJson = {
           ],
           responses: [
             "'Well, that's a shame. I was really counting on some assistance with my situation. And this door... it's really eerie. I can't help but wonder how it ended up here. It's quite baffling, isn't it?'",
+          ],
+          effects: [
+            "{player:isa-ruff:Isa}, feeling slightly annoyed with {player:hardy-grow:Hardy}'s incessant chatter, let out a low growl of frustration. Her colorful hair seemed to bristle with impatience as she barked at him, her voice laced with a punk-rock edge, 'Oi, Hardy! Leave it be, will ya? Can't ya see I'm tryin' to catch some shut-eye here? For the love of all that's punk, just let me sleep, for god's sake!'",
+            "In a hushed tone, {player:hardy-grow:Hardy} turned his attention to the reader, breaking the fourth wall with a conspiratorial air. 'Perhaps,' he whispered, 'it's best to let {player:isa-ruff:Isa} be for now. She does have a certain talent for irritable slumber, after all. But fear not, dear reader, for your adventure does not end here.'",
+            "He leaned closer, his voice tinged with excitement. 'Why don't you take this opportunity to explore the world beyond these office walls? Go ahead, have a little wander. Peek into the mysterious corners and hidden nooks, for there's a realm of real adventure awaiting you. Who knows what wonders and puzzles lie just beyond that {link:home:milch glass door}?'",
           ],
         },
         {
@@ -1723,14 +1732,9 @@ export const PrologueQuest: TextVentureJson = {
 /*
 
         
-        
-        "With a reassuring tone, he emphasized that privacy and data security were of utmost importance. 'Now, fear not, my dear adventurers,' {player:hardy-grow:Hardy} assured them, 'for there is no need to worry about data mining or intrusive data farming practices. Rest assured, all the data collected is stored solely in the browser's local storage, ensuring your privacy remains intact.'",
-        "Furthermore, {player:hardy-grow:Hardy} enlightened the players about their control over their own data. 'Should you ever wish to clear this log of your escapades, you can do so effortlessly. Simply head to the settings menu or the cookie settings of your browser, and with a few clicks, your data shall be wiped clean.'",
-        "He concluded with a final reassurance, 'Here at Ruff Grow - Private Investigation, we prioritize trust, fairness, and respect for your privacy. So venture forth with confidence, knowing that your data is in safe and trustworthy hands.'",
-        "{player:isa-ruff:Isa}, feeling slightly annoyed with {player:hardy-grow:Hardy}'s incessant chatter, let out a low growl of frustration. Her colorful hair seemed to bristle with impatience as she barked at him, her voice laced with a punk-rock edge, 'Oi, Hardy! Leave it be, will ya? Can't ya see I'm tryin' to catch some shut-eye here? For the love of all that's punk, just let me sleep, for god's sake!'",
-        "In a hushed tone, {player:hardy-grow:Hardy} turned his attention to the reader, breaking the fourth wall with a conspiratorial air. 'Perhaps,' he whispered, 'it's best to let {player:isa-ruff:Isa} be for now. She does have a certain talent for irritable slumber, after all. But fear not, dear reader, for your adventure does not end here.'",
-        "He leaned closer, his voice tinged with excitement. 'Why don't you take this opportunity to explore the world beyond these office walls? Go ahead, have a little wander. Peek into the mysterious corners and hidden nooks, for there's a realm of real adventure awaiting you. Who knows what wonders and puzzles lie just beyond that {link:home:milch glass door}?'",
 
+        
+        
 
         ---
         "A gentle reminder from the author. In the unlikely event that you stumble upon an object from the nimbus, please bear with us. It appears that I might not have defined the object correctly in this particular instance. I apologize for any confusion caused, and I kindly request you to file a bug report on {link:github:GitHub}. Your feedback is invaluable in improving the text venture experience. Now, let's continue with our adventure through the quirky world of Hardy, Isa, and the enigmatic {person:young-lady:Young Lady}.",

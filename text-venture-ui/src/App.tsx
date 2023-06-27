@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import "./theme/Theme.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import { Venture } from "./components/Venture";
 import { CaptainHuntersSpaceQuest } from "./data/CapitanHuntersSpaceQuest";
 import { TextVenture, toTextVenture } from "./model/TextVenture";
@@ -41,7 +41,7 @@ function App() {
   ];
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div
         className={[
           "App",
@@ -51,13 +51,12 @@ function App() {
         ].join(" ")}
       >
         <PopupAlertProvider>
-          <div className="Watermark">β-version</div>
           <div className="Content">
             <Routes>
-              <Route path="/" element={<Home chapters={chapters} />} />
-              <Route path="/about" element={<About />} />
+              <Route path="" element={<Home chapters={chapters} />} />
+              <Route path="about" element={<About />} />
               <Route
-                path="/settings"
+                path="settings"
                 element={
                   <Settings
                     settings={settings}
@@ -77,7 +76,7 @@ function App() {
                 return (
                   <Route
                     key={chapter.id}
-                    path={"/" + chapter.id}
+                    path={chapter.id}
                     element={
                       <Venture
                         text={chapter}
@@ -94,7 +93,7 @@ function App() {
           <Navbar />
         </PopupAlertProvider>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

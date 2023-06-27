@@ -132,9 +132,12 @@ export function DialogSelect(props: DialogSelectProps) {
       if (idx >= 0) {
         scene.interactions.splice(idx, 1);
       }
-      text.commandMode = "action";
-      delete text.currentConversationId;
-      delete text.currentDialogId;
+      setTimeout(() => {
+        delete text.currentConversationId;
+        delete text.currentDialogId;
+        text.commandMode = "action";
+        props.onTextChange({ ...text });
+      }, 100);
     } else {
       text.currentDialogId = selectedDialogId;
     }
