@@ -5,4 +5,4 @@ services:
     ports:
       - 8081:80
     volumes:
-      - ./../text-venture-ui/build:/usr/share/nginx/html
+      - ./text-venture-ui/build:/usr/share/nginx/html
