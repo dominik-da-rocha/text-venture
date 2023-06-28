@@ -1,6 +1,7 @@
 import { TextActionId } from "./TextAction";
 import { IMap, OneOf } from "../components/Utils";
-import { TextDescription, TextObjectType } from "./TextObject";
+import { TextObjectType } from "./TextObject";
+import { TextEffect } from "./TextEffects";
 
 export type TextInteraction =
   | TextInteractionSimple
@@ -20,7 +21,7 @@ interface TextInteractionAbstract {
   matchesObjects: TextObjectPattern[] | "any";
   style?: string;
   events?: TextInteractionEvent[];
-  effects?: string[];
+  effects?: TextEffect[];
   responseIdx?: number;
 }
 
@@ -91,14 +92,10 @@ export interface TextInteractionTalkToQuestion {
   npc: string;
   next: string[];
   dropIfAsked?: boolean;
-  effects?: string[];
+  effects?: TextEffect[];
 }
 
 export interface TextInteractionLookAtPlayer extends TextInteractionAbstract {
   type: "look-at-player";
   responses: string[];
-}
-
-export interface TextEffect {
-  paragraphs: TextDescription;
 }

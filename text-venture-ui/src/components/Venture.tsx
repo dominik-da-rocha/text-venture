@@ -32,6 +32,7 @@ import {
 } from "../model/TextObject";
 import { TextCommand, TextLogbook } from "../model/TextConsole";
 import { TextVenture } from "../model/TextVenture";
+import { handleEffects } from "./EffectHandler";
 
 interface VentureProps {
   onSettingsChanged(copy: TextSettings): void;
@@ -244,9 +245,7 @@ export function VentureWrapper(props: VentureProps) {
         result = true;
         break;
       case "look-at":
-        command.response =
-          getDescription(command.objects[0].description) ??
-          randomItem(interaction.responses);
+        command.response = getDescription(command.objects[0].description) ?? randomItem(interaction.responses);
         appendCommandToLogbook(command);
         result = true;
         break;
@@ -289,12 +288,17 @@ export function VentureWrapper(props: VentureProps) {
         result = true;
         break;
     }
+
     if (result === true) {
-      if (scene && interaction.effects !== undefined) {
-        scene.paragraphs.push(...interaction.effects);
-        delete interaction.effects;
-        handleScrollToBottom();
-        props.onTextChanged(text);
+      if (scene && player) {
+        handleEffects(
+          text,
+          scene,
+          player,
+          interaction,
+          props.onTextChanged,
+          handleScrollToBottom
+        );
       }
       return result;
     }
@@ -452,8 +456,10 @@ export function VentureWrapper(props: VentureProps) {
       nextPlayer.type === "player" &&
       nextPlayer.id !== text.currentPlayerId
     ) {
-      text.currentPlayerId = nextPlayer?.id;
-      props.onTextChanged(text);
+      setTimeout(() => {
+        text.currentPlayerId = nextPlayer?.id;
+        props.onTextChanged(text);
+      }, 100);
     }
   }
 

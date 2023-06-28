@@ -25,7 +25,9 @@ export function InventoryMenu(props: InventoryMenuProps) {
           >
             <Icon>inventory</Icon>
           </Button>
-          <h4 className="Player">{props.player?.name}</h4>
+          <h4 className={["Player", props.player?.id].join(" ")}>
+            {props.player?.name}
+          </h4>
         </div>
         {props.player === undefined ? (
           <></>

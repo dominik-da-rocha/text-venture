@@ -1550,9 +1550,14 @@ export const PrologueQuest: TextVentureJson = {
               npc:
                 "The {person:young-lady:Young Lady} turned to {player:hardy-grow:Hardy}, her curiosity piqued but also a hint of doubt in her voice. 'I'm not quite certain. She appears rather slender. Do you reckon she can handle him?'",
               effects: [
-                "As the {person:young-lady:Young Lady} expressed her doubts about {player:isa-ruff:Isa}'s ability to handle her husband, {player:hardy-grow:Hardy}'s attention was suddenly drawn to a peculiar sight. There, in the corner of the room, stood {player:isa-ruff:Isa} with an air of confidence, brandishing Pink Batty like a valiant warrior brandishes a sword.",
-                "{player:isa-ruff:Isa}'s posture spoke volumes, conveying a message contrary to the doubts cast upon her. With a mischievous twinkle in her eye, she wielded Pink Batty with finesse, demonstrating her strength and determination. The baseball bat seemed to emanate an aura of power, as if it were an extension of {player:isa-ruff:Isa} herself.",
-                "{player:hardy-grow:Hardy} couldn't help but be captivated by the scene before him. It was as if time stood still, and the room was filled with an electric energy. In that moment, he realized that underestimating {player:isa-ruff:Isa} would be a grave mistake.",
+                {
+                  type: "add-paragraph-to-scene",
+                  paragraphs: [
+                    "As the {person:young-lady:Young Lady} expressed her doubts about {player:isa-ruff:Isa}'s ability to handle her husband, {player:hardy-grow:Hardy}'s attention was suddenly drawn to a peculiar sight. There, in the corner of the room, stood {player:isa-ruff:Isa} with an air of confidence, brandishing Pink Batty like a valiant warrior brandishes a sword.",
+                    "{player:isa-ruff:Isa}'s posture spoke volumes, conveying a message contrary to the doubts cast upon her. With a mischievous twinkle in her eye, she wielded Pink Batty with finesse, demonstrating her strength and determination. The baseball bat seemed to emanate an aura of power, as if it were an extension of {player:isa-ruff:Isa} herself.",
+                    "{player:hardy-grow:Hardy} couldn't help but be captivated by the scene before him. It was as if time stood still, and the room was filled with an electric energy. In that moment, he realized that underestimating {player:isa-ruff:Isa} would be a grave mistake.",
+                  ],
+                },
               ],
               next: [
                 "case-not-one-of-those-cases",
@@ -1610,9 +1615,14 @@ export const PrologueQuest: TextVentureJson = {
             "'Well, that's a shame. I was really counting on some assistance with my situation. And this door... it's really eerie. I can't help but wonder how it ended up here. It's quite baffling, isn't it?'",
           ],
           effects: [
-            "{player:isa-ruff:Isa}, feeling slightly annoyed with {player:hardy-grow:Hardy}'s incessant chatter, let out a low growl of frustration. Her colorful hair seemed to bristle with impatience as she barked at him, her voice laced with a punk-rock edge, 'Oi, Hardy! Leave it be, will ya? Can't ya see I'm tryin' to catch some shut-eye here? For the love of all that's punk, just let me sleep, for god's sake!'",
-            "In a hushed tone, {player:hardy-grow:Hardy} turned his attention to the reader, breaking the fourth wall with a conspiratorial air. 'Perhaps,' he whispered, 'it's best to let {player:isa-ruff:Isa} be for now. She does have a certain talent for irritable slumber, after all. But fear not, dear reader, for your adventure does not end here.'",
-            "He leaned closer, his voice tinged with excitement. 'Why don't you take this opportunity to explore the world beyond these office walls? Go ahead, have a little wander. Peek into the mysterious corners and hidden nooks, for there's a realm of real adventure awaiting you. Who knows what wonders and puzzles lie just beyond that {link:home:milch glass door}?'",
+            {
+              type: "add-paragraph-to-scene",
+              paragraphs: [
+                "{player:isa-ruff:Isa}, feeling slightly annoyed with {player:hardy-grow:Hardy}'s incessant chatter, let out a low growl of frustration. Her colorful hair seemed to bristle with impatience as she barked at him, her voice laced with a punk-rock edge, 'Oi, Hardy! Leave it be, will ya? Can't ya see I'm tryin' to catch some shut-eye here? For the love of all that's punk, just let me sleep, for god's sake!'",
+                "In a hushed tone, {player:hardy-grow:Hardy} turned his attention to the reader, breaking the fourth wall with a conspiratorial air. 'Perhaps,' he whispered, 'it's best to let {player:isa-ruff:Isa} be for now. She does have a certain talent for irritable slumber, after all. But fear not, dear reader, for your adventure does not end here.'",
+                "He leaned closer, his voice tinged with excitement. 'Why don't you take this opportunity to explore the world beyond these office walls? Go ahead, have a little wander. Peek into the mysterious corners and hidden nooks, for there's a realm of real adventure awaiting you. Who knows what wonders and puzzles lie just beyond that {link:home:milch glass door}?'",
+              ],
+            },
           ],
         },
         {

@@ -309,3 +309,165 @@ p.first-letter-large:first-letter {
     opacity: 1;
   }
 }
+
+.dark .rainbow {
+  animation: 30s rainbow-dark infinite;
+}
+
+@keyframes rainbow-dark {
+  0% {
+    text-shadow: 0 0 0.5rem #ff006a;
+    color: #ff93c0;
+  }
+
+  7.1% {
+    text-shadow: 0 0 0.5rem orange;
+    color: #facf7f;
+  }
+
+  14.2% {
+    text-shadow: 0 0 0.5rem #fff700;
+    color: #fffb85;
+  }
+
+  21.4% {
+    text-shadow: 0 0 0.5rem #27a327;
+    color: #8abf8a;
+  }
+
+  28.6% {
+    text-shadow: 0 0 0.5rem #0982f4;
+    color: #aad1f5;
+  }
+
+  35.7% {
+    text-shadow: 0 0 0.5rem #7215b4;
+    color: #9973b4;
+  }
+
+  42.9% {
+    text-shadow: 0 0 0.5rem #ef7bef;
+    color: #f2b7f2;
+  }
+
+  50% {
+    text-shadow: 0 0 0.5rem #ff006a;
+    color: #ff93c0;
+  }
+
+  57.1% {
+    text-shadow: 0 0 0.5rem orange;
+    color: #facf7f;
+  }
+
+  64.3% {
+    text-shadow: 0 0 0.5rem #fff700;
+    color: #fffb85;
+  }
+
+  71.4% {
+    text-shadow: 0 0 0.5rem #27a327;
+    color: #8abf8a;
+  }
+
+  78.6% {
+    text-shadow: 0 0 0.5rem #0982f4;
+    color: #aad1f5;
+  }
+
+  85.7% {
+    text-shadow: 0 0 0.5rem #7215b4;
+    color: #9973b4;
+  }
+
+  92.9% {
+    text-shadow: 0 0 0.5rem #ef7bef;
+    color: #f2b7f2;
+  }
+
+  100% {
+    text-shadow: 0 0 0.5rem #ff006a;
+    color: #ff93c0;
+  }
+}
+
+.light .rainbow {
+  animation: 30s rainbow-dark infinite;
+}
+
+@keyframes rainbow-light {
+  0% {
+    text-shadow: 0 0 0.5rem #ff006a;
+    color: #97013f;
+  }
+
+  7.1% {
+    text-shadow: 0 0 0.5rem orange;
+    color: #8e5e04;
+  }
+
+  14.2% {
+    text-shadow: 0 0 0.5rem #fff700;
+    color: #cec706;
+  }
+
+  21.4% {
+    text-shadow: 0 0 0.5rem #27a327;
+    color: #026d02;
+  }
+
+  28.6% {
+    text-shadow: 0 0 0.5rem #0982f4;
+    color: #00386c;
+  }
+
+  35.7% {
+    text-shadow: 0 0 0.5rem #7215b4;
+    color: #3c0464;
+  }
+
+  42.9% {
+    text-shadow: 0 0 0.5rem #ef7bef;
+    color: #b500b5;
+  }
+
+  50% {
+    text-shadow: 0 0 0.5rem #ff006a;
+    color: #97013f;
+  }
+
+  57.1% {
+    text-shadow: 0 0 0.5rem orange;
+    color: #8e5e04;
+  }
+
+  64.3% {
+    text-shadow: 0 0 0.5rem #fff700;
+    color: #cec706;
+  }
+
+  71.4% {
+    text-shadow: 0 0 0.5rem #27a327;
+    color: #026d02;
+  }
+
+  78.6% {
+    text-shadow: 0 0 0.5rem #0982f4;
+    color: #00386c;
+  }
+
+  85.7% {
+    text-shadow: 0 0 0.5rem #7215b4;
+    color: #3c0464;
+  }
+
+  92.9% {
+    text-shadow: 0 0 0.5rem #ef7bef;
+    color: #b500b5;
+  }
+
+  100% {
+    text-shadow: 0 0 0.5rem #ff006a;
+    color: #97013f;
+  }
+}

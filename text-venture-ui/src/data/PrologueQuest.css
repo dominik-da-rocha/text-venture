@@ -1,0 +1,33 @@
+.dark {
+  .isa-ruff {
+    animation: 60s rainbow-dark infinite;
+  }
+
+  .isa-ruff:hover {
+    animation: 4s rainbow-dark infinite;
+  }
+}
+
+.light {
+  .isa-ruff {
+    animation: 60s rainbow-light infinite;
+  }
+
+  .isa-ruff:hover {
+    animation: 4s rainbow-light infinite;
+  }
+}
+
+.isa-ruff:active {
+  animation: none;
+}
+
+.dark .hardy-grow {
+  color: white !important;
+  font-weight: bold;
+}
+
+.light .hardy-grow {
+  color: black !important;
+  font-weight: bold;
+}

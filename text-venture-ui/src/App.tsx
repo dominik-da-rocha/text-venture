@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import "./theme/Theme.css";
+import "./data/PrologueQuest.css";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { Venture } from "./components/Venture";
 import { CaptainHuntersSpaceQuest } from "./data/CapitanHuntersSpaceQuest";

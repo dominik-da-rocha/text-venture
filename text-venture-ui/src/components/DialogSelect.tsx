@@ -10,6 +10,7 @@ import {
 import { TextVenture } from "../model/TextVenture";
 import { TextScene } from "../model/TextScene";
 import { TextLogbook } from "../model/TextConsole";
+import { handleEffects } from "./EffectHandler";
 
 export interface DialogSelectProps {
   text: TextVenture;
@@ -89,15 +90,25 @@ export function DialogSelect(props: DialogSelectProps) {
       console.warn("speech for " + player.id + " is undefined");
       return;
     }
-    props.onScrollToBottom();
-    scene.paragraphs.push(...pc?.paragraphs);
-
     let npc = selectedDialog.npc;
-    scene.paragraphs.push(npc);
-    if (selectedDialog.effects) {
-      scene.paragraphs.push(...selectedDialog.effects);
-      delete selectedDialog.effects;
-    }
+    let pcParagraphs = pc?.paragraphs;
+    props.onScrollToBottom();
+    setTimeout(() => {
+      if (pc) {
+        scene.paragraphs.push(...pcParagraphs);
+      }
+      scene.paragraphs.push(npc);
+      props.onTextChange(text);
+    }, 200);
+
+    handleEffects(
+      text,
+      scene,
+      player,
+      selectedDialog,
+      props.onTextChange,
+      props.onScrollToBottom
+    );
 
     let deletedIds = dropDialogIfAsked(conversation, selectedDialogId);
     deletedIds.forEach((id) => {
@@ -147,7 +158,9 @@ export function DialogSelect(props: DialogSelectProps) {
 
   return (
     <div className="DialogSelect">
-      <span className="Player">{player.shortName}: </span>
+      <span className={["player", player.id].join(" ")}>
+        {player.shortName}:{" "}
+      </span>
       <select
         value={selectedDialogIdx}
         onChange={(e) => setSelectedDialogIdx(Number.parseInt(e.target.value))}
