@@ -93,7 +93,9 @@ body:has(div#root div.light) {
 .serif,
 .serif select,
 .serif option,
-.serif button {
+.serif button,
+.serif input,
+.serif textarea {
   font-family: kotta-one, serif;
 }
 
@@ -105,7 +107,9 @@ body:has(div#root div.light) {
 .sans-serif,
 .sans-serif select,
 .sans-serif option,
-.sans-serif button {
+.sans-serif button,
+.sans-serif input,
+.sans-serif textarea {
   font-family: mplus-rounded-1c, sans-serif;
 }
 
@@ -117,7 +121,9 @@ body:has(div#root div.light) {
 .monospace,
 .monospace select,
 .monospace option,
-.monospace button {
+.monospace button,
+.monospace input,
+.monospace textarea {
   font-family: source-code-pro, monospace;
 }
 
@@ -129,7 +135,9 @@ body:has(div#root div.light) {
 .cursive,
 .cursive select,
 .cursive option,
-.cursive button {
+.cursive button,
+.cursive input,
+.cursive textarea {
   font-family: kalam, cursive;
 }
 

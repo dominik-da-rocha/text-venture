@@ -41,6 +41,11 @@ export function Home(props: HomeProps) {
             />
           );
         })}
+        <TableOfContentsItem
+          path="guest-book"
+          title="Guest Book"
+          page={page++}
+        />
         <TableOfContentsItem path="about" title="About" page={page++} />
       </TableOfContents>
     </div>

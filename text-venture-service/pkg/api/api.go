@@ -10,11 +10,11 @@ import (
 	"rochatronic.net/text-venture-service/pkg/model"
 )
 
-func Start(txt model.TextVenture) {
+func Start(txt model.ServiceConfig) {
    log.Printf("Start listing on port %d", txt.Port )
    router := mux.NewRouter()
    v1.Version(router);
-   v1.Scenes(router);
+   v1.GuestBook(router);
 
    http.Handle("/", router)
 

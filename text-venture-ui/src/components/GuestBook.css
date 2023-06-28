@@ -1,0 +1,72 @@
+.GuestBook {
+  display: block;
+}
+
+.GuestBook .CommentInput {
+  width: 100%;
+  height: 10rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  resize: vertical;
+}
+
+.GuestBook .NameInput {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.GuestBook .GuestBookEntry {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.GuestBook .GuestBookEntry .Comments > * {
+  min-height: 1rem;
+  white-space: break-spaces;
+  line-break: strict;
+}
+
+.GuestBook .GuestBookEntry .Name {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+  width: 100%;
+  text-align: right;
+}
+
+.GuestBook .Buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.GuestBook .Preview {
+  overflow: hidden;
+}
+
+.GuestBook .Preview.off {
+  height: 0;
+  opacity: 0;
+  transition: all 1s linear;
+}
+
+.GuestBook .Preview.on {
+  height: 20rem;
+  opacity: 1;
+  transition: all 1s linear;
+}
+
+.GuestBook .Error {
+  border: 3px solid;
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.GuestBook .Error h3 {
+  padding: 0;
+  margin: 0;
+}

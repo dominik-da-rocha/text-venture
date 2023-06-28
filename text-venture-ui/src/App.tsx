@@ -14,6 +14,7 @@ import { About, Home } from "./components/Home";
 import { Settings } from "./components/Settings";
 import { PopupAlertProvider } from "./components/PopupAlert";
 import { PrologueQuest } from "./data/PrologueQuest";
+import { GuestBook } from "./components/GuestBook";
 
 function App() {
   const [settings, setSettings] = useLocalState<TextSettings>(
@@ -73,6 +74,7 @@ function App() {
                   />
                 }
               />
+              <Route path="guest-book" element={<GuestBook />} />
               {chapters.map((chapter) => {
                 return (
                   <Route
