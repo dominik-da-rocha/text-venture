@@ -29,7 +29,7 @@ If you encounter any issues while playing Text Venture or have any feedback to s
 
 ## License
 
-Text Venture is available under the [MIT License](https://opensource.org/licenses/MIT). Please refer to the LICENSE file for more information.
+Text Venture is available under the [GNU General Public License version 3][https://opensource.org/licenses/MIT](https://opensource.org/license/gpl-3-0/). Please refer to the LICENSE file for more information.
 
 ## Disclaimer
 
