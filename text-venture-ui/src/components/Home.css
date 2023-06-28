@@ -4,3 +4,10 @@
   justify-content: start;
   align-items: stretch;
 }
+
+.About .github-link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
