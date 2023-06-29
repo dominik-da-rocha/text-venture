@@ -6,8 +6,8 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
-	v1 "rochatronic.net/text-venture-service/pkg/api/v1"
-	"rochatronic.net/text-venture-service/pkg/model"
+	v1 "rochatronic.net/text-venture-service/cmd/api/v1"
+	"rochatronic.net/text-venture-service/cmd/model"
 )
 
 func Start(txt model.ServiceConfig) {

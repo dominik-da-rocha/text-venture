@@ -10,7 +10,7 @@ import (
 func Version(router *mux.Router) {
 	url := "/api/v1/version"
 	router.HandleFunc("/api/v1/version", func(w http.ResponseWriter, r *http.Request) {
-		status, err := w.Write([]byte("1.0.0"))
+		status, err := w.Write([]byte(VERSION))
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -18,3 +18,5 @@ func Version(router *mux.Router) {
 		log.Printf("handled %d %s", status, url)
 	}).Methods(http.MethodGet)
 }
+
+const VERSION = "1.0.0"

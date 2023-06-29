@@ -1,4 +1,3 @@
 version: 1
-name: "Hello World"
+name: "text-venture-service"
 port: 7080
-data: "data"
