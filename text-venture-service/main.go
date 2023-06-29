@@ -22,7 +22,7 @@ welcome := `
 `
   fmt.Printf(welcome,v1.VERSION)                                 
 
-   configFileName :=  "application.yaml"
+   configFileName :=  "./config/application.yaml"
 	if len(os.Args) > 1 {
 		configFileName = os.Args[1]
 	} 
