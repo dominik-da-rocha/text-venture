@@ -1,6 +1,6 @@
 # Text Venture
 
-Text Venture is a browser-based Click'n'Point Text Venture game that combines the classic elements of text-based adventures with modern graphical features. In this game, players embark on an immersive journey through interactive storytelling, solving puzzles, making choices, and exploring a richly detailed world.
+Text Venture is a browser-based Click'n'Point text-adventure game that combines the classic elements of text-based adventures with modern graphical features. In this game, players embark on an immersive journey through interactive storytelling, solving puzzles, making choices, and exploring a richly detailed world.
 
 ## Features
 
