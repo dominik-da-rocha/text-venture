@@ -1,5 +1,5 @@
 # build backend
-FROM  golang:1.19.4-bullseye AS gobuild
+FROM  golang:bullseye AS gobuild
 
 WORKDIR /app
 
@@ -13,7 +13,7 @@ COPY ./text-venture-service/cmd/    ./cmd
 RUN go build -o ./text-venture-service main.go
 
 # build ui
-FROM node:19-bullseye-slim AS uibuild
+FROM node:bullseye-slim AS uibuild
 
 WORKDIR /app
 
