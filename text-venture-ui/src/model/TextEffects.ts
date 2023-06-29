@@ -1,3 +1,5 @@
+import { TextThing } from "./TextObject";
+
 export interface TextEffectAddParagraphsToScene {
   type: "add-paragraph-to-scene";
   paragraphs: string[];
@@ -19,7 +21,24 @@ export interface TextEffectChangeThingInInventory {
   dropEffect: boolean;
 }
 
+export interface TextEffectChangeThingInScene {
+  type: "change-thing-in-scene";
+  oldId: string;
+  name?: string;
+  description?: string;
+  newId?: string;
+  dropEffect: boolean;
+}
+
+export interface TextEffectAddThingToInventory {
+  type: "add-thing-to-inventory";
+  thing: TextThing;
+  dropEffect: boolean;
+}
+
 export type TextEffect =
   | TextEffectAddParagraphsToScene
   | TextEffectRemoveThingFromInventory
-  | TextEffectChangeThingInInventory;
+  | TextEffectChangeThingInInventory
+  | TextEffectChangeThingInScene
+  | TextEffectAddThingToInventory;

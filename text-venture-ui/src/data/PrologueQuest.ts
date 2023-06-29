@@ -655,29 +655,6 @@ export const PrologueQuest: TextVentureJson = {
                 },
               ],
             },
-            {
-              type: "simple",
-              id: "switch-flashlight-off",
-              matchesAction: {
-                oneOf: "use",
-              },
-              matchesObjects: [
-                {
-                  oneIdOf: "flashlight-on",
-                },
-              ],
-              response: "Let's safe the batteries for later",
-              effects: [
-                {
-                  type: "change-thing-in-inventory",
-                  oldId: "flashlight-on",
-                  newId: "flashlight-off",
-                  name: "Flashlight (off)",
-                  description: "The Flashlight is switched off",
-                  dropEffect: false,
-                },
-              ],
-            },
           ],
         },
       ],
@@ -1087,8 +1064,8 @@ export const PrologueQuest: TextVentureJson = {
         "The office, a den of intrigue, housed a cluttered desk, a worn sofa, and an air of enigmatic possibilities.",
       paragraphs: [
         "Behind the milch glass front door, adorned with golden letters spelling out the name of the office, 'Ruff Grow - Private Investigations', beckoned a realm of captivating intrigue. ",
-        "Step inside, and you'd find yourself in the heart of their eccentric furniture. The {thing:desk:desk}, weathered and wooden, stood as a testament to time's enduring presence. Its surface bore the weight of countless important documents, scattered among ink stains and the occasional coffee ring. And there, in a corner, resided the {thing:sofa:Chesterfield sofa}, a relic of ancient times. Its worn leather exuded a subtle aroma, a breath that whispered stories of long-forgotten tales and investigations past.",
-        "In the cluttered office of Ruff Grow Investigations, {player:hardy-grow:Hardy Grow} scowled at a stack of bills on his {thing:desk:Desk}. Meanwhile, {player:isa-ruff:Isa Ruff} reclined lazily on the {thing:sofa:Chesterfield sofa}, her disheveled appearance perfectly complementing her punk-rock spirit.",
+        "Step inside, and you'd find yourself in the heart of their eccentric furniture. The {thing:desk:desk}, weathered and wooden, stood as a testament to time's enduring presence. Its surface bore the weight of countless important documents, scattered among ink stains and the occasional coffee ring. And there, in a corner, resided the {thing:sofa-with-chain-and-lock:Chesterfield sofa}, a relic of ancient times. Its worn leather exuded a subtle aroma, a breath that whispered stories of long-forgotten tales and investigations past.",
+        "In the cluttered office of Ruff Grow Investigations, {player:hardy-grow:Hardy Grow} scowled at a stack of bills on his {thing:desk:Desk}. Meanwhile, {player:isa-ruff:Isa Ruff} reclined lazily on the {thing:sofa-with-chain-and-lock:Chesterfield sofa}, her disheveled appearance perfectly complementing her punk-rock spirit.",
         "As {player:hardy-grow:Hardy} lamented the ever-increasing expenses, he was abruptly interrupted by the entrance of a {person:young-lady:Young Lady}, her red dress contrasting with the sadness in her eyes. With a congenial smile, Hardy welcomed her to 'Ruff Grow Investigation - The Thrilling Text Venture Experience.'",
         "The {person:young-lady:Young Lady} shifted nervously in her red dress, uncertainty evident in her gaze. 'Mr. Grow,' she began, 'I need your help, but I'm not quite sure how this private investigation venture works. Could you please explain it to me?' {player:hardy-grow:Hardy}, ever the gentleman, leaned forward and gestured for her to take a seat.",
       ],
@@ -1150,7 +1127,7 @@ export const PrologueQuest: TextVentureJson = {
         },
         {
           type: "thing",
-          id: "sofa",
+          id: "sofa-with-chain-and-lock",
           description:
             "The chesterfield sofa, draped in faded fabric, beckons with a nostalgic charm, offering a seat worn by countless investigations.",
           name: "Chesterfield Sofa",
@@ -1187,6 +1164,156 @@ export const PrologueQuest: TextVentureJson = {
                 "Attempting to move the sofa may damage its structure.",
                 "The sofa's size and weight make it impractical to lift.",
                 "Leave the sofa be; it's meant for relaxation.",
+              ],
+            },
+            {
+              id: "isa-uses-sofa",
+              type: "random",
+              matchesPlayer: "isa-ruff",
+              matchesAction: {
+                oneOf: "use",
+              },
+              matchesObjects: [
+                {
+                  oneIdOf: ["sofa", "sofa-with-chain-and-lock"],
+                },
+              ],
+              responses: [
+                "'Right, time for a bit of a rest on the old sofa.'",
+                "'Oi, this sofa's lookin' mighty comfy, innit?'",
+                "'Ah, finally, a chance to plop meself down on this 'ere sofa.'",
+                "'Lovely jubbly, a chance to sink into this proper cozy sofa.'",
+                "'Oi, this sofa's got a right nice feel to it, like sittin' on a cloud.'",
+                "'Blimey, this sofa's like me own personal oasis of comfort.'",
+                "'I tell ya, this sofa's a blessin' for me tired bones.'",
+                "'Just gonna 'ave a quick sit-down on this comfy sofa, won't be long.'",
+                "'Ah, the sweet relief of settlin' meself on this plush sofa.'",
+                "'This sofa's callin' me name, beggin' for a bit of relaxation.'",
+                "'Me feet are achin', time to give 'em a break on this trusty sofa.'",
+                "'This sofa's like a sanctuary in the midst of the chaos, I tell ya.'",
+                "'Nothin' like a moment of solace on this 'ere sofa, absolute bliss.'",
+                "'Sittin' on this sofa feels like a warm 'ug from an old friend.'",
+                "'Oi, if this sofa could talk, I wonder what stories it'd share.'",
+                "'Let me just sink into this sofa and forget about the world for a while.'",
+                "'Ahh, this sofa's me refuge from the madness, me safe haven.'",
+                "'Gotta admit, this sofa's got a charm all of its own, like an old mate.'",
+                "'Sofa, oh sweet sofa, you're me haven in this chaotic world.'",
+                "'Just gonna take a load off and unwind on this trusty sofa, nothin' better.'",
+              ],
+            },
+            {
+              id: "isa-uses-sofa",
+              type: "random",
+              matchesPlayer: "hardy-grow",
+              matchesAction: {
+                oneOf: "use",
+              },
+              matchesObjects: [
+                {
+                  oneIdOf: ["sofa", "sofa-with-chain-and-lock"],
+                },
+              ],
+              responses: [
+                "'Ah, a moment of respite awaits on this exquisite sofa.'",
+                "'Allow me to indulge in the comfort of this splendid sofa.'",
+                "'This sofa beckons me with its refined elegance and undeniable allure.'",
+                "'A chance to recline upon this luxurious sofa is a true delight.'",
+                "'The allure of this sofa's opulent cushions is simply irresistible.'",
+                "'A well-deserved rest upon this magnificent sofa is in order.'",
+                "'The craftsmanship of this sofa is truly remarkable, a testament to fine design.'",
+                "'This sofa offers a sanctuary of relaxation amidst the chaos of the world.'",
+                "'Let me find solace in the embrace of this graceful and inviting sofa.'",
+                "'The cushioning of this sofa promises unparalleled comfort and support.'",
+                "'I shall momentarily retreat to this plush sofa, a haven of tranquility.'",
+                "'The elegance and refinement of this sofa make it a true masterpiece.'",
+                "'This sofa exudes an air of sophistication and invites me to unwind.'",
+                "'Permit me to bask in the serenity provided by this opulent sofa.'",
+                "'This sofa's regal presence demands that I take a moment to rest.'",
+                "'The sheer magnificence of this sofa commands my attention and repose.'",
+                "'I am enticed by the prospect of sinking into the plushness of this exquisite sofa.'",
+                "'This sofa's allure lies in its perfect blend of comfort and style.'",
+                "'Allow me a brief respite on this distinguished sofa, for it promises rejuvenation.'",
+                "'The prospect of reclining upon this sublime sofa fills me with utmost satisfaction.'",
+              ],
+            },
+            {
+              id: "isa-uses-flash-light-on-with-sofa",
+              type: "simple",
+              matchesPlayer: "isa-ruff",
+              matchesAction: {
+                oneOf: "use",
+              },
+              matchesObjects: [
+                { oneIdOf: "flashlight-on" },
+                { oneIdOf: "sofa-with-chain-and-lock" },
+              ],
+              response:
+                "Blimey, look what I found under the bleedin' sofa! Quite a curious discovery, innit?",
+              effects: [
+                {
+                  type: "add-paragraph-to-scene",
+                  paragraphs: [
+                    "With a mischievous grin, {player:isa-ruff:Isa} lowered herself down and wriggled under the {thing:sofa:sofa}, her flashlight casting a dim glow on the hidden space. As her hand reached out, her fingertips brushed against something cold and metallic. Her eyes widened with recognition as she retrieved a chain with a lock, a familiar sight from a long-forgotten case. Memories flooded her mind, reminding her of the key role this chain played in that case with the tiger. How could she have forgotten such an important tool? Determined not to repeat the same mistake, she carefully stashed the chain away, eager to utilize its potential in the current investigation.",
+                  ],
+                  dropEffect: true,
+                },
+                {
+                  type: "change-thing-in-scene",
+                  oldId: "sofa-with-chain-and-lock",
+                  newId: "sofa",
+                  dropEffect: true,
+                },
+                {
+                  type: "add-thing-to-inventory",
+                  thing: {
+                    type: "thing",
+                    id: "chain-with-lock",
+                    description: "Chain with Lock",
+                    interactions: [],
+                    name: "Chain with Lock",
+                  },
+                  dropEffect: true,
+                },
+              ],
+            },
+            {
+              id: "hardy-uses-flash-light-on-with-sofa",
+              type: "simple",
+              matchesPlayer: "hardy-grow",
+              matchesAction: {
+                oneOf: "use",
+              },
+              matchesObjects: [
+                { oneIdOf: "flashlight-on" },
+                { oneIdOf: "sofa-with-chain-and-lock" },
+              ],
+              response: "Curious discovery under the sofa.",
+              effects: [
+                {
+                  type: "add-paragraph-to-scene",
+                  paragraphs: [
+                    "With a determined look on his face, {player:hardy-grow:Hardy} wriggles his way under the {thing:sofa:sofa}, flashlight in hand, in search of hidden treasures. After a bit of struggling due to his corpulent frame, he manages to retrieve a chain with a lock. A nostalgic smile forms on his lips as memories flood back from an old case where this very chain proved instrumental in restraining a mischievous tiger.",
+                    "'Ah, the memories,' Hardy chuckles to himself. 'That tiger never stood a chance against this trusty chain. Good times, indeed.'",
+                  ],
+                  dropEffect: true,
+                },
+                {
+                  type: "change-thing-in-scene",
+                  oldId: "sofa-with-chain-and-lock",
+                  newId: "sofa",
+                  dropEffect: true,
+                },
+                {
+                  type: "add-thing-to-inventory",
+                  thing: {
+                    type: "thing",
+                    id: "chain-with-lock",
+                    description: "Chain with Lock",
+                    interactions: [],
+                    name: "Chain with Lock",
+                  },
+                  dropEffect: true,
+                },
               ],
             },
           ],
@@ -1820,13 +1947,6 @@ export const PrologueQuest: TextVentureJson = {
 };
 
 /*
-
-        
-
-        
-        
-
-        ---
-        "A gentle reminder from the author. In the unlikely event that you stumble upon an object from the nimbus, please bear with us. It appears that I might not have defined the object correctly in this particular instance. I apologize for any confusion caused, and I kindly request you to file a bug report on {link:github:GitHub}. Your feedback is invaluable in improving the text venture experience. Now, let's continue with our adventure through the quirky world of Hardy, Isa, and the enigmatic {person:young-lady:Young Lady}.",
-
+---
+"A gentle reminder from the author. In the unlikely event that you stumble upon an object from the nimbus, please bear with us. It appears that I might not have defined the object correctly in this particular instance. I apologize for any confusion caused, and I kindly request you to file a bug report on {link:github:GitHub}. Your feedback is invaluable in improving the text venture experience. Now, let's continue with our adventure through the quirky world of Hardy, Isa, and the enigmatic {person:young-lady:Young Lady}.",
 */
