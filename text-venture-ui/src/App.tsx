@@ -10,11 +10,12 @@ import { TextSettings } from "./model/TextSettings";
 import { DefaultSettings } from "./data/DefaultSettings";
 import { useLocalState } from "./components/LocalState";
 import { Navbar } from "./components/Navbar";
-import { About, Home } from "./components/Home";
+import { Home } from "./components/Home";
 import { Settings } from "./components/Settings";
 import { PopupAlertProvider } from "./components/PopupAlert";
 import { PrologueQuest } from "./data/PrologueQuest";
 import { GuestBook } from "./components/GuestBook";
+import { About } from "./components/About";
 
 function App() {
   const [settings, setSettings] = useLocalState<TextSettings>(
@@ -38,8 +39,16 @@ function App() {
   );
 
   const chapters = [
-    { ...prologueQuest, setter: setPrologueQuest },
-    { ...captainHuntersSpaceQuest, setter: setCaptainHuntersSpaceQuest },
+    {
+      ...prologueQuest,
+      setter: setPrologueQuest,
+      disabled: false,
+    },
+    {
+      ...captainHuntersSpaceQuest,
+      setter: setCaptainHuntersSpaceQuest,
+      disabled: true,
+    },
   ];
 
   return (

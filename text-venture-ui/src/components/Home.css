@@ -5,9 +5,20 @@
   align-items: stretch;
 }
 
-.About .github-link {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 1rem;
+.Home .Watermark {
+  position: fixed;
+  top: 5%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  opacity: 0.02;
+  z-index: 0;
+}
+
+.light .Home .Watermark {
+  filter: invert();
+}
+
+.Home .TableOfContents {
+  z-index: 1000;
 }

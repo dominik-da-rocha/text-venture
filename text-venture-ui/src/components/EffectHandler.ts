@@ -25,9 +25,45 @@ export function handleEffects(
             onTextChanged(text);
           }, 200);
           break;
+        case "remove-thing-from-inventory":
+          setTimeout(() => {
+            Object.keys(text.players)
+              .map((key) => text.players[key] as TextPlayer)
+              .forEach((player) => {
+                player.things = player.things.filter(
+                  (thing) => thing.id !== effect.id
+                );
+              });
+            onTextChanged(text);
+          }, 200);
+          break;
+        case "change-thing-in-inventory":
+          setTimeout(() => {
+            Object.keys(text.players)
+              .map((key) => text.players[key] as TextPlayer)
+              .forEach((player) => {
+                player.things.forEach((thing) => {
+                  if (thing.id === effect.oldId) {
+                    if (effect.description) {
+                      thing.description = effect.description;
+                    }
+                    if (effect.name) {
+                      thing.name = effect.name;
+                    }
+                    if (effect.newId) {
+                      thing.id = effect.newId;
+                    }
+                  }
+                });
+              });
+            onTextChanged(text);
+          }, 200);
+          break;
       }
     });
 
-    delete interaction.effects;
+    interaction.effects = interaction.effects?.filter(
+      (effect) => !effect.dropEffect
+    );
   }
 }

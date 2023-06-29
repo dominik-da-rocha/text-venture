@@ -1,0 +1,14 @@
+.About .github-link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.About .github-link img {
+  opacity: 0.88;
+}
+
+.dark .About .github-link img {
+  filter: invert();
+}

@@ -597,10 +597,88 @@ export const PrologueQuest: TextVentureJson = {
       things: [
         {
           type: "thing",
+          id: "flashlight-empty",
+          name: "Empty Flashlight",
           description: "An empty flash light",
-          id: "empty-flash-light",
-          interactions: [],
-          name: "Flashlight",
+          interactions: [
+            {
+              id: "use-flashlight-empty-with-batteries",
+              type: "simple",
+              matchesAction: {
+                oneOf: "use",
+              },
+              matchesObjects: [
+                {
+                  oneIdOf: ["flashlight-empty", "batteries"],
+                },
+                {
+                  oneIdOf: ["flashlight-empty", "batteries"],
+                },
+              ],
+              response: "Oh that's more like it",
+              effects: [
+                {
+                  type: "remove-thing-from-inventory",
+                  id: "batteries",
+                  dropEffect: true,
+                },
+                {
+                  type: "change-thing-in-inventory",
+                  oldId: "flashlight-empty",
+                  newId: "flashlight-off",
+                  name: "Flashlight (off)",
+                  description: "The Flashlight is switched off",
+                  dropEffect: true,
+                },
+              ],
+            },
+            {
+              type: "simple",
+              id: "switch-flashlight-on",
+              matchesAction: {
+                oneOf: "use",
+              },
+              matchesObjects: [
+                {
+                  oneIdOf: "flashlight-off",
+                },
+              ],
+              response: "Let there be light",
+              effects: [
+                {
+                  type: "change-thing-in-inventory",
+                  oldId: "flashlight-off",
+                  newId: "flashlight-on",
+                  description: "Flashlight shines bright like the sun",
+                  name: "Flashlight (on)",
+                  dropEffect: false,
+                },
+              ],
+            },
+            {
+              type: "simple",
+              id: "switch-flashlight-off",
+              matchesAction: {
+                oneOf: "use",
+              },
+              matchesObjects: [
+                {
+                  oneIdOf: "flashlight-on",
+                },
+              ],
+              response: "Let's safe the batteries for later",
+              effects: [
+                {
+                  type: "change-thing-in-inventory",
+                  oldId: "flashlight-on",
+                  newId: "flashlight-off",
+                  name: "Flashlight (off)",
+                  description: "The Flashlight is switched off",
+                  dropEffect: false,
+                },
+              ],
+            },
+          ],
         },
       ],
     },
@@ -1557,6 +1635,7 @@ export const PrologueQuest: TextVentureJson = {
                     "{player:isa-ruff:Isa}'s posture spoke volumes, conveying a message contrary to the doubts cast upon her. With a mischievous twinkle in her eye, she wielded Pink Batty with finesse, demonstrating her strength and determination. The baseball bat seemed to emanate an aura of power, as if it were an extension of {player:isa-ruff:Isa} herself.",
                     "{player:hardy-grow:Hardy} couldn't help but be captivated by the scene before him. It was as if time stood still, and the room was filled with an electric energy. In that moment, he realized that underestimating {player:isa-ruff:Isa} would be a grave mistake.",
                   ],
+                  dropEffect: true,
                 },
               ],
               next: [
@@ -1622,6 +1701,7 @@ export const PrologueQuest: TextVentureJson = {
                 "In a hushed tone, {player:hardy-grow:Hardy} turned his attention to the reader, breaking the fourth wall with a conspiratorial air. 'Perhaps,' he whispered, 'it's best to let {player:isa-ruff:Isa} be for now. She does have a certain talent for irritable slumber, after all. But fear not, dear reader, for your adventure does not end here.'",
                 "He leaned closer, his voice tinged with excitement. 'Why don't you take this opportunity to explore the world beyond these office walls? Go ahead, have a little wander. Peek into the mysterious corners and hidden nooks, for there's a realm of real adventure awaiting you. Who knows what wonders and puzzles lie just beyond that {link:home:milch glass door}?'",
               ],
+              dropEffect: true,
             },
           ],
         },
