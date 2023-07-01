@@ -1,14 +1,19 @@
-.ActionMenu {
+.ActionMenuStickyContainer {
   position: fixed;
+  z-index: 2100;
   right: 0;
+  display: flex;
+  align-items: center;
   bottom: 0;
+}
+
+.ActionMenu {
   border: 1px solid var(--border);
   border-top-left-radius: calc(var(--button-size) / 5);
   overflow: hidden;
   background: var(--background);
   width: var(--button-size);
   padding-bottom: var(--button-size);
-  z-index: 2100;
 }
 
 .ActionMenu .Actions {

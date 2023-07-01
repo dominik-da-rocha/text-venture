@@ -1,0 +1,41 @@
+.VentureSpy {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  background: #000000bb;
+  overflow-x: hidden;
+  white-space: nowrap;
+  max-width: 30rem;
+}
+
+.VentureSpy.on {
+  width: 50%;
+  z-index: 5000;
+  transition: width 1s linear;
+}
+.VentureSpy.off {
+  width: var(--button-size);
+  z-index: 0;
+  transition: width 1s linear;
+}
+
+.VentureSpy .SpyOnOff {
+  position: absolute;
+  top: var(--button-size);
+}
+
+.VentureSpy .Header {
+  height: calc(var(--button-size) * 2);
+}
+
+.VentureSpy .Tree ul {
+  margin-left: 1rem;
+}
+
+.VentureSpy .Tree li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

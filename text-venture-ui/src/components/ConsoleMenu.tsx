@@ -15,8 +15,9 @@ interface ConsoleMenuProps {
   onModeChanged(mode: OnOffMode): void;
   text: TextVenture;
   onTextChange(text: TextVenture): void;
-  appendLogbook(logbookEntry: TextLogbook): void;
+  appendLogbook(logbookEntry: TextLogbook, hidePopup?: boolean): void;
   onScrollToBottom(): void;
+  onPlaySound(url: string): void;
 }
 
 export function ConsoleMenu(props: ConsoleMenuProps) {
@@ -51,10 +52,12 @@ export function ConsoleMenu(props: ConsoleMenuProps) {
           {text.commandMode === "conversation" ? (
             <DialogSelect
               text={text}
+              command={props.command}
               personTalkedTo={props.command.objects[0]}
               onTextChange={props.onTextChange}
               appendLogbook={props.appendLogbook}
               onScrollToBottom={props.onScrollToBottom}
+              onPlaySound={props.onPlaySound}
             />
           ) : (
             <></>
@@ -91,7 +94,7 @@ function joinObjects(objects: TextObject[], action: TextAction) {
 }
 
 export function TextVentureLogbook(log: TextLogbook) {
-  const personTalkedTo = log.objects[log.responseIdx ?? 0];
+  const personTalkedTo = log.objects[log.personTalkedToIndex ?? 0];
   if (
     log.objects.length > 0 &&
     personTalkedTo &&

@@ -2,6 +2,7 @@ import React from "react";
 import "./Scene.css";
 import { TextScene } from "../model/TextScene";
 import { TextObject, TextToken } from "../model/TextObject";
+import { TokenProcessor } from "./TokenProcessor";
 
 export type SceneSwitchEffect = "start-scene-switch" | "end-scene-switch";
 export const sceneEffectChangeTime = 500;
@@ -49,6 +50,7 @@ function SceneViewer(props: SceneViewerProps) {
         onRenderToken={props.onRenderToken}
         onObjectClick={props.onObjectClick}
         firstLetterLarge
+        refLastParagraph={props.refLastParagraph}
       />
       {props.scene.footnotes && props.scene.footnotes.length > 0 ? (
         <SceneTextViewer
@@ -60,7 +62,6 @@ function SceneViewer(props: SceneViewerProps) {
       ) : (
         <></>
       )}
-      <div className="SceneBottom" ref={props.refLastParagraph}></div>
     </div>
   );
 }
@@ -110,48 +111,49 @@ interface SceneTextArrayViewerProps {
 }
 
 function SceneTextArrayViewer(props: SceneTextArrayViewerProps) {
-  const paragraphs = props.text.map((p, pkey, paragraphs) => {
-    const spans = p
-      .split(/({[a-z-]*:[a-z-]*:[a-zA-Z -,.—_:"']*})/)
-      .map((s, skey) => {
-        if (s.startsWith("{") && s.endsWith("}")) {
-          const tokens = s.substring(1, s.length - 1).split(":");
-          const tokenType = tokens[0];
-          const tokenId = tokens[1];
-          const tokenText = tokens[2];
-          const object = props.onRenderToken(tokenType, tokenId);
+  return (
+    <div className={props.className}>
+      {TokenProcessor(
+        props.text,
+        (tokenEvent) => {
+          const object = props.onRenderToken(
+            tokenEvent.tokenType,
+            tokenEvent.tokenId
+          );
           const warn =
-            object === undefined || tokens.length < 3 ? "red-alert nop" : "";
+            object === undefined || tokenEvent.tokens.length < 3
+              ? "red-alert nop"
+              : "";
           const className = [object?.type, object?.id, warn].join(" ");
           switch (object?.type) {
             case "link":
               return (
                 <a
-                  title={warn ? s : ""}
-                  key={skey}
+                  title={warn ? tokenEvent.span : ""}
+                  key={tokenEvent.spanIdx}
                   href={object.url}
                   target={object.isInternal ? undefined : "_blank"}
                   rel={object.isInternal ? undefined : "noreferrer noopener"}
                   className={"SceneLink " + className}
                 >
                   {warn ? "⚠" : ""}
-                  {tokenText ?? s}
+                  {tokenEvent.tokenText ?? tokenEvent.span}
                 </a>
               );
             case "style":
               return (
                 <span
-                  key={skey}
+                  key={tokenEvent.spanIdx}
                   className={"SceneStyle " + className + " " + object.id}
                 >
-                  {tokens[2]}
+                  {tokenEvent.tokenText}
                 </span>
               );
             default:
               return (
                 <span
-                  title={warn ? s : ""}
-                  key={skey}
+                  title={warn ? tokenEvent.span : ""}
+                  key={tokenEvent.spanIdx}
                   className={"SceneObject " + className}
                   onClick={(event) => {
                     event.preventDefault();
@@ -161,35 +163,47 @@ function SceneTextArrayViewer(props: SceneTextArrayViewerProps) {
                   }}
                 >
                   {warn ? "⚠" : ""}
-                  {tokenText ?? s}
+                  {tokenEvent.tokenText ?? tokenEvent.span}
                 </span>
               );
           }
-        } else {
+        },
+        (textEvent) => {
           return (
-            <span key={skey} className="Text">
-              {s}
+            <span key={textEvent.spanIdx} className="Text">
+              {textEvent.span}
             </span>
           );
-        }
-      });
-    const className = [
-      "Paragraph",
-      pkey === 0 && props.firstLetterLarge ? " first-letter-large" : "",
-      "smoothIn",
-    ].join(" ");
+        },
+        (joinEvent) => {
+          const isFirstParagraph = joinEvent.paragraphIdx === 0;
+          const isLastParagraph =
+            joinEvent.paragraphIdx === joinEvent.paragraphs.length - 1;
 
-    return (
-      <p
-        className={className}
-        key={pkey}
-        ref={
-          pkey === paragraphs.length - 1 ? props.refLastParagraph : undefined
+          const className = [
+            "Paragraph",
+            isFirstParagraph && props.firstLetterLarge
+              ? " first-letter-large"
+              : "",
+            "smoothIn",
+            isLastParagraph ? "SceneBottom" : "",
+          ].join(" ");
+
+          return (
+            <p
+              className={className}
+              key={joinEvent.paragraphIdx}
+              ref={
+                joinEvent.paragraphIdx === joinEvent.paragraphs.length - 1
+                  ? props.refLastParagraph
+                  : undefined
+              }
+            >
+              {joinEvent.spans}
+            </p>
+          );
         }
-      >
-        {spans}
-      </p>
-    );
-  });
-  return <div className={props.className}>{paragraphs}</div>;
+      )}
+    </div>
+  );
 }

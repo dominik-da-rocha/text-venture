@@ -22,7 +22,7 @@
 }
 
 .Navbar .Buttons.show {
-  width: calc(var(--button-size) * 2);
+  width: calc(var(--button-size) * 4);
   transition: width 0.25s linear;
 }
 

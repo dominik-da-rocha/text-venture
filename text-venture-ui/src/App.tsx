@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import "./theme/Theme.css";
-import "./data/PrologueQuest.css";
+import "./data/01-prologue/PrologueQuest";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { Venture } from "./components/Venture";
 import { CaptainHuntersSpaceQuest } from "./data/CapitanHuntersSpaceQuest";
@@ -13,9 +13,10 @@ import { Navbar } from "./components/Navbar";
 import { Home } from "./components/Home";
 import { Settings } from "./components/Settings";
 import { PopupAlertProvider } from "./components/PopupAlert";
-import { PrologueQuest } from "./data/PrologueQuest";
+import { PrologueQuest } from "./data/01-prologue/PrologueQuest";
 import { GuestBook } from "./components/GuestBook";
 import { About } from "./components/About";
+import { AudioPlayer, useAudio } from "./components/AudioPlayer";
 
 function App() {
   const [settings, setSettings] = useLocalState<TextSettings>(
@@ -38,6 +39,8 @@ function App() {
     settings.storageMode
   );
 
+  const audio = useAudio();
+
   const chapters = [
     {
       ...prologueQuest,
@@ -50,6 +53,10 @@ function App() {
       disabled: true,
     },
   ];
+
+  function handlePlaySound(url: string) {
+    audio.setUrl(url);
+  }
 
   return (
     <HashRouter>
@@ -95,6 +102,7 @@ function App() {
                         onTextChanged={chapter.setter}
                         settings={settings}
                         onSettingsChanged={setSettings}
+                        onPlaySound={handlePlaySound}
                       />
                     }
                   />
@@ -102,7 +110,7 @@ function App() {
               })}
             </Routes>
           </div>
-          <Navbar />
+          <Navbar audio={audio} />
         </PopupAlertProvider>
       </div>
     </HashRouter>

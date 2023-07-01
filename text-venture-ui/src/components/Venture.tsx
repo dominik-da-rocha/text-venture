@@ -15,30 +15,26 @@ import {
 } from "./ConsoleMenu";
 import { InventoryMenu } from "./InventoryMenu";
 import { TextActionNone, TextAction } from "../model/TextAction";
-import { getByIdOrFirst, matchesAny, matchesOneOf, randomItem } from "./Utils";
+import { getByIdOrFirst, matchesAny, matchesOneOf } from "./Utils";
 import {
   TextInteraction,
   TextObjectPattern,
   TextActionPattern,
 } from "../model/TextInteraction";
-import { TextScene } from "../model/TextScene";
 import { useShowPopup } from "./PopupAlert";
 import { TextSettings } from "../model/TextSettings";
-import {
-  TextObject,
-  TextToken,
-  TextDescription,
-  TextPlayer,
-} from "../model/TextObject";
+import { TextObject, TextToken, TextDescription } from "../model/TextObject";
 import { TextCommand, TextLogbook } from "../model/TextConsole";
 import { TextVenture } from "../model/TextVenture";
-import { handleEffects } from "./EffectHandler";
+import { handleEffects, selectRandomPlayerResponses } from "./EffectHandler";
+import { VentureSpy } from "./VentureSpy";
 
 interface VentureProps {
   onSettingsChanged(copy: TextSettings): void;
   settings: TextSettings;
   text: TextVenture;
   onTextChanged(text: TextVenture | undefined): void;
+  onPlaySound(url: string): void;
 }
 
 export function Venture(props: VentureProps) {
@@ -79,7 +75,7 @@ export function VentureWrapper(props: VentureProps) {
       if (refLastParagraph.current) {
         refLastParagraph.current.scrollIntoView({ behavior: "smooth" });
       }
-    }, 100);
+    }, 50);
   }
 
   const scene = getByIdOrFirst(text.scenes, text.currentSceneId);
@@ -105,7 +101,7 @@ export function VentureWrapper(props: VentureProps) {
       response: command.response,
       question: command.question,
       style: command.style,
-      responseIdx: command.responseIdx,
+      personTalkedToIndex: command.personTalkedToIndex,
       playerName: command.playerName,
       playerId: command.playerId,
     };
@@ -113,7 +109,7 @@ export function VentureWrapper(props: VentureProps) {
     return log;
   }
 
-  function appendLogbook(logbookEntry: TextLogbook) {
+  function appendLogbook(logbookEntry: TextLogbook, hidePopup: boolean) {
     const newLogbook = [logbookEntry, ...text.logbook];
     while (newLogbook.length > text.logbookMaxLength) {
       newLogbook.splice(newLogbook.length - 1, 1);
@@ -122,16 +118,17 @@ export function VentureWrapper(props: VentureProps) {
     props.onTextChanged(text);
     if (
       props.settings.consoleMode === "off" &&
-      props.text.commandMode === "action"
+      props.text.commandMode === "action" &&
+      !hidePopup
     ) {
       showPopup(() => <TextVentureLogbook {...logbookEntry} />);
     }
   }
 
-  function appendCommandToLogbook(command: TextCommand) {
+  function appendCommandToLogbook(command: TextCommand, hidePopup?: boolean) {
     if (command.response || command.question) {
       const logbookEntry = toLogbook(command);
-      appendLogbook(logbookEntry);
+      appendLogbook(logbookEntry, hidePopup ?? false);
     }
   }
 
@@ -230,53 +227,76 @@ export function VentureWrapper(props: VentureProps) {
   ): boolean {
     let result = false;
     command.style = interaction.style;
-    command.responseIdx = interaction.responseIdx;
+    command.personTalkedToIndex = interaction.personTalkToIndex;
     command.playerName = player?.shortName;
     command.playerId = player?.id;
     switch (interaction.type) {
       case "random":
-        command.response = randomItem(interaction.responses);
+        command.response = selectRandomPlayerResponses(
+          interaction.responses,
+          player?.id ?? ""
+        );
         appendCommandToLogbook(command);
         result = true;
         break;
-      case "simple":
-        command.response = interaction.response;
-        appendCommandToLogbook(command);
+      case "effect-or-random":
+        if (
+          interaction.effects === undefined ||
+          interaction.effects.length === 0
+        ) {
+          command.response = selectRandomPlayerResponses(
+            interaction.responses,
+            player?.id ?? ""
+          );
+          appendCommandToLogbook(command);
+        } else {
+          command.response = selectRandomPlayerResponses(
+            interaction.responses,
+            player?.id ?? ""
+          );
+          appendCommandToLogbook(command, true);
+        }
         result = true;
+        break;
+      case "effects":
+        result = true;
+        appendCommandToLogbook(command, true);
         break;
       case "look-at":
-        command.response = getDescription(command.objects[0].description) ?? randomItem(interaction.responses);
+        command.response =
+          getDescription(command.objects[0].description) ??
+          selectRandomPlayerResponses(interaction.responses, player?.id ?? "");
         appendCommandToLogbook(command);
         result = true;
         break;
       case "look-at-player":
-        command.response = randomItem(interaction.responses);
+        command.response = selectRandomPlayerResponses(
+          interaction.responses,
+          player?.id ?? ""
+        );
         appendCommandToLogbook(command);
         selectPlayer(command.objects[0]);
         result = true;
         break;
-      case "give-item-to":
-        command.response = randomItem(interaction.responses);
-        appendCommandToLogbook(command);
-        giveFromItemTo(player, command.objects[0], command.objects[1]);
-        result = true;
-        break;
       case "walk-to":
-        command.response = randomItem(interaction.responses);
+        command.response = selectRandomPlayerResponses(
+          interaction.responses,
+          player?.id ?? ""
+        );
         appendCommandToLogbook(command);
         selectScene(command.objects[0]);
         result = true;
         break;
-      case "pick-up":
-        command.response = randomItem(interaction.responses);
-        appendCommandToLogbook(command);
-        removeObjectFromScenesDescription(command.objects[0]);
-        giveFromItemTo(scene, command.objects[0], player);
-        result = true;
-        break;
+
       case "random-talk-to":
-        command.question = randomItem(interaction.questions);
-        command.response = randomItem(interaction.responses);
+        command.question = selectRandomPlayerResponses(
+          interaction.responses,
+          player?.id ?? ""
+        );
+        command.response = selectRandomPlayerResponses(
+          interaction.responses,
+          player?.id ?? ""
+        );
         appendCommandToLogbook(command);
         result = true;
         break;
@@ -296,8 +316,10 @@ export function VentureWrapper(props: VentureProps) {
           scene,
           player,
           interaction,
+          command,
           props.onTextChanged,
-          handleScrollToBottom
+          handleScrollToBottom,
+          props.onPlaySound
         );
       }
       return result;
@@ -400,7 +422,7 @@ export function VentureWrapper(props: VentureProps) {
           logInteraction("objects id matches");
           return true;
         }
-        if (pattern.isPlayer && obj.id === player?.id) {
+        if (pattern.isCurrentPlayer && obj.id === player?.id) {
           logInteraction("objects is player matches");
           return true;
         }
@@ -409,7 +431,7 @@ export function VentureWrapper(props: VentureProps) {
           return true;
         }
         if (
-          pattern.playerHasIt &&
+          pattern.currentPlayerHasIt &&
           player?.things.find((item) => item.id === obj.id) !== undefined
         ) {
           logInteraction("objects player has it matches");
@@ -474,48 +496,6 @@ export function VentureWrapper(props: VentureProps) {
     }
   }
 
-  function giveFromItemTo(
-    owner: TextPlayer | TextScene | undefined,
-    item: TextObject,
-    receiver: TextObject | undefined
-  ) {
-    if (owner && receiver) {
-      if (
-        receiver.type === "person" ||
-        receiver.type === "player" ||
-        receiver.type === "scene"
-      ) {
-        const idx = owner.things.findIndex((thing) => item.id === thing.id);
-        if (idx >= 0) {
-          let thing = owner.things[idx];
-          receiver.things.push(thing);
-          owner.things.splice(idx, 1);
-          props.onTextChanged(text);
-        }
-      }
-    }
-  }
-
-  function removeObjectFromScenesDescription(object: TextObject) {
-    if (scene) {
-      const paragraphs: string[] =
-        typeof scene.paragraphs === "string"
-          ? [scene.paragraphs]
-          : scene.paragraphs;
-      const description: string[] = [];
-      paragraphs.forEach((paragraph) => {
-        if (paragraph.indexOf("{" + object.type + ":" + object.id + ":") < 0) {
-          description.push(paragraph);
-        }
-      });
-      if (description.length !== paragraphs.length) {
-        scene.paragraphs = description;
-        text.scenes[scene.id] = scene;
-        props.onTextChanged(text);
-      }
-    }
-  }
-
   return (
     <>
       <ConsoleMenu
@@ -530,6 +510,7 @@ export function VentureWrapper(props: VentureProps) {
         onTextChange={props.onTextChanged}
         appendLogbook={appendLogbook}
         onScrollToBottom={handleScrollToBottom}
+        onPlaySound={props.onPlaySound}
       />
 
       <InventoryMenu
@@ -569,6 +550,7 @@ export function VentureWrapper(props: VentureProps) {
           refLastParagraph={refLastParagraph}
         ></Scene>
       </div>
+      <VentureSpy {...text}></VentureSpy>
     </>
   );
 }

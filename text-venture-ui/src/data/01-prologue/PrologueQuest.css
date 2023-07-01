@@ -23,11 +23,11 @@
 }
 
 .dark .hardy-grow {
-  color: white !important;
+  color: #9bafc4 !important;
   font-weight: bold;
 }
 
 .light .hardy-grow {
-  color: black !important;
+  color: #0c4175 !important;
   font-weight: bold;
 }

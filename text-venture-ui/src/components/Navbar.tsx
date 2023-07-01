@@ -3,8 +3,9 @@ import "./Navbar.css";
 import { useLocation, useNavigate } from "react-router";
 import { Button } from "./Button";
 import { Icon } from "./Icon";
+import { AudioPlayer, AudioState } from "./AudioPlayer";
 
-export function Navbar() {
+export function Navbar(props: { audio: AudioState }) {
   const [show, setShow] = useState<"show" | "hidden">("hidden");
   const [autoClose, setAutoClose] = useState(0);
   const sec = 1000;
@@ -35,6 +36,7 @@ export function Navbar() {
       <div className={["Buttons", show].join(" ")}>
         <HomeButton></HomeButton>
         <SettingsButton></SettingsButton>
+        <AudioPlayer {...props.audio} />
       </div>
       <MenuButton className={show} onClick={toggleNavbar}></MenuButton>
     </div>

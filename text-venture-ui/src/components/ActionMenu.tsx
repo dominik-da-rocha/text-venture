@@ -22,27 +22,29 @@ export function ActionMenu(props: ActionMenuProps) {
     props.onModeChanged(props.mode === "on" ? "off" : "on");
   }
   return (
-    <div className={["ActionMenu", props.mode].join(" ")}>
-      <div className="Actions">
-        {iMap(actions, (action) => {
-          if (action.hidden) {
-            return undefined;
-          }
-          return (
-            <TextVentureAction
-              key={action.id}
-              action={action}
-              onAction={props.onAction}
-              checked={props.currentAction?.id === action.id}
-              disabled={props.commandMode !== "action"}
-            />
-          );
-        })}
-      </div>
+    <div className="ActionMenuStickyContainer">
+      <div className={["ActionMenu", props.mode].join(" ")}>
+        <div className="Actions">
+          {iMap(actions, (action) => {
+            if (action.hidden) {
+              return undefined;
+            }
+            return (
+              <TextVentureAction
+                key={action.id}
+                action={action}
+                onAction={props.onAction}
+                checked={props.currentAction?.id === action.id}
+                disabled={props.commandMode !== "action"}
+              />
+            );
+          })}
+        </div>
 
-      <Button className="ActionButton" onClick={() => toggleMenu()}>
-        <Icon>add</Icon>
-      </Button>
+        <Button className="ActionButton" onClick={() => toggleMenu()}>
+          <Icon>add</Icon>
+        </Button>
+      </div>
     </div>
   );
 }

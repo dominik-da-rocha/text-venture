@@ -65,7 +65,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
       matchesAction: {
         oneOf: "talk-to",
       },
-      matchesObjects: [{ isPlayer: true }],
+      matchesObjects: [{ isCurrentPlayer: true }],
       responses: [
         "Alas, conversing with oneself leads only to a labyrinth of thoughts.",
         "Engaging in soliloquies, dear player, shall not unravel the mysteries.",
@@ -275,16 +275,16 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
     },
     {
       id: "give-item-from-inventory-to-current-player",
-      type: "give-item-to",
+      type: "random",
       matchesAction: {
         oneOf: "give",
       },
       matchesObjects: [
         {
-          playerHasIt: true,
+          currentPlayerHasIt: true,
         },
         {
-          isPlayer: true,
+          isCurrentPlayer: true,
         },
       ],
       responses: [
@@ -312,16 +312,24 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
     },
     {
       id: "give-item-from-inventory-to-other-player",
-      type: "give-item-to",
+      type: "random",
       matchesAction: {
         oneOf: "give",
       },
       matchesObjects: [
         {
-          playerHasIt: true,
+          currentPlayerHasIt: true,
         },
         {
           oneTypeOf: "player",
+        },
+      ],
+      effects: [
+        {
+          type: "give-item-from-inventory-to",
+          keepEffect: true,
+          itemCommandObjectIdx: 0,
+          receiverCommandObjectIdx: 1,
         },
       ],
       responses: [
@@ -431,7 +439,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
       id: "default-give-own-thing-to-person",
       type: "random",
       matchesAction: { oneOf: "give" },
-      matchesObjects: [{ playerHasIt: true }, { oneTypeOf: "person" }],
+      matchesObjects: [{ currentPlayerHasIt: true }, { oneTypeOf: "person" }],
       responses: [
         "I wouldn't trade my prized possessions for mere trinkets, sir.",
         "My dear friend, your offer lacks the allure of adventure.",
@@ -741,22 +749,27 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
           description:
             "The 1804 Draped Bust Quarter, a rare coin of antiquity, bore the visage of Lady Liberty and an eagle on its weathered surface. Its value surpassed mere currency, representing a tangible link to a bygone era.",
           name: "1804 Draped Bust Quarter",
-          interactions: [
-            {
-              id: "pick-up-coin-of-fortune",
-              type: "pick-up",
-              matchesAction: {
-                oneOf: "pick-up",
-              },
-              matchesObjects: [{ oneIdOf: "coin-of-fortune" }],
-              responses: [
-                "The 1804 Draped Bust Quarter, a rare coin of antiquity, bore the visage of Lady Liberty and an eagle on its weathered surface. Its value surpassed mere currency, representing a tangible link to a bygone era. It will bring luck.",
-              ],
-            },
-          ],
+          interactions: [],
         },
       ],
       interactions: [
+        {
+          id: "pick-up-coin-of-fortune",
+          type: "random",
+          matchesAction: {
+            oneOf: "pick-up",
+          },
+          matchesObjects: [{ oneIdOf: "coin-of-fortune" }],
+          responses: [
+            "The 1804 Draped Bust Quarter, a rare coin of antiquity, bore the visage of Lady Liberty and an eagle on its weathered surface. Its value surpassed mere currency, representing a tangible link to a bygone era. It will bring luck.",
+          ],
+          effects: [
+            {
+              type: "pick-up-thing-from-scene",
+              thingId: "coin-of-fortune",
+            },
+          ],
+        },
         {
           type: "walk-to",
           id: "walk-to-sandstorm-saloon",

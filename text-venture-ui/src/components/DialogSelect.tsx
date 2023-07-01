@@ -9,21 +9,24 @@ import {
 } from "../model/TextInteraction";
 import { TextVenture } from "../model/TextVenture";
 import { TextScene } from "../model/TextScene";
-import { TextLogbook } from "../model/TextConsole";
+import { TextCommand, TextLogbook } from "../model/TextConsole";
 import { handleEffects } from "./EffectHandler";
 
 export interface DialogSelectProps {
   text: TextVenture;
   personTalkedTo: TextObject;
+  command: TextCommand;
   onTextChange(text: TextVenture): void;
   appendLogbook(logbookEntry: TextLogbook): void;
   onScrollToBottom(): void;
+  onPlaySound(url: string): void;
 }
 
 export function DialogSelect(props: DialogSelectProps) {
   const text = props.text;
   const scene = text.scenes[text.currentSceneId] as TextScene;
   const player = text.players[text.currentPlayerId] as TextPlayer;
+  const command = props.command;
   const conversation = scene.interactions.find(
     (ia) => ia.id === text.currentConversationId && ia.type === "talk-to"
   ) as TextInteractionTalkTo | undefined;
@@ -35,7 +38,7 @@ export function DialogSelect(props: DialogSelectProps) {
   useEffect(() => {
     if (conversation) {
       if (text.currentDialogId === undefined) {
-        setDialogsToChooseFrom(conversation.start);
+        setDialogsToChooseFrom(conversation.startDialogIds);
       } else {
         const dialog = conversation.dialogs[text.currentDialogId];
         if (dialog) {
@@ -106,8 +109,10 @@ export function DialogSelect(props: DialogSelectProps) {
       scene,
       player,
       selectedDialog,
+      command,
       props.onTextChange,
-      props.onScrollToBottom
+      props.onScrollToBottom,
+      props.onPlaySound
     );
 
     let deletedIds = dropDialogIfAsked(conversation, selectedDialogId);
@@ -199,9 +204,9 @@ function dropDialogIfAsked(
     console.log("deleted " + dialogId);
     deletedIds.push(dialogId);
     delete dialogs[dialogId];
-    const idx = conversation.start.findIndex((id) => dialogId === id);
+    const idx = conversation.startDialogIds.findIndex((id) => dialogId === id);
     if (idx >= 0) {
-      conversation.start.splice(idx, 1);
+      conversation.startDialogIds.splice(idx, 1);
     }
 
     Object.keys(dialogs)

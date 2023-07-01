@@ -4,15 +4,14 @@ import { TextObjectType } from "./TextObject";
 import { TextEffect } from "./TextEffects";
 
 export type TextInteraction =
-  | TextInteractionSimple
+  | TextInteractionEffect
   | TextInteractionRandom
   | TextInteractionLookAt
-  | TextInteractionGiveItemTo
   | TextInteractionWalkTo
-  | TextInteractionPickUp
   | TextInteractionRandomTalkTo
   | TextInteractionTalkTo
-  | TextInteractionLookAtPlayer;
+  | TextInteractionLookAtPlayer
+  | TextInteractionEffectOrRandom;
 
 interface TextInteractionAbstract {
   id: string;
@@ -20,9 +19,8 @@ interface TextInteractionAbstract {
   matchesAction: TextActionPattern;
   matchesObjects: TextObjectPattern[] | "any";
   style?: string;
-  events?: TextInteractionEvent[];
   effects?: TextEffect[];
-  responseIdx?: number;
+  personTalkToIndex?: number;
 }
 
 export interface TextActionPattern {
@@ -34,51 +32,44 @@ export interface TextObjectPattern {
   oneIdOf?: OneOf<string>;
   oneTypeOf?: OneOf<TextObjectType>;
   any?: boolean;
-  playerHasIt?: boolean;
-  isPlayer?: boolean;
+  currentPlayerHasIt?: boolean;
+  isCurrentPlayer?: boolean;
 }
 
-export interface TextInteractionEvent {}
+export type TextPlayerResponses =
+  | string
+  | string[]
+  | { [playerId: string]: string | string[] };
 
-export interface TextInteractionSimple extends TextInteractionAbstract {
-  type: "simple";
-  response: string;
+export interface TextInteractionEffect extends TextInteractionAbstract {
+  type: "effects";
+  effects: TextEffect[];
 }
 
 export interface TextInteractionRandom extends TextInteractionAbstract {
   type: "random";
-  responses: string[];
+  responses: TextPlayerResponses;
 }
 
 export interface TextInteractionLookAt extends TextInteractionAbstract {
   type: "look-at";
-  responses: string[];
-}
-
-export interface TextInteractionGiveItemTo extends TextInteractionAbstract {
-  type: "give-item-to";
-  responses: string[];
+  responses: TextPlayerResponses;
 }
 
 export interface TextInteractionWalkTo extends TextInteractionAbstract {
   type: "walk-to";
-  responses: string[];
-}
-
-export interface TextInteractionPickUp extends TextInteractionAbstract {
-  type: "pick-up";
-  responses: string[];
+  responses: TextPlayerResponses;
 }
 
 export interface TextInteractionRandomTalkTo extends TextInteractionAbstract {
   type: "random-talk-to";
-  questions: string[];
+  questions: TextPlayerResponses;
   responses: string[];
 }
 
 export interface TextInteractionTalkTo extends TextInteractionAbstract {
   type: "talk-to";
-  start: string[];
+  startDialogIds: string[];
   dialogs: IMap<TextInteractionTalkToQuestion>;
 }
 
@@ -97,5 +88,10 @@ export interface TextInteractionTalkToQuestion {
 
 export interface TextInteractionLookAtPlayer extends TextInteractionAbstract {
   type: "look-at-player";
-  responses: string[];
+  responses: TextPlayerResponses;
+}
+
+export interface TextInteractionEffectOrRandom extends TextInteractionAbstract {
+  type: "effect-or-random";
+  responses: TextPlayerResponses;
 }
