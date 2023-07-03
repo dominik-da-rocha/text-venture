@@ -5,14 +5,16 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
+	"path/filepath"
 
 	_ "github.com/mattn/go-sqlite3"
 
 	"github.com/gorilla/mux"
 )
 
-func GuestBook(router *mux.Router) {
-   db, err := initializeDB()   
+func GuestBook(router *mux.Router, database string) {
+   db, err := initializeDB(database)   
    if (err != nil) {
       log.Fatal(err.Error())
    }
@@ -80,8 +82,15 @@ type guestBookEntry struct {
 	Comment string `json:"comment"`
 }
 
-func initializeDB() (*sql.DB, error) {
-	db, err := sql.Open("sqlite3", "guestbook.db") // Open the SQLite database
+func initializeDB(database string) (*sql.DB, error) {
+   err := os.MkdirAll(database, os.ModePerm)
+	if err != nil {
+		return nil, err
+	}
+
+   databaseFullPath := filepath.Join(database, "guestbook.db")
+
+	db, err := sql.Open("sqlite3", databaseFullPath) // Open the SQLite database
 	if err != nil {
 		return nil, err
 	}

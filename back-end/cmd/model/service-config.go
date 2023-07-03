@@ -9,11 +9,11 @@ import (
 )
 
 type ServiceConfig struct {
-	Version string           `json:"version"`
-	Name    string           `json:"name"`
-	Port    int              `json:"port"`
+	Version  string `json:"version"`
+	Name     string `json:"name"`
+	Port     int    `json:"port"`
+	Database string `json:"database"`
 }
-
 
 func LoadTextVenture(configFileName string) ServiceConfig {
 
@@ -33,6 +33,6 @@ func LoadTextVenture(configFileName string) ServiceConfig {
 
 	// Use the configuration
 	log.Println("Name from config file:", serviceConfig.Name)
-	
+
 	return serviceConfig
 }

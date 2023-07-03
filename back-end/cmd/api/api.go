@@ -13,7 +13,7 @@ import (
 func Start(txt model.ServiceConfig) {
    router := mux.NewRouter()
    v1.Version(router);
-   v1.GuestBook(router);
+   v1.GuestBook(router, txt.Database);
    
    log.Printf("Start listing on port %d", txt.Port)
    http.Handle("/", router)

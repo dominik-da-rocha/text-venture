@@ -22,6 +22,3 @@ EXPOSE 8081
 
 ENTRYPOINT ["/opt/text-venture/text-venture-service"]
 
-
-
-
