@@ -1,5 +1,5 @@
 {
-  "name": "text-venture-ui",
+  "name": "text-venture",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -25,9 +25,6 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "deploy": "react-scripts build && npm run remove-deploy & npm run move-build",
-    "remove-deploy": "shx rm -r ./../server/nginx/html",
-    "move-build": "shx mv build ./../server/nginx/html"
   },
   "eslintConfig": {
     "extends": [
