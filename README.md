@@ -16,7 +16,7 @@ Text Venture is a browser-based Click'n'Point text-adventure game that combines 
 To play Text Venture, follow these steps:
 
 1. Ensure you have a compatible web browser (such as Google Chrome, Mozilla Firefox, or Safari) installed on your device.
-2. Open your web browser and navigate to the Text Venture website [www.not-aired-yet.com](www.not-aired-yet.com)
+2. Open your web browser and navigate to the Text Venture website [https://www.text-venture.net](https://www.text-venture.net)
 3. Use the click'n'point interface to interact with the game world, click on objects to examine them, talk to characters, and solve puzzles.
 4. Make choices throughout the game that will shape the story and determine the outcome.
 5. Explore different paths, experiment with various options, and uncover the secrets of the game world.
