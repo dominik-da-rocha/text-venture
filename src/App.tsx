@@ -31,14 +31,6 @@ function App() {
     settings.storageMode
   );
 
-  const [captainHuntersSpaceQuest, setCaptainHuntersSpaceQuest] = useLocalState<
-    TextVenture
-  >(
-    "text-venture.captain-hunters-space-quest",
-    toTextVenture(CaptainHuntersSpaceQuest),
-    settings.storageMode
-  );
-
   const audio = useAudio();
 
   const chapters = [
@@ -46,11 +38,6 @@ function App() {
       ...prologueQuest,
       setter: setPrologueQuest,
       disabled: false,
-    },
-    {
-      ...captainHuntersSpaceQuest,
-      setter: setCaptainHuntersSpaceQuest,
-      disabled: true,
     },
   ];
 
