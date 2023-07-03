@@ -18,7 +18,7 @@ FROM debian:bullseye-slim
 WORKDIR /opt/text-venture
 COPY --from=gobuild /app/text-venture-service ./
 COPY --from=gobuild /app/config               ./config
-EXPOSE 7080
+EXPOSE 8081
 
 ENTRYPOINT ["/opt/text-venture/text-venture-service"]
 
