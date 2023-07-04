@@ -6,14 +6,14 @@ import { SceneFin } from "./SceneFin";
 import { SceneKitchen } from "./SceneKitchen";
 import { SceneOffice } from "./SceneOffice";
 
-const a100Things = Array.from(Array(100).keys()).map((idx) => {
+const a100Things = Array.from(Array(10).keys()).map((idx) => {
   let no = idx + 1;
   let thing: TextThing = {
     type: "thing",
     description:
       "Blimey, someone 'ad to test the bleedin' inventory, didn't they? Guess who volunteered? Now I'm stuck luggin' 'round a hundred things like a bloomin' pack mule. Shitty programmer, I tell ya!",
     id: "thing-" + no,
-    name: "Thing " + no + " of 100 with a long name filling up the inventory",
+    name: "Thing " + no + " of 10 with a long name filling up the inventory",
     interactions: [],
   };
   return thing;
@@ -714,6 +714,24 @@ export const PrologueQuest: TextVentureJson = {
           description: "An empty flash light",
           interactions: [
             {
+              id: "use-flashlight-empty",
+              type: "random",
+              matchesAction: {
+                oneOf: "use",
+              },
+              matchesObjects: [
+                {
+                  oneIdOf: ["flashlight-empty"],
+                },
+              ],
+              responses: {
+                "hardy-grow":
+                  "Oh bother, it seems I have absentmindedly grabbed an empty flashlight. How utterly inconvenient. I must locate fresh batteries promptly.",
+                "isa-ruff":
+                  "Oh blimey, would you look at that! The bleedin' flashlight's as useless as a bloomin' daffodil. Got no bleedin' batteries, 'ave we? What a right mess!",
+              },
+            },
+            {
               id: "use-flashlight-empty-with-batteries",
               type: "random",
               matchesAction: {
@@ -1053,13 +1071,6 @@ export const PrologueQuest: TextVentureJson = {
               ],
             },
           ],
-        },
-        {
-          type: "thing",
-          description: "It's safety pin.",
-          id: "safety-pin",
-          name: "Safety pin",
-          interactions: [],
         },
         {
           type: "thing",

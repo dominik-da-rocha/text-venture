@@ -96,7 +96,7 @@ export function PopupAlert(props: PopupAlertProps) {
       <button className="Button" onClick={props.onClose}>
         ⨯
       </button>
-      {props.children}
+      <div className="PopAlertMessage">{props.children}</div>
     </div>
   );
 }

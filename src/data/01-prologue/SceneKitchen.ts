@@ -18,7 +18,7 @@ export const SceneKitchen: TextScene = {
       type: "person",
       id: "landlord",
       description:
-        "Mr. Crumplesworth, a stocky figure clad in a cheap nylon suit, exuded an air of snobbery and disdain.",
+        "Mr. Crumplesworth, a stocky figure clad in a cheap nylon suit, exuded an air of snobbery and disdain. Clearly in need of an refreshment",
       name: "Mr. Crumplesworth",
       interactions: [],
       things: [],
@@ -27,7 +27,7 @@ export const SceneKitchen: TextScene = {
       type: "person",
       id: "young-lady",
       description:
-        "Mr. Crumplesworth, a stocky figure clad in a cheap nylon suit, exuded an air of snobbery and disdain.",
+        "The young lady, with fiery red dress and eyes filled with melancholy, exuded an intriguing mix of allure and sorrow.",
       name: "Young-Lady",
       interactions: [],
       things: [],
@@ -599,7 +599,7 @@ export const SceneKitchen: TextScene = {
               "{player:hardy-grow:Hardy}'s eyes lingered on the {thing:kettle:green enamel kettle} perched on the {thing:stove:stove}, a temptress awaiting her moment to whistle. However, his rationality prevailed, recognizing that the time for tea had not yet ripened. Patience, he thought, for tea waits for no one.",
             ],
             "isa-ruff": [
-              "Isa Ruff's gaze fixated upon the green enamel kettle, its worn exterior telling tales of countless boiling rituals. The chipped edges and faint rust spots added character to its humble presence, as if it held the secrets of a thousand steaming cups, waiting to be unleashed.",
+              "[player:isa-ruff:Isa Ruff]'s gaze fixated upon the {thing:kettle:green enamel kettle}, its worn exterior telling tales of countless boiling rituals. The chipped edges and faint rust spots added character to its humble presence, as if it held the secrets of a thousand steaming cups, waiting to be unleashed.",
             ],
           },
         },

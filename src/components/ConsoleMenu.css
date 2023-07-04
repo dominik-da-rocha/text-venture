@@ -17,11 +17,13 @@
 
 .ConsoleMenu.on {
   height: 50vh;
-  transition: height 0.25s linear;
+  padding-top: 1rem;
+  transition: all 0.25s linear;
 }
 .ConsoleMenu.off {
   height: 0;
-  transition: height 0.25s linear;
+  padding-top: 0rem;
+  transition: all 0.25s linear;
 }
 
 .ConsoleMenu .CommandMenu {

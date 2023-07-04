@@ -2,29 +2,26 @@
   position: fixed;
   left: 0;
   display: flex;
-  flex-direction: column-reverse;
-  bottom: var(--button-size);
+  width: 0.1px;
   padding-bottom: 1rem;
+  height: 100%;
+  bottom: var(--button-size);
   z-index: 3000;
-  padding-left: 1rem;
-  padding-right: var(--button-size);
+  flex-direction: column-reverse;
+  background: transparent;
 }
 
 .PopupAlert {
   position: relative;
-  min-width: 10rem;
-  max-width: 30rem;
-  width: calc(95%);
+  width: 25rem;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 1rem;
   border-radius: 0.5rem;
   text-align: justify;
-  margin-bottom: 1rem;
   overflow: hidden;
   background: var(--background-accent);
-  border: 1px solid var(--border);
+  margin: 1rem;
 }
 
 .PopupAlert.open {
@@ -33,11 +30,9 @@
 
 .PopupAlert.close {
   height: 0rem;
-  margin: 0rem;
-  padding-top: 0rem;
-  padding-bottom: 0rem;
   border: none;
   transition: all 1s;
+  margin: 0rem;
 }
 
 .PopupAlert button {
@@ -75,4 +70,8 @@
 .PopupAlert h6 {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
+}
+
+.PopAlertMessage {
+  padding: 1rem;
 }

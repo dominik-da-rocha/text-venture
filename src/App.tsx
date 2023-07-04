@@ -1,10 +1,9 @@
 import React from "react";
 import "./App.css";
 import "./theme/Theme.css";
-import "./data/01-prologue/PrologueQuest";
+import "./data/01-prologue/PrologueQuest.css";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { Venture } from "./components/Venture";
-import { CaptainHuntersSpaceQuest } from "./data/CapitanHuntersSpaceQuest";
 import { TextVenture, toTextVenture } from "./model/TextVenture";
 import { TextSettings } from "./model/TextSettings";
 import { DefaultSettings } from "./data/DefaultSettings";
@@ -16,7 +15,7 @@ import { PopupAlertProvider } from "./components/PopupAlert";
 import { PrologueQuest } from "./data/01-prologue/PrologueQuest";
 import { GuestBook } from "./components/GuestBook";
 import { About } from "./components/About";
-import { AudioPlayer, useAudio } from "./components/AudioPlayer";
+import { useAudio } from "./components/AudioPlayer";
 
 function App() {
   const [settings, setSettings] = useLocalState<TextSettings>(
