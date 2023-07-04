@@ -18,6 +18,27 @@
   }
 }
 
+.system {
+  @media (prefers-color-scheme: dark) {
+    .isa-ruff {
+      animation: 60s rainbow-dark infinite;
+    }
+
+    .isa-ruff:hover {
+      animation: 4s rainbow-dark infinite;
+    }
+  }
+  @media (prefers-color-scheme: light) {
+    .isa-ruff {
+      animation: 60s rainbow-light infinite;
+    }
+
+    .isa-ruff:hover {
+      animation: 4s rainbow-light infinite;
+    }
+  }
+}
+
 .isa-ruff:active {
   animation: none;
 }

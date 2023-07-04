@@ -34,7 +34,82 @@ export function About() {
       </p>
 
       <h3>Acknowledgements</h3>
-      <ul></ul>
+      <h4>Used Tools and libraries</h4>
+      <ul className="Acknowledgements">
+        <li>
+          <span>
+            front end is created with <a href="https://react.dev/">react</a>
+          </span>
+        </li>
+        <li>
+          <span>
+            icons are provided by{" "}
+            <a href="https://fonts.google.com/icons">material icons</a>
+          </span>
+        </li>
+        <li>
+          <span className="cursive">
+            cursive font is{" "}
+            <a href="https://fonts.google.com/specimen/Kalam">Kalam</a>
+          </span>
+        </li>
+        <li>
+          <span className="serif">
+            serif font is{" "}
+            <a href="https://fonts.google.com/specimen/Kotta+One">Kotta One</a>
+          </span>
+        </li>
+        <li>
+          <span className="sans-serif">
+            sans serif font is{" "}
+            <a href="https://fonts.google.com/specimen/M+PLUS+Rounded+1c">
+              M PLUS Rounded 1c
+            </a>
+          </span>
+        </li>
+        <li>
+          <span className="monospace">
+            monospace font is{" "}
+            <a href="https://fonts.google.com/specimen/Source+Code+Pro">
+              Source Code Pro
+            </a>
+          </span>
+        </li>
+        <li>
+          <span>
+            content is created with the help of{" "}
+            <a href="https://openai.com/blog/chatgpt">OpenAI - ChatGPT</a>
+          </span>
+        </li>
+        <li>
+          <span>
+            back end is written in <a href="https://go.dev/">go</a>
+          </span>
+        </li>
+        <li>
+          <span>
+            <a href="https://www.sqlite.org/index.html">SQLite</a> is used as
+            database
+          </span>
+        </li>
+        <li>
+          <span>
+            most of the source code is edited in{" "}
+            <a href="https://code.visualstudio.com/">Visual Studio Code</a>
+          </span>
+        </li>
+        <li>
+          <span>
+            http server is <a href="https://nginx.org/">nginx</a>
+          </span>
+        </li>
+        <li>
+          <span>
+            all running in <a href="https://www.docker.com/">docker</a>{" "}
+            container
+          </span>
+        </li>
+      </ul>
 
       <h3>Impressum</h3>
       <p>

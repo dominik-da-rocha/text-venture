@@ -19,6 +19,12 @@
   filter: invert();
 }
 
+.system {
+  @media (prefers-color-scheme: light) {
+    filter: invert();
+  }
+}
+
 .Home .TableOfContents {
   z-index: 1000;
 }

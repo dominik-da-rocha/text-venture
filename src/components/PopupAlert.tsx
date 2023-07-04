@@ -2,11 +2,11 @@ import React, { useEffect, useState, createContext, useContext } from "react";
 import "./PopupAlert.css";
 
 export interface PopupAlertValues {
-  showPopup(content: () => React.ReactNode): void;
+  showPopup(content: () => React.ReactNode, time: number): void;
 }
 
 const PopupAlertDefault: PopupAlertValues = {
-  showPopup: function (content: () => React.ReactNode): void {},
+  showPopup: function (content: () => React.ReactNode, time: number): void {},
 };
 
 export const PopupAlertContext = createContext<PopupAlertValues>(
@@ -25,6 +25,7 @@ export interface Alert {
   id: number;
   content: () => React.ReactNode;
   style?: string;
+  time: number;
 }
 
 let alertId = 0;
@@ -37,11 +38,12 @@ export function PopupAlertProvider(props: PopupAlertProviderProps) {
     setItems([...items]);
   }
 
-  function showPopup(content: () => React.ReactNode) {
+  function showPopup(content: () => React.ReactNode, time: number) {
     setItems([
       {
         id: ++alertId,
         content: content,
+        time: time,
       },
       ...items,
     ]);
@@ -56,6 +58,7 @@ export function PopupAlertProvider(props: PopupAlertProviderProps) {
             <PopupAlert
               key={item.id}
               className={item.style}
+              time={item.time}
               onClose={() => handleClose(item, idx)}
             >
               {item.content()}
@@ -71,25 +74,28 @@ export interface PopupAlertProps {
   children: React.ReactNode;
   className?: string;
   onClose(): void;
+  time: number;
 }
 
 export function PopupAlert(props: PopupAlertProps) {
   const [state, setState] = useState("close");
+  const time = Math.max(props.time, 5000);
 
   useEffect(() => {
+    console.log("closing popup in " + time / 1000.0 + " s");
     let timeout1 = setTimeout(() => {
       setState("open");
     }, 100);
 
     let timeout2 = setTimeout(() => {
       setState("close");
-    }, 10000);
+    }, time);
 
     return () => {
       clearTimeout(timeout1);
       clearTimeout(timeout2);
     };
-  }, []);
+  }, [time]);
 
   return (
     <div className={["PopupAlert", props.className, state].join(" ")}>

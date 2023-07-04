@@ -10,6 +10,9 @@ import {
   FontStyles,
   StorageMode,
   StorageModes,
+  ReadingSpeeds,
+  ReadingSpeed,
+  ReadingSpeedMap,
 } from "../model/TextSettings";
 import { Button } from "./Button";
 import { Icon } from "./Icon";
@@ -92,6 +95,26 @@ export function Settings(props: SettingsProps) {
               return (
                 <option value={size} key={size}>
                   {toFirstLetterUppercase(size)}
+                </option>
+              );
+            })}
+          </select>
+        </li>
+
+        <li>
+          <label>Reading Speed</label>
+          <select
+            value={props.settings.readingSpeed ?? "medium"}
+            onChange={(e) => {
+              const copy = { ...props.settings };
+              copy.readingSpeed = e.target.value as ReadingSpeed;
+              props.onChange(copy);
+            }}
+          >
+            {ReadingSpeeds.map((speed) => {
+              return (
+                <option value={speed} key={speed}>
+                  {toFirstLetterUppercase(speed)}
                 </option>
               );
             })}
@@ -189,12 +212,15 @@ function ButtonStorageUpload(props: SettingsDataItem) {
             props.onChange(JSON.parse(data));
           } catch (err) {
             let a = err as any;
-            showPopup(() => (
-              <div>
-                <h3>Error</h3>
-                <div>{a.message}</div>
-              </div>
-            ));
+            showPopup(
+              () => (
+                <div>
+                  <h3>Error</h3>
+                  <div>{a.message}</div>
+                </div>
+              ),
+              10 * 1000
+            );
           }
         }
       };
@@ -245,12 +271,15 @@ function ButtonStorageClear(props: SettingsDataItem) {
       className="red-alert"
       onClick={() => {
         props.onChange(undefined);
-        showPopup(() => (
-          <div>
-            <h4>Info</h4>
-            <div>Rested {props.name}</div>
-          </div>
-        ));
+        showPopup(
+          () => (
+            <div>
+              <h4>Info</h4>
+              <div>Rested {props.name}</div>
+            </div>
+          ),
+          10 * 1000
+        );
       }}
     >
       <Icon>delete</Icon>

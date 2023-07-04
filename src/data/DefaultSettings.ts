@@ -8,6 +8,7 @@ export const DefaultSettings: TextSettings = {
   inventoryMode: "off",
   textSize: "medium",
   actionMode: "on",
+  readingSpeed: "medium",
 };
 
 export const GithubUrl = "https://github.com/dominik-da-rocha/text-venture";

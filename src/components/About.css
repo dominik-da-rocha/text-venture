@@ -9,6 +9,23 @@
   opacity: 0.88;
 }
 
+.About ul {
+  list-style-type: square;
+  list-style-position: inside;
+}
+
+.About li {
+  display: list-item;
+}
+
 .dark .About .github-link img {
   filter: invert();
+}
+
+.system {
+  @media (prefers-color-scheme: dark) {
+    .About .github-link img {
+      filter: invert();
+    }
+  }
 }

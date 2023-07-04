@@ -22,7 +22,11 @@ import {
   TextActionPattern,
 } from "../model/TextInteraction";
 import { useShowPopup } from "./PopupAlert";
-import { TextSettings } from "../model/TextSettings";
+import {
+  ReadingSpeed,
+  ReadingSpeedMap,
+  TextSettings,
+} from "../model/TextSettings";
 import { TextObject, TextToken, TextDescription } from "../model/TextObject";
 import { TextCommand, TextLogbook } from "../model/TextConsole";
 import { TextVenture } from "../model/TextVenture";
@@ -121,7 +125,10 @@ export function VentureWrapper(props: VentureProps) {
       props.text.commandMode === "action" &&
       !hidePopup
     ) {
-      showPopup(() => <TextVentureLogbook {...logbookEntry} />);
+      showPopup(
+        () => <TextVentureLogbook {...logbookEntry} />,
+        getPopupTime(logbookEntry, props.settings.readingSpeed)
+      );
     }
   }
 
@@ -561,4 +568,23 @@ function logInteraction(text: string, obj?: any) {
   } else {
     return console.log(text);
   }
+}
+function getPopupTime(
+  logbookEntry: TextLogbook,
+  readingSpeed?: ReadingSpeed
+): number {
+  let letters = logbookEntry.command.length;
+  if (logbookEntry.question) {
+    letters += logbookEntry.question.length;
+  }
+  if (logbookEntry.response) {
+    letters += logbookEntry.response.length;
+  }
+
+  const wordsPerMinute = ReadingSpeedMap.get(readingSpeed ?? "medium") ?? 150;
+  const words = letters / 5;
+  const s = 1000.0;
+  const min = 60.0 * s;
+  const time = (words / wordsPerMinute) * min;
+  return time;
 }
