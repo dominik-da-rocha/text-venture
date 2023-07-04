@@ -807,7 +807,7 @@ export const SceneKitchen: TextScene = {
       },
       matchesObjects: [
         {
-          oneIdOf: "office",
+          oneIdOf: "fin",
         },
       ],
       responses: [
