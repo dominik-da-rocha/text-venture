@@ -1,5 +1,6 @@
 // Data structure for complete text venture
 
+import { MigrationHandlerMap } from "../components/LocalState";
 import { arrayToIMap } from "../components/Utils";
 import { TextAction, TextActionMap } from "./TextAction";
 import { TextAnecdote } from "./TextAnecdote";
@@ -15,6 +16,7 @@ import { TextScene, TextSceneMap } from "./TextScene";
 
 interface TextVentureAbstract extends TextObjectAbstract {
   type: "venture";
+  version: 1;
   currentSceneId: string;
   currentPlayerId: string;
   logbook: TextLogbook[];
@@ -50,6 +52,7 @@ export interface TextVenture extends TextVentureAbstract {
 export function toTextVenture(json: TextVentureJson): TextVenture {
   return {
     type: "venture",
+    version: json.version,
     id: json.id,
     name: json.name,
     description: json.description,
@@ -70,4 +73,12 @@ export function toTextVenture(json: TextVentureJson): TextVenture {
 
 export interface TextPlayerMap {
   [index: string]: TextPlayer | undefined;
+}
+
+export const TextVentureMigration = new MigrationHandlerMap([
+  [1, v1_addVersion],
+]);
+
+export function v1_addVersion(stored: TextVenture, defaultValue: TextVenture) {
+  return stored;
 }

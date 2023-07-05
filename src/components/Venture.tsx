@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import "./Venture.css";
 import {
   SceneSwitchEffect,
   Scene,
@@ -544,7 +545,7 @@ export function VentureWrapper(props: VentureProps) {
         commandMode={text.commandMode}
       />
 
-      <div className={sceneSwitchEffect}>
+      <div className={["Venture", sceneSwitchEffect].join(" ")}>
         {scene.id === Object.keys(text.scenes)[0] && (
           <SceneHeader text={text} />
         )}
@@ -556,6 +557,7 @@ export function VentureWrapper(props: VentureProps) {
           onRenderToken={handleRenderToken}
           refLastParagraph={refLastParagraph}
         ></Scene>
+        <footer>v{props.text.version}</footer>
       </div>
       <VentureSpy {...text}></VentureSpy>
     </>

@@ -1,9 +1,10 @@
 import { TextSettings } from "../model/TextSettings";
 
 export const DefaultSettings: TextSettings = {
-  textMode: "serif",
+  version: 2,
+  fontStyle: "serif",
   lightMode: "system",
-  storageMode: "local",
+  storageMode: "session",
   consoleMode: "off",
   inventoryMode: "off",
   textSize: "medium",

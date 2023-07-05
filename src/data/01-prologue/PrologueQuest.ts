@@ -21,6 +21,7 @@ const a100Things = Array.from(Array(10).keys()).map((idx) => {
 
 export const PrologueQuest: TextVentureJson = {
   type: "venture",
+  version: 1,
   id: "prologue-quest",
   name: "Prologue",
   description: "A Guide to Unravel the Secrets beyond the Milch Glass Door",

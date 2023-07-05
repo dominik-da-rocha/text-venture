@@ -1,12 +1,15 @@
+import { MigrationHandlerMap } from "../components/LocalState";
+
 export interface TextSettings {
-  textMode: FontStyle;
+  version: 1 | 2;
+  fontStyle: FontStyle;
   textSize: FontSize;
   lightMode: LightMode;
   storageMode: StorageMode;
   consoleMode: OnOffMode;
   inventoryMode: OnOffMode;
   actionMode: OnOffMode;
-  readingSpeed?: ReadingSpeed;
+  readingSpeed: ReadingSpeed;
 }
 
 export type LightMode = "system" | "light" | "dark";
@@ -30,3 +33,23 @@ export const ReadingSpeedMap = new Map<ReadingSpeed, number>([
 
 export type StorageMode = "local" | "session" | "memory";
 export const StorageModes = ["local", "session", "memory"];
+
+export const TextSettingMigration = new MigrationHandlerMap<TextSettings>([
+  [1, v1_addReadingSpeed],
+  [2, v2_renameTextModeToFontStyle],
+]);
+
+function v1_addReadingSpeed(stored: TextSettings, def: TextSettings) {
+  stored.readingSpeed = "medium";
+  return stored;
+}
+
+function v2_renameTextModeToFontStyle(stored: TextSettings, def: TextSettings) {
+  stored.fontStyle = (stored as any)["textMode"];
+  delete (stored as any).textMode;
+
+  stored.fontStyle = (stored as any)["textSize"];
+  delete (stored as any).textSize;
+
+  return stored;
+}

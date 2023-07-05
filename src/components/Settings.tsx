@@ -12,7 +12,6 @@ import {
   StorageModes,
   ReadingSpeeds,
   ReadingSpeed,
-  ReadingSpeedMap,
 } from "../model/TextSettings";
 import { Button } from "./Button";
 import { Icon } from "./Icon";
@@ -64,10 +63,10 @@ export function Settings(props: SettingsProps) {
         <li>
           <label>Font Style</label>
           <select
-            value={props.settings.textMode}
+            value={props.settings.fontStyle}
             onChange={(e) => {
               const copy = { ...props.settings };
-              copy.textMode = e.target.value as FontStyle;
+              copy.fontStyle = e.target.value as FontStyle;
               props.onChange(copy);
             }}
           >
@@ -193,6 +192,7 @@ export function Settings(props: SettingsProps) {
           <></>
         )}
       </ul>
+      <footer>v{props.settings.version}</footer>
     </div>
   );
 }

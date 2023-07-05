@@ -4,8 +4,12 @@ import "./theme/Theme.css";
 import "./data/01-prologue/PrologueQuest.css";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { Venture } from "./components/Venture";
-import { TextVenture, toTextVenture } from "./model/TextVenture";
-import { TextSettings } from "./model/TextSettings";
+import {
+  TextVenture,
+  TextVentureMigration,
+  toTextVenture,
+} from "./model/TextVenture";
+import { TextSettingMigration, TextSettings } from "./model/TextSettings";
 import { DefaultSettings } from "./data/DefaultSettings";
 import { useLocalState } from "./components/LocalState";
 import { Navbar } from "./components/Navbar";
@@ -21,13 +25,15 @@ function App() {
   const [settings, setSettings] = useLocalState<TextSettings>(
     "text-venture.settings",
     DefaultSettings,
-    "local"
+    "local",
+    TextSettingMigration
   );
 
   const [prologueQuest, setPrologueQuest] = useLocalState<TextVenture>(
     "text-venture." + PrologueQuest.id,
     toTextVenture(PrologueQuest),
-    settings.storageMode
+    settings.storageMode,
+    TextVentureMigration
   );
 
   const audio = useAudio();
@@ -50,7 +56,7 @@ function App() {
         className={[
           "App",
           settings.lightMode,
-          settings.textMode,
+          settings.fontStyle,
           settings.textSize,
         ].join(" ")}
       >
