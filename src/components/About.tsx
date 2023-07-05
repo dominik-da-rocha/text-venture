@@ -117,7 +117,7 @@ export function About() {
           Dominik da Rocha <br />
         </span>
         <span>
-          todo-get-an-email@text-venture.com
+          text-venture(at)gmx.net
           <br />
         </span>
       </p>
