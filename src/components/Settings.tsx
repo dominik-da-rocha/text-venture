@@ -13,7 +13,7 @@ import {
   ReadingSpeeds,
   ReadingSpeed,
 } from "../model/TextSettings";
-import { Button } from "./Button";
+import { Button, ButtonDownload, ButtonUpload } from "./Button";
 import { Icon } from "./Icon";
 import { useShowPopup } from "./PopupAlert";
 import { toFirstLetterUppercase } from "./Utils";
@@ -198,70 +198,30 @@ export function Settings(props: SettingsProps) {
 }
 
 function ButtonStorageUpload(props: SettingsDataItem) {
-  const loadRef = useRef<HTMLInputElement>(null);
   const showPopup = useShowPopup();
-
-  function handleLoadChange(event: any) {
-    const file = event?.target?.files?.item(0) as File | null | undefined;
-    if (file) {
-      var reader = new FileReader();
-      reader.onloadend = function (event: ProgressEvent<FileReader>) {
-        const data = event.target?.result;
-        if (typeof data === "string") {
-          try {
-            props.onChange(JSON.parse(data));
-          } catch (err) {
-            let a = err as any;
-            showPopup(
-              () => (
-                <div>
-                  <h3>Error</h3>
-                  <div>{a.message}</div>
-                </div>
-              ),
-              10 * 1000
-            );
-          }
-        }
-      };
-      reader.readAsText(file);
-    }
+  function handleError(err: any) {
+    showPopup(
+      () => (
+        <div>
+          <h3>Error</h3>
+          <div>{err.message}</div>
+        </div>
+      ),
+      10 * 1000
+    );
   }
+
   return (
-    <Button className="red-alert" onClick={() => loadRef.current?.click()}>
-      <Icon>upload</Icon>
-      <input
-        style={{ display: "none" }}
-        type="file"
-        ref={loadRef}
-        onChange={handleLoadChange}
-      />
-    </Button>
+    <ButtonUpload
+      className="red-alert"
+      onError={handleError}
+      onChange={props.onChange}
+    />
   );
 }
 
 function ButtonStorageDownload(props: SettingsDataItem) {
-  const saveRef = useRef<HTMLAnchorElement>(null);
-  function handleDownload() {
-    if (saveRef.current) {
-      if (props.data) {
-        saveRef.current.href =
-          "data:text/json;charset=utf-8," +
-          encodeURIComponent(JSON.stringify(props.data, null, 2));
-        saveRef.current.download = props.id + ".json";
-        saveRef.current.click();
-      }
-    }
-  }
-
-  return (
-    <Button onClick={() => handleDownload()}>
-      <Icon>download</Icon>
-      <a style={{ display: "none" }} href={"?"} ref={saveRef}>
-        save-text
-      </a>
-    </Button>
-  );
+  return <ButtonDownload data={props.data} filename={props.id + ".json"} />;
 }
 
 function ButtonStorageClear(props: SettingsDataItem) {

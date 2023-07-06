@@ -479,3 +479,28 @@ p.first-letter-large:first-letter {
     color: #97013f;
   }
 }
+
+input {
+  background: var(--background-accent);
+  color: var(--color);
+  border: none;
+  height: var(--button-size);
+  margin: 0;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  outline: none;
+  font-size: 1rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}

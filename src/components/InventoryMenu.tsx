@@ -38,7 +38,7 @@ export function InventoryMenu(props: InventoryMenuProps) {
               {props.player.things.map((thing) => (
                 <li
                   key={thing.id}
-                  className={"Item SceneObject " + thing.type}
+                  className={"Item SceneObject " + thing.type + " " + thing.id}
                   onClick={(event) => {
                     event.preventDefault();
                     props.onObjectClick(thing);

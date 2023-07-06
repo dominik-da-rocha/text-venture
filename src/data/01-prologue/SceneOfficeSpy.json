@@ -1,0 +1,161 @@
+[
+  {
+    "type": "action",
+    "actionId": "look-at",
+    "objectsIds": [
+      "isa-ruff"
+    ],
+    "wait": 1000
+  },
+  {
+    "type": "action",
+    "actionId": "give",
+    "objectsIds": [
+      "batteries",
+      "hardy-grow"
+    ],
+    "wait": 1000
+  },
+  {
+    "type": "action",
+    "actionId": "look-at",
+    "objectsIds": [
+      "hardy-grow"
+    ],
+    "wait": 1000
+  },
+  {
+    "type": "action",
+    "actionId": "use",
+    "objectsIds": [
+      "batteries",
+      "flashlight-empty"
+    ],
+    "wait": 1000
+  },
+  {
+    "type": "action",
+    "actionId": "use",
+    "objectsIds": [
+      "flashlight-off"
+    ],
+    "wait": 1000
+  },
+  {
+    "type": "action",
+    "actionId": "use",
+    "objectsIds": [
+      "flashlight-on",
+      "sofa-with-chain-and-lock"
+    ],
+    "wait": 1000
+  },
+  {
+    "type": "action",
+    "actionId": "talk-to",
+    "objectsIds": [
+      "young-lady"
+    ],
+    "wait": 1000
+  },
+  {
+    "type": "dialog",
+    "wait": 100,
+    "dialogId": "help-start"
+  },
+  {
+    "type": "dialog",
+    "wait": 100,
+    "dialogId": "help-ask-objects"
+  },
+  {
+    "type": "dialog",
+    "wait": 100,
+    "dialogId": "help-explain-object"
+  },
+  {
+    "type": "dialog",
+    "wait": 100,
+    "dialogId": "help-ask-actions"
+  },
+  {
+    "type": "dialog",
+    "wait": 100,
+    "dialogId": "help-ask-inventory"
+  },
+  {
+    "type": "dialog",
+    "wait": 100,
+    "dialogId": "help-explain-inventory"
+  },
+  {
+    "type": "dialog",
+    "wait": 100,
+    "dialogId": "help-ask-logbook"
+  },
+  {
+    "type": "dialog",
+    "wait": 100,
+    "dialogId": "help-explain-logbook"
+  },
+  {
+    "type": "dialog",
+    "wait": 100,
+    "dialogId": "help-end"
+  },
+  {
+    "type": "dialog",
+    "wait": 100,
+    "dialogId": "case-start"
+  },
+  {
+    "type": "dialog",
+    "wait": 100,
+    "dialogId": "case-not-one-of-those-cases"
+  },
+  {
+    "type": "dialog",
+    "wait": 100,
+    "dialogId": "case-how-do-you-know-about-that"
+  },
+  {
+    "type": "dialog",
+    "wait": 100,
+    "dialogId": "case-should-isa-kick-his-ass"
+  },
+  {
+    "type": "dialog",
+    "wait": 100,
+    "dialogId": "case-should-we-take-photos"
+  },
+  {
+    "type": "dialog",
+    "wait": 100,
+    "dialogId": "case-end"
+  },
+  {
+    "type": "action",
+    "actionId": "pick-up",
+    "objectsIds": [
+      "little-key"
+    ],
+    "wait": 1000
+  },
+  {
+    "type": "action",
+    "actionId": "use",
+    "objectsIds": [
+      "chain-with-lock",
+      "little-key"
+    ],
+    "wait": 1000
+  },
+  {
+    "type": "action",
+    "actionId": "walk-to",
+    "objectsIds": [
+      "kitchen"
+    ],
+    "wait": 1000
+  }
+]

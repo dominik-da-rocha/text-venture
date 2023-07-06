@@ -7,14 +7,17 @@ export type TextActionId =
   | "talk-to"
   | "give"
   | "use"
-  | "look-at"
-  //----- todo ---- may be reduced to use object
-  | "turn-on"
-  | "turn-off"
-  | "open"
-  | "close"
-  | "push"
-  | "pull";
+  | "look-at";
+
+export const TextActionIds = [
+  "none",
+  "walk-to",
+  "pick-up",
+  "talk-to",
+  "give",
+  "use",
+  "look-at",
+];
 
 export interface TextAction {
   id: TextActionId;

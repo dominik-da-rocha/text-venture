@@ -541,20 +541,7 @@ export const CaptainHuntersSpaceQuest: TextVentureJson = {
       type: "random",
       style: "red-alert",
       matchesAction: {
-        oneOf: [
-          "none",
-          "open",
-          "close",
-          "push",
-          "pull",
-          "walk-to",
-          "pick-up",
-          "talk-to",
-          "look-at",
-          "turn-on",
-          "turn-off",
-          "give",
-        ],
+        oneOf: ["none", "walk-to", "pick-up", "talk-to", "look-at", "give"],
       },
       matchesObjects: "any",
       responses: [

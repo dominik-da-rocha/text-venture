@@ -34,12 +34,18 @@ import { TextVenture } from "../model/TextVenture";
 import { handleEffects, selectRandomPlayerResponses } from "./EffectHandler";
 import { VentureSpy } from "./VentureSpy";
 
+export interface ExternalCommand {
+  actionId: string;
+  objectIds: string[];
+}
+
 interface VentureProps {
   onSettingsChanged(copy: TextSettings): void;
   settings: TextSettings;
   text: TextVenture;
   onTextChanged(text: TextVenture | undefined): void;
   onPlaySound(url: string): void;
+  externalCommand?: ExternalCommand;
 }
 
 export function Venture(props: VentureProps) {
@@ -515,7 +521,7 @@ export function VentureWrapper(props: VentureProps) {
           copy.consoleMode = mode;
           props.onSettingsChanged(copy);
         }}
-        onTextChange={props.onTextChanged}
+        onTextChanged={props.onTextChanged}
         appendLogbook={appendLogbook}
         onScrollToBottom={handleScrollToBottom}
         onPlaySound={props.onPlaySound}
@@ -559,7 +565,69 @@ export function VentureWrapper(props: VentureProps) {
         ></Scene>
         <footer>v{props.text.version}</footer>
       </div>
-      <VentureSpy {...text}></VentureSpy>
+
+      <VentureSpy
+        onSpyCommand={(cmd) => {
+          if (cmd.type === "action") {
+            console.log(cmd);
+            const action = text.actions[cmd.actionId ?? ""];
+            let objects = cmd.objectsIds.map((id) => {
+              console.log("searching for " + id);
+              if (text.players[id]) {
+                return text.players[id];
+              } else if (text.scenes[id]) {
+                return text.scenes[id];
+              } else {
+                let thing = scene.things.find((thing) => thing.id === id);
+                if (thing) {
+                  return thing;
+                }
+                let person = scene.persons.find((person) => person.id === id);
+                if (person) {
+                  return person;
+                }
+
+                Object.keys(text.players)
+                  .map((k) => text.players[k])
+                  .every((player) => {
+                    if (thing === undefined) {
+                      thing = player?.things.find((t) => t.id === id);
+                    }
+                    return thing === undefined;
+                  });
+                if (thing) {
+                  return thing;
+                }
+
+                console.warn("id not found " + id);
+                return undefined;
+              }
+            }) as TextObject[];
+            if (action && objects.findIndex((obj) => obj === undefined) < 0) {
+              console.log(
+                "spy run command: " +
+                  action.id +
+                  " " +
+                  objects.map((obj) => obj.id).join(" ")
+              );
+              const command: TextCommand = {
+                type: "command",
+                action: action,
+                objects: objects,
+              };
+              setCurrentCommand(command);
+              runCommand(command);
+            }
+          } else if (cmd.type === "dialog") {
+            const btn = document.getElementById("text-venture-dialog-ok");
+            if (btn) {
+              text.currentDialogId = cmd.dialogId;
+              props.onTextChanged({ ...text });
+              btn.click();
+            }
+          }
+        }}
+      />
     </>
   );
 }

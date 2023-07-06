@@ -1,5 +1,4 @@
 .VentureSpy {
-  display: none;
   position: fixed;
   top: 0;
   right: 0;
@@ -28,14 +27,60 @@
 
 .VentureSpy .Header {
   height: calc(var(--button-size) * 2);
+  padding: 0.5rem;
 }
 
-.VentureSpy .Tree ul {
+.VentureSpy .Commands {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  overflow-y: scroll;
+  max-height: 50rem;
+}
+
+.VentureSpy .CommandInputs {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.VentureSpy .CommandInputs label {
+  display: flex;
+  width: var(--button-size);
+  background: var(--background-accent);
+  color: var(--color);
+  height: var(--button-size);
+  justify-content: center;
+  align-items: center;
+}
+
+.VentureSpy .CommandInputs input.wait {
+  width: 3rem;
+}
+
+.VentureSpy .CommandInputs input.objects {
+  width: 10rem;
+}
+
+.VentureSpy .CommandInputs input.dialogId {
+  width: 20rem;
+}
+
+.VentureSpy .CommandInputs.running {
+  filter: invert();
+}
+
+.VentureSpy .ButtonMargin {
   margin-left: 1rem;
 }
 
-.VentureSpy .Tree li {
+.VentureSpy .CommandControl {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  justify-content: stretch;
+}
+
+.VentureSpy .CommandControl input {
+  width: 100%;
 }

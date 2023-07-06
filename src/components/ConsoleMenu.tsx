@@ -14,7 +14,7 @@ interface ConsoleMenuProps {
   mode: OnOffMode;
   onModeChanged(mode: OnOffMode): void;
   text: TextVenture;
-  onTextChange(text: TextVenture): void;
+  onTextChanged(text: TextVenture): void;
   appendLogbook(logbookEntry: TextLogbook, hidePopup?: boolean): void;
   onScrollToBottom(): void;
   onPlaySound(url: string): void;
@@ -54,7 +54,7 @@ export function ConsoleMenu(props: ConsoleMenuProps) {
               text={text}
               command={props.command}
               personTalkedTo={props.command.objects[0]}
-              onTextChange={props.onTextChange}
+              onTextChanged={props.onTextChanged}
               appendLogbook={props.appendLogbook}
               onScrollToBottom={props.onScrollToBottom}
               onPlaySound={props.onPlaySound}

@@ -16,7 +16,7 @@ export interface DialogSelectProps {
   text: TextVenture;
   personTalkedTo: TextObject;
   command: TextCommand;
-  onTextChange(text: TextVenture): void;
+  onTextChanged(text: TextVenture): void;
   appendLogbook(logbookEntry: TextLogbook): void;
   onScrollToBottom(): void;
   onPlaySound(url: string): void;
@@ -48,7 +48,11 @@ export function DialogSelect(props: DialogSelectProps) {
     }
   }, [text.currentDialogId, conversation]);
 
-  const handleOkClick = () => {
+  function handleDialogOkClick() {
+    const conversation = scene.interactions.find(
+      (ia) => ia.id === text.currentConversationId && ia.type === "talk-to"
+    ) as TextInteractionTalkTo | undefined;
+
     if (!conversation) {
       console.warn("conversation is undefined");
       return;
@@ -58,7 +62,7 @@ export function DialogSelect(props: DialogSelectProps) {
       delete text.currentDialogId;
       delete text.currentConversationId;
       text.commandMode = "action";
-      props.onTextChange({ ...text });
+      props.onTextChanged({ ...text });
       return;
     }
     if (!scene) {
@@ -101,7 +105,7 @@ export function DialogSelect(props: DialogSelectProps) {
         scene.paragraphs.push(...pcParagraphs);
       }
       scene.paragraphs.push(npc);
-      props.onTextChange(text);
+      props.onTextChanged(text);
     }, 200);
 
     handleEffects(
@@ -110,7 +114,7 @@ export function DialogSelect(props: DialogSelectProps) {
       player,
       selectedDialog,
       command,
-      props.onTextChange,
+      props.onTextChanged,
       props.onScrollToBottom,
       props.onPlaySound
     );
@@ -152,14 +156,14 @@ export function DialogSelect(props: DialogSelectProps) {
         delete text.currentConversationId;
         delete text.currentDialogId;
         text.commandMode = "action";
-        props.onTextChange({ ...text });
+        props.onTextChanged({ ...text });
       }, 100);
     } else {
       text.currentDialogId = selectedDialogId;
     }
-    props.onTextChange({ ...text });
+    props.onTextChanged({ ...text });
     setSelectedDialogIdx(0);
-  };
+  }
 
   return (
     <div className="DialogSelect">
@@ -182,7 +186,7 @@ export function DialogSelect(props: DialogSelectProps) {
           );
         })}
       </select>
-      <Button onClick={handleOkClick}>
+      <Button onClick={handleDialogOkClick} id="text-venture-dialog-ok">
         <Icon>check</Icon>
       </Button>
     </div>
