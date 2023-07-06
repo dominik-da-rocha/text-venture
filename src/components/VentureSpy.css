@@ -36,7 +36,7 @@
   gap: 0.5rem;
   margin-bottom: 0.5rem;
   overflow-y: scroll;
-  max-height: 50rem;
+  height: calc(100% - 3 * var(--button-size) - 3rem);
 }
 
 .VentureSpy .CommandInputs {
